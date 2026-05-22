@@ -354,7 +354,7 @@ export default function DailyCoffeeLanding() {
                     {result?.already_claimed ? 'Ya tienes un cupón activo' : '¡Listo! Tu café te espera.'}
                   </h4>
                   <p style={{ color: '#2A2A2A', fontSize: 14, lineHeight: 1.55 }}>
-                    Te enviamos el <strong>Delagala Daily</strong> y este código a tu <strong>WhatsApp</strong>. Muéstralo en la barra del bar.
+                    Te acabamos de enviar el código a tu <strong>WhatsApp</strong>. Ábrelo y muéstralo en la barra del bar.
                   </p>
                   <div style={{ display: 'inline-block', margin: '18px 0 6px', padding: '14px 24px', background: INK, color: Y, fontFamily: "'Montserrat',sans-serif", fontSize: 22, fontWeight: 700, letterSpacing: '.2em' }}>
                     {result?.coupon_code}
@@ -367,18 +367,19 @@ export default function DailyCoffeeLanding() {
                       Válido hasta el <strong>{new Date(result.expires_at).toLocaleDateString('es-ES')}</strong>
                     </p>
                   )}
-                  <div style={{ marginTop: 16, background: SOFT, borderRadius: 4, padding: '1rem', fontSize: '.85rem', lineHeight: 1.6, borderLeft: `3px solid ${Y}` }}>
-                    <strong>Muestra el código en el establecimiento</strong><br />
-                    <span style={{ fontSize: '.8rem', color: '#6B6B6B' }}>Café + Delagala Daily incluidos · Sin compromiso</span>
+                  <div style={{ marginTop: 16, background: '#f0faf4', border: '1.5px solid #25D366', borderRadius: 4, padding: '1rem', fontSize: '.85rem', lineHeight: 1.6 }}>
+                    <span style={{ fontSize: '1.2rem' }}>💬</span><br />
+                    <strong>Revisa tu WhatsApp</strong> — te hemos enviado el código ahora mismo.<br />
+                    <span style={{ fontSize: '.8rem', color: '#6B6B6B' }}>¿No lo ves? Comprueba que el número es correcto.</span>
                   </div>
                   <a
-                    href={`https://wa.me/34662128409?text=${encodeURIComponent(`Hola DELAGALA, soy ${form.lead_name}. Acabo de registrarme en el Daily Coffee. Mi código es ${result?.coupon_code} ☕\n\n¿Puedo descargarme el Delagala Daily? 📰`)}`}
+                    href={`https://wa.me/34662128409?text=${encodeURIComponent(`Hola DELAGALA, soy ${form.lead_name}. Acabo de registrarme en el Daily Coffee. Mi código es ${result?.coupon_code} ☕`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={trackWa}
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '.5rem', marginTop: '1rem', padding: '.8rem', background: '#25D366', color: BG, fontFamily: "'Montserrat',sans-serif", fontWeight: 700, fontSize: '.95rem', textDecoration: 'none', letterSpacing: '.5px', textTransform: 'uppercase' }}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '.5rem', marginTop: '1rem', padding: '.75rem', background: '#25D366', color: BG, fontFamily: "'Montserrat',sans-serif", fontWeight: 700, fontSize: '.85rem', textDecoration: 'none', letterSpacing: '.5px', textTransform: 'uppercase' }}
                   >
-                    💬 Verificar por WhatsApp
+                    💬 Abrir WhatsApp
                   </a>
                 </div>
               )}

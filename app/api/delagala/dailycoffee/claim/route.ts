@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { generateCouponCode, COUPON_EXPIRES_DAYS } from '@/lib/coupon';
+import { sendCouponWhatsApp } from '@/lib/whatsapp';
 
 export const runtime = 'nodejs';
 
@@ -54,6 +55,11 @@ export async function POST(request: NextRequest) {
     INSERT INTO marketing_pilot.coffee_coupon_events (coupon_id, event_type, metadata)
     VALUES (${coupon.id}, 'coupon_generated', ${JSON.stringify({ source_url: source_url ?? null })}::jsonb)
   `;
+
+  // Send WhatsApp message with the coupon code (fire-and-forget)
+  sendCouponWhatsApp(phone, lead_name.trim(), coupon_code).catch(e =>
+    console.error('[WA] send error', e)
+  );
 
   return NextResponse.json({ coupon_id: coupon.id, coupon_code: coupon.coupon_code, expires_at: coupon.expires_at }, { status: 201 });
 }
