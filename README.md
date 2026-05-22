@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# InmoIA360
 
-## Getting Started
+Plataforma multi-cliente/multi-campaña de marketing inmobiliario.
 
-First, run the development server:
+## Arquitectura de rutas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+https://inmoia360.com/{clientSlug}/{campaignSlug}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Campaña activa:**
+- Landing pública: `/delagala/dailycoffee`
+- Admin dashboard: `/delagala/dailycoffee/admin`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework**: Next.js 16 App Router (TypeScript)
+- **Base de datos**: PostgreSQL / Neon (`schema: marketing_pilot`)
+- **Auth admin**: Cookie JWT firmada con `DAILYCOFFEE_ADMIN_PASSWORD`
+- **Deploy**: Vercel
 
-## Learn More
+## Variables de entorno
 
-To learn more about Next.js, take a look at the following resources:
+Copia `.env.example` a `.env.local` y rellena:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+DATABASE_URL=postgres://...
+DAILYCOFFEE_ADMIN_PASSWORD=tu-password-seguro
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Migración de base de datos
 
-## Deploy on Vercel
+```bash
+# Una sola vez, contra tu base Neon
+node scripts/migrate.js
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Crea el schema `marketing_pilot` con las tablas:
+- `bars` — bares participantes
+- `coffee_coupons` — cupones y leads
+- `coffee_coupon_events` — log de eventos
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Desarrollo local
+
+```bash
+npm install
+cp .env.example .env.local  # Rellenar DATABASE_URL y DAILYCOFFEE_ADMIN_PASSWORD
+node scripts/migrate.js     # Solo la primera vez
+npm run dev
+```
+
+## Deploy en Vercel
+
+1. Conectar repo en [vercel.com](https://vercel.com)
+2. Añadir variables de entorno en Settings → Environment Variables:
+   - `DATABASE_URL` (desde Neon dashboard)
+   - `DAILYCOFFEE_ADMIN_PASSWORD`
+3. Deploy automático en cada push a `main`
+
+## Flujo del cupón
+
+```
+Usuario → /delagala/dailycoffee
+  → POST /api/delagala/dailycoffee/claim
+  → INSERT marketing_pilot.coffee_coupons (status: 'generated')
+  → INSERT coffee_coupon_events (coupon_generated)
+  → Muestra código DLG-XXXXXXXX
+
+Admin → /delagala/dailycoffee/admin/coupons
+  → PATCH /api/admin/delagala/dailycoffee/coupons/:id { status: 'redeemed' }
+  → UPDATE coffee_coupons
+  → INSERT coffee_coupon_events (coupon_redeemed)
+```
+
+## Estados del cupón
+
+| Estado | Descripción |
+|--------|-------------|
+| `generated` | Cupón creado, pendiente de visita |
+| `claimed` | Lead llegó a la oficina |
+| `redeemed` | Café entregado ✓ |
+| `expired` | Expirado (30 días) |
+| `cancelled` | Cancelado por admin |
+
+## Aislamiento
+
+Todos los datos de esta campaña viven en el schema `marketing_pilot`,
+separado de cualquier tabla de producción de DELAGALA.
+Las queries siempre usan namespace explícito: `marketing_pilot.coffee_coupons`, etc.
