@@ -16,16 +16,13 @@ export async function sendCouponWhatsApp(phone: string, name: string, code: stri
 
   const to = normalizeSpanishPhone(phone);
 
-  const res = await fetch(`${GRAPH_API}/${phoneId}/messages`, {
-    method: 'POST',
-    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      messaging_product: 'whatsapp',
-      to,
-      type: 'template',
-      template: {
+  const isTestTemplate = templateName === 'hello_world';
+
+  const template = isTestTemplate
+    ? { name: templateName, language: { code: 'en_US' } }
+    : {
         name: templateName,
-        language: { code: 'es' },
+        language: { code: 'es_ES' },
         components: [
           {
             type: 'body',
@@ -35,7 +32,16 @@ export async function sendCouponWhatsApp(phone: string, name: string, code: stri
             ],
           },
         ],
-      },
+      };
+
+  const res = await fetch(`${GRAPH_API}/${phoneId}/messages`, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      messaging_product: 'whatsapp',
+      to,
+      type: 'template',
+      template,
     }),
   });
 
