@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 const RAZON_SOCIAL = 'ICA HOME S.L.';
-const CIF = 'B-XXXXXXXX'; // TODO: actualizar con CIF real
+const CIF = 'B10641546';
 const DIRECCION = 'Calle Las Mercedes 17, 48930 Getxo';
 const EMAIL = 'info@idelagala.com';
 
