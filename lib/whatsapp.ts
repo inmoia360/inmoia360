@@ -16,33 +16,40 @@ export async function sendCouponWhatsApp(phone: string, name: string, code: stri
 
   const to = normalizeSpanishPhone(phone);
 
-  const isTestTemplate = templateName === 'hello_world';
+  const isTest = templateName === 'hello_world';
 
-  const template = isTestTemplate
-    ? { name: templateName, language: { code: 'en_US' } }
+  const payload = isTest
+    ? {
+        messaging_product: 'whatsapp',
+        to,
+        type: 'text',
+        text: {
+          body: `Hola ${name} 👋\n\nSoy DELAGALA. ¡Gracias por registrarte!\n\nAquí tienes tu código para canjear tu café gratis:\n\n*${code}*\n\nMuéstraselo al camarero en el bar y disfruta ☕\n\n📰 Y aquí tienes el Delagala Daily:\nhttps://inmoia360.vercel.app/delagala-daily.html\n\n— DELAGALA Consultoría Inmobiliaria\nidelagala.com · 662 128 409`,
+        },
+      }
     : {
-        name: templateName,
-        language: { code: 'es_ES' },
-        components: [
-          {
-            type: 'body',
-            parameters: [
-              { type: 'text', text: name },
-              { type: 'text', text: code },
-            ],
-          },
-        ],
+        messaging_product: 'whatsapp',
+        to,
+        type: 'template',
+        template: {
+          name: templateName,
+          language: { code: 'es_ES' },
+          components: [
+            {
+              type: 'body',
+              parameters: [
+                { type: 'text', text: name },
+                { type: 'text', text: code },
+              ],
+            },
+          ],
+        },
       };
 
   const res = await fetch(`${GRAPH_API}/${phoneId}/messages`, {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      messaging_product: 'whatsapp',
-      to,
-      type: 'template',
-      template,
-    }),
+    body: JSON.stringify(payload),
   });
 
   if (!res.ok) {

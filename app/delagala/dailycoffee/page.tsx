@@ -354,7 +354,7 @@ export default function DailyCoffeeLanding() {
                     {result?.already_claimed ? 'Ya tienes un cupón activo' : '¡Listo! Tu café te espera.'}
                   </h4>
                   <p style={{ color: '#2A2A2A', fontSize: 14, lineHeight: 1.55 }}>
-                    Pulsa el botón — WhatsApp se abre con tu código y la solicitud del periódico ya escritos. Solo tienes que pulsar <strong>Enviar</strong>.
+                    En unos segundos recibirás el código y el periódico en tu <strong>WhatsApp</strong>.
                   </p>
                   <div style={{ display: 'inline-block', margin: '18px 0 6px', padding: '14px 24px', background: INK, color: Y, fontFamily: "'Montserrat',sans-serif", fontSize: 22, fontWeight: 700, letterSpacing: '.2em' }}>
                     {result?.coupon_code}
@@ -367,18 +367,9 @@ export default function DailyCoffeeLanding() {
                       Válido hasta el <strong>{new Date(result.expires_at).toLocaleDateString('es-ES')}</strong>
                     </p>
                   )}
-                  <a
-                    href={`https://wa.me/34662128409?text=${encodeURIComponent(`Hola DELAGALA 👋 Soy ${form.lead_name}.\n\nAcabo de registrarme en el Daily Coffee.\n\n☕ Mi código de café: *${result?.coupon_code}*\n\n📰 ¿Me podéis mandar el Delagala Daily en PDF?`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={trackWa}
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '.6rem', marginTop: '1.2rem', padding: '16px', background: '#25D366', color: BG, fontFamily: "'Montserrat',sans-serif", fontWeight: 700, fontSize: '1rem', textDecoration: 'none', letterSpacing: '.5px', textTransform: 'uppercase', boxShadow: '4px 4px 0 #128C7E' }}
-                  >
-                    💬 Recibir en WhatsApp →
-                  </a>
-                  <p style={{ marginTop: 10, fontSize: 11, color: '#6B6B6B', lineHeight: 1.5 }}>
-                    Solo pulsa <strong>Enviar</strong> en WhatsApp — el código ya está escrito
-                  </p>
+                  <div style={{ marginTop: 16, background: '#f0faf4', border: '1.5px solid #25D366', borderRadius: 4, padding: '1rem', fontSize: '.85rem', lineHeight: 1.6, textAlign: 'center' }}>
+                    💬 <strong>Revisa tu WhatsApp</strong> — te hemos enviado el código ahora mismo
+                  </div>
                 </div>
               )}
             </div>
