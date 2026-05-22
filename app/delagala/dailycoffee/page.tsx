@@ -354,7 +354,7 @@ export default function DailyCoffeeLanding() {
                     {result?.already_claimed ? 'Ya tienes un cupón activo' : '¡Listo! Tu café te espera.'}
                   </h4>
                   <p style={{ color: '#2A2A2A', fontSize: 14, lineHeight: 1.55 }}>
-                    Te acabamos de enviar el código a tu <strong>WhatsApp</strong>. Ábrelo y muéstralo en la barra del bar.
+                    Pulsa el botón para enviar tu código a <strong>DELAGALA por WhatsApp</strong> — te quedará guardado en el chat.
                   </p>
                   <div style={{ display: 'inline-block', margin: '18px 0 6px', padding: '14px 24px', background: INK, color: Y, fontFamily: "'Montserrat',sans-serif", fontSize: 22, fontWeight: 700, letterSpacing: '.2em' }}>
                     {result?.coupon_code}
@@ -367,20 +367,18 @@ export default function DailyCoffeeLanding() {
                       Válido hasta el <strong>{new Date(result.expires_at).toLocaleDateString('es-ES')}</strong>
                     </p>
                   )}
-                  <div style={{ marginTop: 16, background: '#f0faf4', border: '1.5px solid #25D366', borderRadius: 4, padding: '1rem', fontSize: '.85rem', lineHeight: 1.6 }}>
-                    <span style={{ fontSize: '1.2rem' }}>💬</span><br />
-                    <strong>Revisa tu WhatsApp</strong> — te hemos enviado el código ahora mismo.<br />
-                    <span style={{ fontSize: '.8rem', color: '#6B6B6B' }}>¿No lo ves? Comprueba que el número es correcto.</span>
-                  </div>
                   <a
-                    href={`https://wa.me/34662128409?text=${encodeURIComponent(`Hola DELAGALA, soy ${form.lead_name}. Acabo de registrarme en el Daily Coffee. Mi código es ${result?.coupon_code} ☕`)}`}
+                    href={`https://wa.me/34662128409?text=${encodeURIComponent(`Hola DELAGALA 👋 Soy ${form.lead_name} y acabo de registrarme en el Daily Coffee.\n\nMi código es: *${result?.coupon_code}* ☕\n\n¿Puedo canjear mi café?`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={trackWa}
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '.5rem', marginTop: '1rem', padding: '.75rem', background: '#25D366', color: BG, fontFamily: "'Montserrat',sans-serif", fontWeight: 700, fontSize: '.85rem', textDecoration: 'none', letterSpacing: '.5px', textTransform: 'uppercase' }}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '.6rem', marginTop: '1.2rem', padding: '16px', background: '#25D366', color: BG, fontFamily: "'Montserrat',sans-serif", fontWeight: 700, fontSize: '1rem', textDecoration: 'none', letterSpacing: '.5px', textTransform: 'uppercase', boxShadow: '4px 4px 0 #128C7E' }}
                   >
-                    💬 Abrir WhatsApp
+                    💬 Enviar código por WhatsApp →
                   </a>
+                  <p style={{ marginTop: 10, fontSize: 11, color: '#6B6B6B', lineHeight: 1.5 }}>
+                    Solo pulsa Enviar — el código ya está escrito
+                  </p>
                 </div>
               )}
             </div>
