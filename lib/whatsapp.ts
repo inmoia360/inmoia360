@@ -24,7 +24,7 @@ export async function sendCouponWhatsApp(phone: string, name: string, code: stri
         to,
         type: 'text',
         text: {
-          body: `Hola ${name} 👋\n\nSoy DELAGALA. ¡Gracias por registrarte!\n\nAquí tienes tu código para canjear tu café gratis:\n\n*${code}*\n\nMuéstraselo al camarero en el bar y disfruta ☕\n\n📰 Y aquí tienes el Delagala Daily:\nhttps://inmoia360.vercel.app/delagala-daily.html\n\n— DELAGALA Consultoría Inmobiliaria\nidelagala.com · 662 128 409`,
+          body: `Hola ${name} 👋\n\nSoy DELAGALA. ¡Gracias por registrarte!\n\nAquí tienes tu código para canjear tu café gratis:\n\n*${code}*\n\nMuéstraselo al camarero en el bar y disfruta ☕\n\n📰 Y aquí tienes el Delagala Daily:\nhttps://inmoia360.vercel.app/delagala-daily.pdf\n\n— DELAGALA Consultoría Inmobiliaria\nidelagala.com · 662 128 409`,
         },
       }
     : {
