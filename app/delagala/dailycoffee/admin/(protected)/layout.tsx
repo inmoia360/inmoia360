@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth';
-import AdminShell from './AdminShell';
+import AdminShell from '../AdminShell';
 
 export const metadata = { title: 'Admin · Daily Coffee · DELAGALA' };
 

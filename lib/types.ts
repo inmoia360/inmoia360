@@ -6,7 +6,8 @@ export type EventType =
   | 'coupon_generated'
   | 'coupon_sent'
   | 'coupon_redeemed'
-  | 'admin_status_changed';
+  | 'admin_status_changed'
+  | 'wa_link_opened';
 
 export interface Bar {
   id: number;
@@ -27,6 +28,7 @@ export interface CoffeeCoupon {
   source_url: string | null;
   bar_id: number | null;
   bar_name?: string;
+  wa_opened?: boolean;
   status: CouponStatus;
   claimed_at: string | null;
   redeemed_at: string | null;

@@ -13,7 +13,9 @@ export async function proxy(request: NextRequest) {
 
   const isAdminPage = pathname.startsWith('/delagala/dailycoffee/admin') &&
     !pathname.startsWith('/delagala/dailycoffee/admin/login');
-  const isAdminApi = pathname.startsWith('/api/admin/');
+  const isAdminApi = pathname.startsWith('/api/admin/') &&
+    !pathname.endsWith('/login') &&
+    !pathname.endsWith('/logout');
 
   if (!isAdminPage && !isAdminApi) return NextResponse.next();
 

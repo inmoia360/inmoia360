@@ -65,7 +65,7 @@ export default async function AdminDashboard() {
           </div>
           <table style={S.table}>
             <thead>
-              <tr>{['Nombre', 'Email', 'Teléfono', 'Cupón', 'Bar', 'Estado', 'Fecha'].map(h => (
+              <tr>{['Nombre', 'WhatsApp', 'Cupón', 'Bar', 'Estado', 'Fecha'].map(h => (
                 <th key={h} style={S.th}>{h}</th>
               ))}</tr>
             </thead>
@@ -73,8 +73,11 @@ export default async function AdminDashboard() {
               {recent.map((c: Record<string, unknown>) => (
                 <tr key={c.id as number} style={{ borderBottom: '1px solid #f0f0f0' }}>
                   <td style={S.td}><strong>{c.lead_name as string}</strong></td>
-                  <td style={S.td}>{c.lead_email as string}</td>
-                  <td style={S.td}>{c.lead_phone as string}</td>
+                  <td style={S.td}>
+                    <a href={`https://wa.me/${(c.lead_phone as string).replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" style={{ color: '#16a34a', fontWeight: 600, textDecoration: 'none' }}>
+                      💬 {c.lead_phone as string}
+                    </a>
+                  </td>
                   <td style={{ ...S.td, fontFamily: 'monospace', fontWeight: 700, letterSpacing: 2 }}>{c.coupon_code as string}</td>
                   <td style={S.td}>{c.bar_name as string ?? '—'}</td>
                   <td style={S.td}>

@@ -66,7 +66,7 @@ export default function CouponsPage() {
           ) : (
             <table style={S.table}>
               <thead>
-                <tr>{['Nombre', 'Email', 'Teléfono', 'Código', 'Bar', 'Estado', 'Fecha', 'Acción'].map(h => (
+                <tr>{['Nombre', 'WhatsApp', 'Código', 'Bar', 'WA', 'Estado', 'Fecha', 'Acción'].map(h => (
                   <th key={h} style={S.th}>{h}</th>
                 ))}</tr>
               </thead>
@@ -77,10 +77,23 @@ export default function CouponsPage() {
                 {coupons.map(c => (
                   <tr key={c.id} style={{ borderBottom: '1px solid #f0f0f0' }}>
                     <td style={S.td}><strong>{c.lead_name}</strong></td>
-                    <td style={S.td}>{c.lead_email}</td>
-                    <td style={S.td}>{c.lead_phone}</td>
+                    <td style={S.td}>
+                      <a
+                        href={`https://wa.me/${c.lead_phone.replace(/[^0-9]/g, '')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: '#16a34a', fontWeight: 600, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4 }}
+                      >
+                        💬 {c.lead_phone}
+                      </a>
+                    </td>
                     <td style={{ ...S.td, fontFamily: 'monospace', fontWeight: 700, letterSpacing: 2 }}>{c.coupon_code}</td>
                     <td style={S.td}>{c.bar_name ?? '—'}</td>
+                    <td style={{ ...S.td, textAlign: 'center' }}>
+                      {c.wa_opened
+                        ? <span title="Abrió WhatsApp" style={{ color: '#16a34a', fontWeight: 700 }}>✓</span>
+                        : <span style={{ color: '#ccc' }}>—</span>}
+                    </td>
                     <td style={S.td}>
                       <span style={{ background: `${STATUS_COLORS[c.status]}20`, color: STATUS_COLORS[c.status], padding: '.2rem .55rem', borderRadius: 20, fontSize: '.7rem', fontWeight: 600 }}>
                         {STATUS_LABELS[c.status]}

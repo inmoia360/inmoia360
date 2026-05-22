@@ -26,7 +26,11 @@ export async function GET(request: NextRequest) {
   const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
 
   const rows = await sql.query(
-    `SELECT c.*, b.name as bar_name
+    `SELECT c.*, b.name as bar_name,
+      EXISTS(
+        SELECT 1 FROM marketing_pilot.coffee_coupon_events e
+        WHERE e.coupon_id = c.id AND e.event_type = 'wa_link_opened'
+      ) as wa_opened
      FROM marketing_pilot.coffee_coupons c
      LEFT JOIN marketing_pilot.bars b ON b.id = c.bar_id
      ${where}
