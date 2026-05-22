@@ -1,6 +1,6 @@
 'use client';
 
-const LANDING_URL = 'https://inmoia360.vercel.app/delagala/dailycoffee';
+const LANDING_URL = 'https://inmoia360.vercel.app/delagala/dailycoffee#registro';
 const QR_URL = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=16&color=0A0A0A&bgcolor=FFFFFF&data=${encodeURIComponent(LANDING_URL)}`;
 
 const Y = '#F5C842';
