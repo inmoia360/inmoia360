@@ -22,14 +22,23 @@ export async function POST(request: NextRequest) {
 
   const sql = getDb();
 
-  // Deduplicate by phone
+  // Un solo cupón válido por número cada 30 días
   const existing = await sql`
-    SELECT id, coupon_code FROM marketing_pilot.coffee_coupons
+    SELECT id, coupon_code, created_at FROM marketing_pilot.coffee_coupons
     WHERE lead_phone = ${phone}
+      AND created_at >= NOW() - INTERVAL '30 days'
+    ORDER BY created_at DESC
     LIMIT 1
   `;
   if (existing.length > 0) {
-    return NextResponse.json({ coupon_id: existing[0].id, coupon_code: existing[0].coupon_code, already_claimed: true });
+    const nextAvailable = new Date(existing[0].created_at);
+    nextAvailable.setDate(nextAvailable.getDate() + 30);
+    return NextResponse.json({
+      coupon_id: existing[0].id,
+      coupon_code: existing[0].coupon_code,
+      already_claimed: true,
+      next_available: nextAvailable.toISOString(),
+    });
   }
 
   // Resolve bar

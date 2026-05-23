@@ -12,7 +12,7 @@ export default function DailyCoffeeLanding() {
   const [consentPromo, setConsentPromo] = useState(false);
   const [consentMarketing, setConsentMarketing] = useState(false);
   const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [result, setResult] = useState<{ coupon_code: string; expires_at?: string; already_claimed?: boolean } | null>(null);
+  const [result, setResult] = useState<{ coupon_code: string; expires_at?: string; already_claimed?: boolean; next_available?: string } | null>(null);
   const [errorMsg, setErrorMsg] = useState('');
 
   async function handleSubmit(e: React.FormEvent) {
@@ -255,8 +255,11 @@ export default function DailyCoffeeLanding() {
               ) : (
                 <div className="success-box">
                   <div className="success-check">✓</div>
-                  <h4>{result?.already_claimed ? 'Ya tienes un cupón activo' : '¡Listo! Disfruta tu café.'}</h4>
-                  <p>Te enviamos el <strong>Delagala Daily</strong> y este código a tu <strong>WhatsApp</strong>. Muéstralo en la barra del bar para tu café por cortesía de DELAGALA.</p>
+                  <h4>{result?.already_claimed ? 'Ya tienes un café este mes' : '¡Listo! Disfruta tu café.'}</h4>
+                  <p>{result?.already_claimed
+                    ? <>Tu código sigue activo. Puedes pedir un nuevo café el <strong>{result.next_available ? new Date(result.next_available).toLocaleDateString('es-ES') : ''}</strong>.</>
+                    : <>Te enviamos el <strong>Delagala Daily</strong> y este código a tu <strong>WhatsApp</strong>. Muéstralo en la barra del bar para tu café por cortesía de DELAGALA.</>
+                  }</p>
                   <div className="success-code">{result?.coupon_code}</div>
                   <span className="success-code-label">Tu código de café</span>
                   {result?.expires_at && (
