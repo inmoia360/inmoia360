@@ -223,31 +223,82 @@ export default function DailyCoffeeLanding() {
         .foot-legal{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);text-align:right;line-height:1.7;}
         .foot-legal a{color:var(--ink-mute);text-decoration:none;}
 
-        /* ── RESPONSIVE ── */
+        /* ── RESPONSIVE TABLET ── */
         @media(max-width:880px){
           .news-grid{grid-template-columns:1fr;}
-          .news-lead{padding-right:28px;border-right:none;padding-bottom:24px;margin-bottom:24px;}
-          .news-side{padding-left:0;}
-          .briefs-grid{grid-template-columns:1fr;gap:16px;}
+          .news-lead{border-right:none;padding:20px 20px 20px 20px;border-left:4px solid var(--yellow);margin-bottom:0;}
+          .news-side{padding-left:0;padding-top:24px;}
+          .news-lead h4{font-size:26px;}
+          .news-lead .deck{font-size:16px;}
+          .news-lead p{font-size:15px;}
+          .news-side h4{font-size:20px;}
+          .news-side p{font-size:15px;}
+          .briefs-grid{grid-template-columns:1fr;gap:18px;}
+          .briefs-grid .brief{font-size:15px;}
           .steps{grid-template-columns:1fr;}
-          .step{border-right:none;border-bottom:1px solid var(--rule);}
+          .step{border-right:none;border-bottom:1px solid var(--rule);padding:28px 20px;}
           .step:last-child{border-bottom:none;}
+          .step p{font-size:15px;}
         }
+
+        /* ── RESPONSIVE MOBILE ── */
         @media(max-width:520px){
           .wrap{padding:0 16px;}
           .form-hero .inner{padding:0 16px;}
-          .masthead{padding:24px 0 18px;}
-          .masthead h1{font-size:clamp(44px,13vw,72px);}
-          .hero{padding:36px 0 28px;}
-          .edition{padding:36px 0 18px;}
-          .subscribe{padding:50px 0;}
-          .how{padding:50px 0;}
-          .news-lead h4{font-size:24px;}
-          .news-lead p::first-letter{font-size:36px;}
+
+          /* Masthead */
+          .masthead{padding:20px 0 16px;}
+          .masthead h1{font-size:clamp(40px,12vw,68px);}
+          .masthead .kicker{font-size:10px;letter-spacing:.2em;}
+          .masthead .strap{font-size:13px;}
+
+          /* Hero */
+          .hero{padding:32px 0 24px;}
+          .hero h2{font-size:clamp(34px,9vw,52px);}
+          .hero .lede{font-size:15px;}
+          .hero-cta{flex-direction:column;align-items:center;}
+          .btn{width:100%;justify-content:center;}
+
+          /* Edition / news */
+          .edition{padding:32px 0 16px;}
+          .edition-head{flex-direction:column;gap:8px;}
+          .edition-head h3{font-size:24px;}
+          .news-lead{padding:16px 16px 16px 16px;border-left:3px solid var(--yellow);}
+          .news-lead h4{font-size:22px;line-height:1.1;}
+          .news-lead .deck{font-size:15px;}
+          .news-lead p{font-size:15px;line-height:1.65;}
+          .news-lead p::first-letter{font-size:36px;padding:4px 8px 0 0;}
+          .news-side{padding-top:20px;gap:20px;}
+          .news-side h4{font-size:19px;}
+          .news-side p{font-size:15px;line-height:1.6;}
+          .lead-kpis .kpi-num{font-size:18px;}
+          .lead-kpis .kpi-lbl{font-size:9px;letter-spacing:.1em;}
+
+          /* Briefs */
           .briefs{padding:22px 18px;}
-          footer .wrap{flex-direction:column;align-items:flex-start;}
-          .foot-legal{text-align:left;}
-          .edition-head h3{font-size:26px;}
+          .briefs-grid .brief{font-size:15px;line-height:1.55;}
+          .briefs-grid .brief .tag{font-size:10px;}
+
+          /* Subscribe / how */
+          .subscribe{padding:44px 0 36px;margin-top:0;}
+          .subscribe-copy h3{font-size:clamp(30px,8vw,44px);}
+          .subscribe-copy p{font-size:15px;}
+          .checklist li{font-size:15px;}
+          .how{padding:44px 0;}
+          .how h3{font-size:clamp(28px,7vw,40px);}
+          .step{padding:24px 16px;}
+          .step h4{font-size:20px;}
+          .step p{font-size:15px;}
+          .num{font-size:64px;}
+
+          /* Issue bar */
+          .issue-bar{flex-direction:column;align-items:flex-start;gap:4px;font-size:9px;}
+
+          /* Footer */
+          footer{padding:28px 0 24px;}
+          footer .wrap{flex-direction:column;align-items:flex-start;gap:14px;}
+          .foot-legal{text-align:left;font-size:9px;}
+          .brand{font-size:22px;}
         }
       `}</style>
 
