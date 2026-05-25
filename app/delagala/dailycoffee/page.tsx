@@ -255,20 +255,15 @@ export default function DailyCoffeeLanding() {
               ) : (
                 <div className="success-box">
                   <div className="success-check">✓</div>
-                  <h4>{result?.already_claimed ? 'Ya tienes un café este mes' : '¡Listo! Disfruta tu café.'}</h4>
+                  <h4>{result?.already_claimed ? 'Ya tienes un café este mes' : '¡Listo! Abre tu WhatsApp.'}</h4>
                   <p>{result?.already_claimed
-                    ? <>Tu código sigue activo. Puedes pedir un nuevo café el <strong>{result.next_available ? new Date(result.next_available).toLocaleDateString('es-ES') : ''}</strong>.</>
-                    : <>Te enviamos el <strong>Delagala Daily</strong> y este código a tu <strong>WhatsApp</strong>. Muéstralo en la barra del bar para tu café por cortesía de DELAGALA.</>
+                    ? <>Tu código ya está en tu WhatsApp. Puedes pedir un nuevo café el <strong>{result.next_available ? new Date(result.next_available).toLocaleDateString('es-ES') : ''}</strong>.</>
+                    : <>Te acabamos de enviar el <strong>código del café</strong> y el <strong>Delagala Daily</strong> por WhatsApp. Muéstrale el código al camarero y disfruta.</>
                   }</p>
-                  <div className="success-code">{result?.coupon_code}</div>
-                  <span className="success-code-label">Tu código de café</span>
-                  {result?.expires_at && (
-                    <p style={{ marginTop: 18, fontSize: 12 }}>
-                      Válido hasta el <strong>{new Date(result.expires_at).toLocaleDateString('es-ES')}</strong> · Un solo uso · una consumición por persona.
-                    </p>
-                  )}
-                  <div className="wa-confirm">
-                    💬 <strong>Revisa tu WhatsApp</strong> — te hemos enviado el código ahora mismo
+                  <div className="wa-confirm" style={{ marginTop: 24, padding: '20px 16px' }}>
+                    <div style={{ fontSize: '2rem', marginBottom: 8 }}>📲</div>
+                    <strong style={{ fontSize: '1rem' }}>Abre tu WhatsApp</strong>
+                    <div style={{ marginTop: 6, color: '#555', fontSize: '0.85rem' }}>El código del café y el Delagala Daily<br />te están esperando ahí</div>
                   </div>
                 </div>
               )}
