@@ -42,7 +42,8 @@ export async function POST(request: NextRequest) {
   }
 
   // Resolve bar — prefer bar_name sent by the form, fall back to first active bar
-  let resolvedBar: { id: number; staff_whatsapp: string | null; coupon_limit: number; name: string } | null = null;
+  type BarRow = { id: number; name: string; staff_whatsapp: string | null; coupon_limit: number };
+  let resolvedBar: BarRow | null = null;
   if (bar_name?.trim()) {
     const barByName = await sql`
       SELECT id, name, staff_whatsapp, coupon_limit
@@ -50,7 +51,7 @@ export async function POST(request: NextRequest) {
       WHERE name = ${bar_name.trim()} AND is_active = true
       LIMIT 1
     `;
-    resolvedBar = barByName[0] ?? null;
+    resolvedBar = (barByName[0] as BarRow) ?? null;
   }
   if (!resolvedBar) {
     const defaultBar = await sql`
@@ -58,7 +59,7 @@ export async function POST(request: NextRequest) {
       FROM marketing_pilot.bars
       WHERE is_active = true ORDER BY id LIMIT 1
     `;
-    resolvedBar = defaultBar[0] ?? null;
+    resolvedBar = (defaultBar[0] as BarRow) ?? null;
   }
   const resolvedBarId: number | null = resolvedBar?.id ?? null;
 
