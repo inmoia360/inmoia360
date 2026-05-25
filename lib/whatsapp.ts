@@ -54,7 +54,7 @@ export async function sendCouponWhatsApp(phone: string, name: string, code: stri
     });
 
   } else {
-    // Producción: template aprobado (body: {{1}} = nombre, {{2}} = código)
+    // delagala_cafe_v7: body {{1}}=nombre {{2}}=código + botón URL al periódico
     await sendWA(phoneId, token, {
       messaging_product: 'whatsapp',
       to,
@@ -71,18 +71,6 @@ export async function sendCouponWhatsApp(phone: string, name: string, code: stri
             ],
           },
         ],
-      },
-    });
-
-    // Mensaje 2: PDF adjunto con texto cariñoso
-    await sendWA(phoneId, token, {
-      messaging_product: 'whatsapp',
-      to,
-      type: 'document',
-      document: {
-        link: PDF_URL,
-        filename: 'Delagala-Daily.pdf',
-        caption: `El equipo de DELAGALA te manda un abrazo, ${name} 🤗\n\nAquí tienes el Delagala Daily de este mes — el análisis del mercado inmobiliario de Bizkaia, para leerlo mientras disfrutas el café ☕\n\nHasta pronto 👋\nEl equipo de DELAGALA · Getxo\nidelagala.com · 662 128 409`,
       },
     });
   }
