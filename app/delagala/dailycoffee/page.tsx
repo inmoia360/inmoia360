@@ -40,17 +40,100 @@ export default function DailyCoffeeLanding() {
   return (
     <>
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Montserrat:wght@400;500;600;700;800&display=swap');
         :root{
           --bg:#FFFFFF;--bg-soft:#FAF7ED;--bg-card:#FFFCEF;
           --ink:#0A0A0A;--ink-soft:#2A2A2A;--ink-mute:#6B6B6B;
           --rule:#0A0A0A;--gray:#E5E5E0;
-          --yellow:#F5C842;--yellow-deep:#E5B520;--yellow-soft:#FFF4C2;--yellow-light:#FFEB99;
+          --yellow:#F5C842;--yellow-deep:#E5B520;--yellow-soft:#FFF4C2;
+          --radius:0px;
         }
         *{box-sizing:border-box;margin:0;padding:0;}
-        html{scroll-behavior:smooth;}
+        html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
         body{background:var(--bg);font-family:'Montserrat',sans-serif;color:var(--ink);line-height:1.55;font-size:16px;overflow-x:hidden;}
-        .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
-        .dateline{background:var(--ink);color:var(--bg);padding:10px 0;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;}
+        .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+        /* ── FORM HERO (mobile-first) ── */
+        .form-hero{background:var(--ink);min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:32px 0 40px;position:relative;}
+        .form-hero::after{content:"";position:absolute;bottom:0;left:0;right:0;height:4px;background:var(--yellow);}
+        .form-hero .inner{width:100%;max-width:480px;margin:0 auto;padding:0 20px;}
+
+        /* Logo top */
+        .form-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;}
+        .form-logo .name{font-family:'Montserrat',sans-serif;font-weight:900;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#fff;line-height:1.1;}
+        .form-logo .sub{font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);}
+
+        /* Headline */
+        .form-hl{margin-bottom:24px;}
+        .form-hl .tag{display:inline-block;background:var(--yellow);color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:800;font-size:9px;letter-spacing:.3em;text-transform:uppercase;padding:5px 10px;margin-bottom:12px;}
+        .form-hl h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(36px,9vw,52px);line-height:1;letter-spacing:-.02em;color:#fff;}
+        .form-hl h1 em{font-style:italic;color:var(--yellow);}
+        .form-hl p{margin-top:10px;font-size:14px;color:rgba(255,255,255,.7);line-height:1.5;}
+
+        /* Card */
+        .form-card{background:#fff;padding:28px 24px 24px;border-top:4px solid var(--yellow);}
+        .form-card .sub{font-size:13px;color:var(--ink-mute);margin-bottom:20px;line-height:1.5;}
+
+        /* Fields */
+        .field{margin-bottom:16px;}
+        .field label{display:flex;align-items:center;gap:6px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin-bottom:7px;}
+        .field label .hint{font-weight:500;font-size:9px;color:var(--yellow-deep);letter-spacing:.05em;text-transform:none;}
+        .field input[type="text"],.field input[type="tel"]{
+          width:100%;padding:15px 14px;
+          background:var(--bg-soft);border:1.5px solid #D5D5D0;
+          font-family:'Montserrat',sans-serif;font-size:16px;color:var(--ink);
+          outline:none;-webkit-appearance:none;border-radius:0;
+          transition:border-color .15s,box-shadow .15s;
+        }
+        .field input:focus{border-color:var(--ink);background:#fff;box-shadow:0 0 0 3px rgba(245,200,66,.35);}
+        .field input::placeholder{color:#AAA;font-size:15px;}
+
+        /* Checkboxes */
+        .check-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+        .check-row input[type="checkbox"]{
+          flex-shrink:0;width:20px;height:20px;margin-top:2px;
+          accent-color:var(--ink);cursor:pointer;
+        }
+        .check-row .check-text{font-size:12px;line-height:1.55;color:var(--ink-soft);}
+        .check-row .check-text strong{color:var(--ink);}
+        .check-row .check-text a{color:var(--yellow-deep);font-weight:600;text-decoration:underline;}
+        .check-optional{background:var(--bg-soft);padding:12px 14px;border-left:3px solid var(--yellow);margin-bottom:14px;}
+        .opt-tag{display:inline-block;background:var(--yellow);color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:700;font-size:8px;letter-spacing:.14em;text-transform:uppercase;padding:2px 6px;margin-left:4px;vertical-align:middle;}
+
+        /* Submit */
+        .submit-btn{
+          width:100%;padding:18px 20px;min-height:56px;
+          background:var(--yellow);color:var(--ink);border:none;cursor:pointer;
+          font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;
+          letter-spacing:.22em;text-transform:uppercase;
+          display:flex;align-items:center;justify-content:center;gap:10px;
+          transition:background .18s,transform .1s;
+          -webkit-tap-highlight-color:transparent;
+          margin-top:20px;
+        }
+        .submit-btn:active:not(:disabled){transform:scale(.98);}
+        .submit-btn:disabled{opacity:.55;cursor:not-allowed;}
+
+        /* Privacy */
+        .privacy-box{margin-top:16px;font-size:10px;line-height:1.6;color:var(--ink-mute);padding:12px;background:var(--bg-soft);border:1px solid var(--gray);}
+        .privacy-box a{color:var(--yellow-deep);text-decoration:underline;}
+
+        /* Error */
+        .error-box{background:#FEF2F2;border:1.5px solid #FCA5A5;padding:12px 14px;color:#B91C1C;font-size:13px;margin-bottom:14px;line-height:1.5;}
+
+        /* Success */
+        .success-box{text-align:center;padding:12px 0 4px;animation:fadein .45s ease;}
+        @keyframes fadein{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+        .success-icon{font-size:52px;margin-bottom:14px;display:block;}
+        .success-box h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;font-style:italic;margin-bottom:10px;line-height:1.1;}
+        .success-box p{color:var(--ink-soft);font-size:14px;line-height:1.6;margin-bottom:16px;}
+        .wa-box{background:#F0FDF4;border:2px solid #22C55E;padding:18px 16px;text-align:center;}
+        .wa-box .wa-emoji{font-size:32px;display:block;margin-bottom:8px;}
+        .wa-box strong{display:block;font-size:15px;color:#15803D;margin-bottom:4px;}
+        .wa-box span{font-size:13px;color:#166534;}
+
+        /* ── REST OF PAGE ── */
+        .dateline{background:var(--ink);color:var(--bg);padding:10px 0;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;}
         .dateline .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
         .dateline .live{color:var(--yellow);}
         .dateline .live::before{content:"";display:inline-block;width:7px;height:7px;background:var(--yellow);border-radius:50%;margin-right:7px;vertical-align:middle;animation:pulse 1.8s ease-in-out infinite;}
@@ -83,7 +166,7 @@ export default function DailyCoffeeLanding() {
         .edition-head .meta{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);}
         .edition-head .meta .yellow-pill{background:var(--yellow);color:var(--ink);padding:3px 8px;margin-right:8px;}
         .news-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:0;}
-        .news-lead{padding-right:32px;border-right:1px solid var(--rule);background:var(--bg-soft);margin-right:0;padding:24px 32px 24px 28px;border-left:5px solid var(--yellow);}
+        .news-lead{background:var(--bg-soft);padding:24px 32px 24px 28px;border-left:5px solid var(--yellow);}
         .news-side{padding-left:32px;display:flex;flex-direction:column;gap:24px;}
         .news-side article{padding-bottom:24px;border-bottom:1px solid var(--gray);}
         .news-side article:last-child{border-bottom:none;padding-bottom:0;}
@@ -115,46 +198,15 @@ export default function DailyCoffeeLanding() {
         .subscribe::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--yellow);}
         .subscribe-grid{display:grid;grid-template-columns:1fr;gap:60px;align-items:center;max-width:560px;margin:0 auto;}
         .subscribe-copy .label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--yellow);margin-bottom:18px;}
-        .subscribe-copy .label::before{content:"";display:inline-block;width:18px;height:2px;background:var(--yellow);vertical-align:middle;margin-right:10px;}
         .subscribe-copy h3{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(38px,5vw,60px);line-height:1;letter-spacing:-.025em;margin-bottom:20px;}
         .subscribe-copy h3 .italic{font-style:italic;color:var(--yellow);}
         .subscribe-copy p{font-size:16px;line-height:1.65;color:#D5D5D0;margin-bottom:14px;}
         .checklist{margin-top:24px;list-style:none;}
         .checklist li{padding:12px 0;border-top:1px solid rgba(255,255,255,.12);display:flex;gap:14px;align-items:flex-start;font-size:15px;}
         .checklist li:last-child{border-bottom:1px solid rgba(255,255,255,.12);}
-        .checklist .check{flex-shrink:0;width:22px;height:22px;background:var(--yellow);color:var(--ink);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;font-family:'Montserrat',sans-serif;margin-top:1px;}
-        .form-card{background:var(--bg);color:var(--ink);padding:40px;position:relative;box-shadow:14px 14px 0 var(--yellow);}
-        .form-card .form-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--ink);margin-bottom:8px;background:var(--yellow);padding:3px 8px;display:inline-block;}
-        .form-card h4{font-family:'Playfair Display',serif;font-weight:700;font-size:32px;letter-spacing:-.015em;line-height:1.05;margin-bottom:6px;font-style:italic;margin-top:10px;}
-        .form-card .sub{font-size:13px;color:var(--ink-mute);margin-bottom:22px;}
-        .field{margin-bottom:14px;}
-        .field label{display:block;font-family:'Montserrat',sans-serif;font-weight:600;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px;}
-        .field input[type="text"],.field input[type="tel"]{width:100%;padding:12px;background:var(--bg-soft);border:1px solid var(--ink);font-family:'Montserrat',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:box-shadow .15s ease,background .15s ease;}
-        .field input:focus{background:var(--bg);box-shadow:3px 3px 0 var(--yellow);}
-        .field input::placeholder{color:var(--ink-mute);}
-        .checkbox{display:flex;gap:10px;align-items:flex-start;margin:18px 0 22px;font-size:12px;line-height:1.5;color:var(--ink-soft);}
-        .checkbox input{margin-top:3px;flex-shrink:0;width:16px;height:16px;accent-color:var(--yellow-deep);}
-        .checkbox a{color:var(--yellow-deep);text-decoration:underline;font-weight:600;}
-        .checkbox-optional{margin-top:-6px;margin-bottom:20px;background:var(--bg-soft);padding:12px;border-left:3px solid var(--yellow);}
-        .opt-tag{display:inline-block;background:var(--yellow);color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:700;font-size:8px;letter-spacing:.14em;text-transform:uppercase;padding:2px 6px;margin-left:2px;}
-        .privacy-box{margin-top:16px;font-family:'Montserrat',sans-serif;font-size:9.5px;line-height:1.55;color:var(--ink-mute);padding:12px 14px;background:var(--bg-soft);border:1px solid var(--gray);}
-        .privacy-box strong{color:var(--ink);font-weight:700;}
-        .privacy-box a{color:var(--yellow-deep);text-decoration:underline;font-weight:600;}
-        .submit-btn{width:100%;padding:18px;background:var(--ink);color:var(--bg);border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;transition:background .2s ease;display:flex;align-items:center;justify-content:center;gap:10px;}
-        .submit-btn:hover:not(:disabled){background:var(--yellow);color:var(--ink);}
-        .submit-btn:disabled{opacity:.5;cursor:not-allowed;}
-        .success-box{text-align:center;padding:20px 0;animation:fadein .5s ease;}
-        @keyframes fadein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
-        .success-check{width:64px;height:64px;background:var(--yellow);color:var(--ink);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:34px;font-weight:800;}
-        .success-box h4{font-family:'Playfair Display',serif;font-size:32px;margin-bottom:10px;color:var(--ink);font-style:italic;}
-        .success-box p{color:var(--ink-soft);font-size:14px;line-height:1.55;}
-        .success-code{display:inline-block;margin-top:18px;padding:14px 24px;background:var(--ink);color:var(--yellow);font-family:'Montserrat',sans-serif;font-size:18px;font-weight:700;letter-spacing:.2em;}
-        .success-code-label{display:block;margin-top:6px;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-mute);}
-        .wa-confirm{margin-top:16px;background:#f0faf4;border:1.5px solid #25D366;border-radius:4px;padding:1rem;font-size:.85rem;line-height:1.6;text-align:center;}
-        .error-box{background:#fee;border:1px solid #fcc;border-radius:4px;padding:.6rem 1rem;color:#c00;font-size:.85rem;margin-bottom:1rem;}
+        .checklist .check{flex-shrink:0;width:22px;height:22px;background:var(--yellow);color:var(--ink);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;margin-top:1px;}
         .how{padding:80px 0;text-align:center;}
         .how .label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ink);margin-bottom:14px;}
-        .how .label::before{content:"";display:inline-block;width:18px;height:2px;background:var(--yellow);vertical-align:middle;margin-right:10px;}
         .how h3{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(34px,4.5vw,56px);letter-spacing:-.02em;line-height:1.02;max-width:18ch;margin:0 auto 50px;}
         .how h3 .italic{font-style:italic;background:linear-gradient(180deg,transparent 62%,var(--yellow) 62%);padding:0 4px;}
         .steps{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-top:30px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
@@ -170,6 +222,8 @@ export default function DailyCoffeeLanding() {
         .brand .yellow{color:var(--yellow-deep);}
         .foot-legal{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);text-align:right;line-height:1.7;}
         .foot-legal a{color:var(--ink-mute);text-decoration:none;}
+
+        /* ── RESPONSIVE ── */
         @media(max-width:880px){
           .news-grid{grid-template-columns:1fr;}
           .news-lead{padding-right:28px;border-right:none;padding-bottom:24px;margin-bottom:24px;}
@@ -178,97 +232,122 @@ export default function DailyCoffeeLanding() {
           .steps{grid-template-columns:1fr;}
           .step{border-right:none;border-bottom:1px solid var(--rule);}
           .step:last-child{border-bottom:none;}
-          .form-card{padding:28px 22px;box-shadow:8px 8px 0 var(--yellow);}
         }
         @media(max-width:520px){
-          .wrap{padding:0 20px;}
-          .masthead{padding:24px 0 20px;}
-          .hero{padding:40px 0 30px;}
-          .edition{padding:40px 0 20px;}
-          .subscribe{padding:60px 0;}
-          .how{padding:60px 0;}
-          .news-lead h4{font-size:26px;}
-          .briefs{padding:24px 20px;}
+          .wrap{padding:0 16px;}
+          .form-hero .inner{padding:0 16px;}
+          .masthead{padding:24px 0 18px;}
+          .masthead h1{font-size:clamp(44px,13vw,72px);}
+          .hero{padding:36px 0 28px;}
+          .edition{padding:36px 0 18px;}
+          .subscribe{padding:50px 0;}
+          .how{padding:50px 0;}
+          .news-lead h4{font-size:24px;}
+          .news-lead p::first-letter{font-size:36px;}
+          .briefs{padding:22px 18px;}
           footer .wrap{flex-direction:column;align-items:flex-start;}
           .foot-legal{text-align:left;}
+          .edition-head h3{font-size:26px;}
         }
       `}</style>
 
-      {/* FORM — va primero para que el QR lleve directamente aquí */}
-      <section className="subscribe" id="registro">
-        <div className="wrap">
-          <div className="subscribe-grid">
-            <div className="form-card">
-              {state !== 'success' ? (
-                <form onSubmit={handleSubmit} noValidate>
-                  <div className="form-label">Activación · Café</div>
-                  <h4>Tu invitación</h4>
-                  <p className="sub">Solo dos datos. Recibes tu código y el Delagala Daily por WhatsApp en menos de un minuto.</p>
+      {/* FORM HERO — ocupa toda la pantalla al escanear el QR */}
+      <section className="form-hero" id="registro">
+        <div className="inner">
 
-                  {state === 'error' && <div className="error-box">{errorMsg}</div>}
-
-                  <div className="field">
-                    <label htmlFor="nombre">Nombre</label>
-                    <input type="text" id="nombre" placeholder="María García" value={nombre} onChange={e => setNombre(e.target.value)} required />
-                  </div>
-                  <div className="field">
-                    <label htmlFor="telefono">WhatsApp <span style={{ textTransform: 'none', letterSpacing: 0, color: 'var(--yellow-deep)', fontWeight: 700 }}>· aquí recibes el código y el periódico</span></label>
-                    <input type="tel" id="telefono" placeholder="+34 600 00 00 00" value={telefono} onChange={e => setTelefono(e.target.value)} required />
-                  </div>
-
-                  <label className="checkbox">
-                    <input type="checkbox" checked={consentPromo} onChange={e => setConsentPromo(e.target.checked)} required />
-                    <span>
-                      <strong>Acepto participar en la promoción.</strong> Autorizo a {RAZON_SOCIAL}, CIF {CIF},
-                      a tratar mi nombre y teléfono para gestionar esta invitación y enviarme el código
-                      del café y el periódico digital Delagala Daily por WhatsApp.{' '}
-                      <a href="/privacidad" target="_blank" rel="noopener noreferrer">Información de protección de datos</a>.
-                    </span>
-                  </label>
-
-                  <label className="checkbox checkbox-optional">
-                    <input type="checkbox" checked={consentMarketing} onChange={e => setConsentMarketing(e.target.checked)} />
-                    <span>
-                      <strong>Quiero recibir información inmobiliaria.</strong> Acepto que {RAZON_SOCIAL} me
-                      envíe por WhatsApp comunicaciones comerciales sobre servicios de compraventa,
-                      alquiler e inversión. <span className="opt-tag">Opcional</span>
-                    </span>
-                  </label>
-
-                  <button type="submit" className="submit-btn" disabled={state === 'loading'}>
-                    <span>{state === 'loading' ? 'Enviando...' : 'Reservar mi café'}</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M5 12h14M13 5l7 7-7 7" />
-                    </svg>
-                  </button>
-
-                  <div className="privacy-box">
-                    <strong>Protección de datos.</strong> Responsable: {RAZON_SOCIAL}, CIF {CIF}, {DIRECCION}.
-                    Finalidad: gestionar la promoción del café y el envío del periódico digital; si lo autorizas,
-                    envío de comunicaciones comerciales inmobiliarias. Base jurídica: tu consentimiento.
-                    Conservación: hasta que solicites la baja. No se ceden datos a terceros salvo obligación legal.
-                    Puedes ejercer tus derechos de acceso, rectificación, supresión y oposición en{' '}
-                    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
-                    Más información en la <a href="/privacidad" target="_blank" rel="noopener noreferrer">Política de Privacidad</a>.
-                  </div>
-                </form>
-              ) : (
-                <div className="success-box">
-                  <div className="success-check">✓</div>
-                  <h4>{result?.already_claimed ? 'Ya tienes un café este mes' : '¡Listo! Abre tu WhatsApp.'}</h4>
-                  <p>{result?.already_claimed
-                    ? <>Tu código ya está en tu WhatsApp. Puedes pedir un nuevo café el <strong>{result.next_available ? new Date(result.next_available).toLocaleDateString('es-ES') : ''}</strong>.</>
-                    : <>Te acabamos de enviar el <strong>código del café</strong> y el <strong>Delagala Daily</strong> por WhatsApp. Muéstrale el código al camarero y disfruta.</>
-                  }</p>
-                  <div className="wa-confirm" style={{ marginTop: 24, padding: '20px 16px' }}>
-                    <div style={{ fontSize: '2rem', marginBottom: 8 }}>📲</div>
-                    <strong style={{ fontSize: '1rem' }}>Abre tu WhatsApp</strong>
-                    <div style={{ marginTop: 6, color: '#555', fontSize: '0.85rem' }}>El código del café y el Delagala Daily<br />te están esperando ahí</div>
-                  </div>
-                </div>
-              )}
+          {/* Logo */}
+          <div className="form-logo">
+            <svg width="36" height="36" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <text x="1" y="42" fontFamily="Montserrat,Arial Black,sans-serif" fontWeight="900" fontSize="46" fill="#F5C842">D</text>
+              <g transform="translate(30,1)">
+                <polygon points="9,0 18,8 0,8" fill="#F5C842"/>
+                <rect x="3" y="8" width="12" height="9" fill="#F5C842"/>
+              </g>
+            </svg>
+            <div>
+              <div className="name">DELAGALA</div>
+              <div className="sub">Consultoría Inmobiliaria</div>
             </div>
           </div>
+
+          {/* Headline */}
+          <div className="form-hl">
+            <div className="tag">★ Invitación personal</div>
+            <h1>Un café,<br /><em>gratis.</em></h1>
+            <p>Solo tu nombre y WhatsApp. El código llega al instante.</p>
+          </div>
+
+          {/* Card */}
+          <div className="form-card">
+            {state !== 'success' ? (
+              <form onSubmit={handleSubmit} noValidate>
+                <p className="sub">☕ Café por cortesía de DELAGALA + el Delagala Daily por WhatsApp.</p>
+
+                {state === 'error' && <div className="error-box">{errorMsg}</div>}
+
+                <div className="field">
+                  <label htmlFor="nombre">Nombre</label>
+                  <input type="text" id="nombre" placeholder="María García" autoComplete="given-name" value={nombre} onChange={e => setNombre(e.target.value)} required />
+                </div>
+                <div className="field">
+                  <label htmlFor="telefono">
+                    WhatsApp
+                    <span className="hint">· aquí recibes el código</span>
+                  </label>
+                  <input type="tel" id="telefono" placeholder="+34 600 000 000" autoComplete="tel" inputMode="tel" value={telefono} onChange={e => setTelefono(e.target.value)} required />
+                </div>
+
+                <label className="check-row">
+                  <input type="checkbox" checked={consentPromo} onChange={e => setConsentPromo(e.target.checked)} required />
+                  <span className="check-text">
+                    <strong>Acepto participar en la promoción.</strong>{' '}
+                    Autorizo a {RAZON_SOCIAL} (CIF {CIF}) a usar mis datos para gestionar esta invitación y enviarme el código por WhatsApp.{' '}
+                    <a href="/privacidad" target="_blank" rel="noopener noreferrer">Política de privacidad</a>.
+                  </span>
+                </label>
+
+                <div className="check-optional">
+                  <label className="check-row" style={{ marginBottom: 0 }}>
+                    <input type="checkbox" checked={consentMarketing} onChange={e => setConsentMarketing(e.target.checked)} />
+                    <span className="check-text">
+                      <strong>Quiero recibir información inmobiliaria</strong> de DELAGALA por WhatsApp.
+                      <span className="opt-tag">Opcional</span>
+                    </span>
+                  </label>
+                </div>
+
+                <button type="submit" className="submit-btn" disabled={state === 'loading'}>
+                  {state === 'loading' ? (
+                    <span>Enviando...</span>
+                  ) : (
+                    <>
+                      <span>Quiero mi café</span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    </>
+                  )}
+                </button>
+
+                <div className="privacy-box">
+                  Responsable: {RAZON_SOCIAL}, CIF {CIF}, {DIRECCION}. Finalidad: gestionar la promoción y enviar el código del café y el periódico digital. Base: consentimiento. Puedes ejercer tus derechos en <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+                </div>
+              </form>
+            ) : (
+              <div className="success-box">
+                <span className="success-icon">☕</span>
+                <h2>{result?.already_claimed ? 'Ya tienes tu café' : '¡Listo!'}</h2>
+                <p>{result?.already_claimed
+                  ? <>Tu código sigue activo en WhatsApp. Próximo café disponible el <strong>{result.next_available ? new Date(result.next_available).toLocaleDateString('es-ES') : ''}</strong>.</>
+                  : <>Tu código del café y el Delagala Daily están de camino a tu WhatsApp ahora mismo.</>
+                }</p>
+                <div className="wa-box">
+                  <span className="wa-emoji">📲</span>
+                  <strong>Abre tu WhatsApp</strong>
+                  <span>El código y el periódico te esperan ahí</span>
+                </div>
+              </div>
+            )}
+          </div>
+
         </div>
       </section>
 
