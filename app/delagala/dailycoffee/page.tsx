@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const RAZON_SOCIAL = 'ICA HOME S.L.';
 const CIF = 'B10641546';
@@ -10,6 +10,14 @@ export default function DailyCoffeeLanding() {
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');
   const [bar, setBar] = useState('');
+  const [bars, setBars] = useState<{ id: number; name: string }[]>([]);
+
+  useEffect(() => {
+    fetch('/api/delagala/dailycoffee/bars')
+      .then(r => r.json())
+      .then(data => { if (Array.isArray(data)) setBars(data); })
+      .catch(() => {});
+  }, []);
   const [consentPromo, setConsentPromo] = useState(false);
   const [consentMarketing, setConsentMarketing] = useState(false);
   const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -20,7 +28,7 @@ export default function DailyCoffeeLanding() {
     e.preventDefault();
     if (!consentPromo) { alert('Necesitamos que aceptes participar en la promoción para enviarte el café.'); return; }
     if (!nombre.trim() || !telefono.trim()) { alert('Rellena tu nombre y tu WhatsApp.'); return; }
-    if (!bar) { alert('Indica en qué bar estás.'); return; }
+    if (bars.length > 0 && !bar) { alert('Indica en qué bar estás.'); return; }
     setState('loading');
     setErrorMsg('');
     try {
@@ -368,23 +376,25 @@ export default function DailyCoffeeLanding() {
                   <input type="tel" id="telefono" placeholder="+34 600 000 000" autoComplete="tel" inputMode="tel" value={telefono} onChange={e => setTelefono(e.target.value)} required />
                 </div>
 
-                {/* Bar selector */}
-                <div className="bar-selector">
-                  <div className="bar-label">¿Dónde estás?</div>
-                  <div className="bar-options">
-                    {['Las Mercedes', 'Premier'].map(b => (
-                      <button
-                        key={b}
-                        type="button"
-                        className={`bar-opt${bar === b ? ' bar-selected' : ''}`}
-                        onClick={() => setBar(b)}
-                      >
-                        <span className="bar-check">{bar === b ? '✓' : ''}</span>
-                        {b}
-                      </button>
-                    ))}
+                {/* Bar selector — cargado dinámicamente desde la BD */}
+                {bars.length > 0 && (
+                  <div className="bar-selector">
+                    <div className="bar-label">¿Dónde estás?</div>
+                    <div className="bar-options">
+                      {bars.map(b => (
+                        <button
+                          key={b.id}
+                          type="button"
+                          className={`bar-opt${bar === b.name ? ' bar-selected' : ''}`}
+                          onClick={() => setBar(b.name)}
+                        >
+                          <span className="bar-check">{bar === b.name ? '✓' : ''}</span>
+                          {b.name}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <label className="check-row">
                   <input type="checkbox" checked={consentPromo} onChange={e => setConsentPromo(e.target.checked)} required />

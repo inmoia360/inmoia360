@@ -74,9 +74,9 @@ export default function QRPage() {
             ))}
           </div>
 
-          {/* URL */}
-          <div style={{ fontSize: 10, color: '#6B6B6B', letterSpacing: '0.08em', marginBottom: 20 }}>
-            {LANDING_URL}
+          {/* Company name instead of URL */}
+          <div style={{ fontSize: 10, color: '#6B6B6B', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600, marginBottom: 20 }}>
+            CONSULTORÍA DELAGALA INMOBILIARIA
           </div>
 
           {/* Footer */}
