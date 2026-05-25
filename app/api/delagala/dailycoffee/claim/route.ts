@@ -96,29 +96,31 @@ export async function POST(request: NextRequest) {
     VALUES (${coupon.id}, 'coupon_generated', ${JSON.stringify({ source_url: source_url ?? null })}::jsonb)
   `;
 
-  // Send WhatsApp to customer (fire-and-forget)
-  sendCouponWhatsApp(phone, lead_name.trim(), coupon_code).catch(e =>
+  // Enviar WhatsApp al cliente — awaited para que Vercel no corte la función antes
+  await sendCouponWhatsApp(phone, lead_name.trim(), coupon_code).catch(e =>
     console.error('[WA] send error', e)
   );
 
-  // Send notification to bar staff (fire-and-forget)
+  // Notificación al camarero — awaited igualmente
   if (resolvedBar?.staff_whatsapp) {
-    // Count this month's coupons for the bar (including the one just created)
-    sql`
-      SELECT COUNT(*)::int AS count
-      FROM marketing_pilot.coffee_coupons
-      WHERE bar_id = ${resolvedBar.id}
-        AND DATE_TRUNC('month', created_at) = DATE_TRUNC('month', NOW())
-    `.then(([{ count: newCount }]) => {
-      sendBarStaffNotification(
-        resolvedBar!.staff_whatsapp!,
-        resolvedBar!.name,
+    try {
+      const [{ count: newCount }] = await sql`
+        SELECT COUNT(*)::int AS count
+        FROM marketing_pilot.coffee_coupons
+        WHERE bar_id = ${resolvedBar.id}
+          AND DATE_TRUNC('month', created_at) = DATE_TRUNC('month', NOW())
+      `;
+      await sendBarStaffNotification(
+        resolvedBar.staff_whatsapp,
+        resolvedBar.name,
         lead_name.trim(),
         coupon_code,
         newCount,
-        resolvedBar!.coupon_limit,
-      ).catch(e => console.error('[WA staff] send error', e));
-    }).catch(e => console.error('[WA staff] count error', e));
+        resolvedBar.coupon_limit,
+      );
+    } catch (e) {
+      console.error('[WA staff] error', e);
+    }
   }
 
   return NextResponse.json({ coupon_id: coupon.id, coupon_code: coupon.coupon_code, expires_at: coupon.expires_at }, { status: 201 });
