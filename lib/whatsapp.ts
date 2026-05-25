@@ -1,10 +1,23 @@
 const GRAPH_API = 'https://graph.facebook.com/v20.0';
+const PDF_URL = 'https://inmoia360.vercel.app/delagala-daily.pdf';
 
 function normalizeSpanishPhone(phone: string): string {
   let d = phone.replace(/[^0-9]/g, '');
   if (d.startsWith('0034')) d = d.slice(4);
   if (d.length === 9) d = '34' + d;
   return d;
+}
+
+async function sendWA(phoneId: string, token: string, payload: object) {
+  const res = await fetch(`${GRAPH_API}/${phoneId}/messages`, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    console.error('[WhatsApp] send failed', JSON.stringify(err));
+  }
 }
 
 export async function sendCouponWhatsApp(phone: string, name: string, code: string) {
@@ -15,45 +28,62 @@ export async function sendCouponWhatsApp(phone: string, name: string, code: stri
   if (!token || !phoneId) return;
 
   const to = normalizeSpanishPhone(phone);
-
   const isTest = templateName === 'hello_world';
 
-  const payload = isTest
-    ? {
-        messaging_product: 'whatsapp',
-        to,
-        type: 'text',
-        text: {
-          body: `Hola ${name} 👋\n\nSoy DELAGALA. ¡Gracias por registrarte!\n\nAquí tienes tu código para canjear tu café gratis:\n\n*${code}*\n\nMuéstraselo al camarero en el bar y disfruta ☕\n\n📰 Y aquí tienes el Delagala Daily:\nhttps://inmoia360.vercel.app/delagala-daily.pdf\n\n— DELAGALA Consultoría Inmobiliaria\nidelagala.com · 662 128 409`,
-        },
-      }
-    : {
-        messaging_product: 'whatsapp',
-        to,
-        type: 'template',
-        template: {
-          name: templateName,
-          language: { code: 'es_ES' },
-          components: [
-            {
-              type: 'body',
-              parameters: [
-                { type: 'text', text: name },
-                { type: 'text', text: code },
-              ],
-            },
-          ],
-        },
-      };
+  if (isTest) {
+    // Mensaje 1: código del café
+    await sendWA(phoneId, token, {
+      messaging_product: 'whatsapp',
+      to,
+      type: 'text',
+      text: {
+        body: `Hola ${name} 👋\n\nSoy DELAGALA. ¡Gracias por registrarte!\n\nAquí tienes tu código para canjear tu café gratis:\n\n*${code}*\n\nMuéstraselo al camarero en el bar y disfruta ☕\n\n— DELAGALA Consultoría Inmobiliaria\nidelagala.com · 662 128 409`,
+      },
+    });
 
-  const res = await fetch(`${GRAPH_API}/${phoneId}/messages`, {
-    method: 'POST',
-    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
+    // Mensaje 2: PDF del periódico adjunto
+    await sendWA(phoneId, token, {
+      messaging_product: 'whatsapp',
+      to,
+      type: 'document',
+      document: {
+        link: PDF_URL,
+        filename: 'Delagala-Daily.pdf',
+        caption: '📰 Tu Delagala Daily de este mes — descárgalo y léelo cuando quieras.',
+      },
+    });
 
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    console.error('[WhatsApp] send failed', JSON.stringify(err));
+  } else {
+    // Producción: template aprobado (body: {{1}} = nombre, {{2}} = código)
+    await sendWA(phoneId, token, {
+      messaging_product: 'whatsapp',
+      to,
+      type: 'template',
+      template: {
+        name: templateName,
+        language: { code: 'es_ES' },
+        components: [
+          {
+            type: 'body',
+            parameters: [
+              { type: 'text', text: name },
+              { type: 'text', text: code },
+            ],
+          },
+        ],
+      },
+    });
+
+    // Mensaje 2: PDF adjunto (dentro de la ventana de conversación abierta por el template)
+    await sendWA(phoneId, token, {
+      messaging_product: 'whatsapp',
+      to,
+      type: 'document',
+      document: {
+        link: PDF_URL,
+        filename: 'Delagala-Daily.pdf',
+        caption: '📰 Tu Delagala Daily de este mes.',
+      },
+    });
   }
 }
