@@ -1,6 +1,38 @@
 const GRAPH_API = 'https://graph.facebook.com/v20.0';
 const PDF_URL = 'https://inmoia360.vercel.app/delagala-daily.pdf';
 
+// ── Notificación al camarero del bar ──────────────────────────────────────
+// NOTA: requiere que el camarero haya enviado primero un mensaje al número
+// de DELAGALA (+34 663 305 791) para abrir la ventana de 24h.
+// En producción sustituir por una plantilla UTILITY aprobada en Meta.
+export async function sendBarStaffNotification(
+  staffPhone: string,
+  barName: string,
+  customerName: string,
+  code: string,
+  count: number,
+  limit: number,
+) {
+  const token = process.env.WHATSAPP_TOKEN;
+  const phoneId = process.env.WHATSAPP_PHONE_ID;
+  if (!token || !phoneId || !staffPhone) return;
+
+  const to = normalizeSpanishPhone(staffPhone);
+  await sendWA(phoneId, token, {
+    messaging_product: 'whatsapp',
+    to,
+    type: 'text',
+    text: {
+      body:
+        `☕ *DELAGALA Daily Coffee — nuevo código*\n\n` +
+        `Cliente: ${customerName}\n` +
+        `Código: *${code}*\n` +
+        `Bar: ${barName}\n\n` +
+        `📊 Servidos este mes: *${count} / ${limit}*`,
+    },
+  });
+}
+
 function normalizeSpanishPhone(phone: string): string {
   let d = phone.replace(/[^0-9]/g, '');
   if (d.startsWith('0034')) d = d.slice(4);

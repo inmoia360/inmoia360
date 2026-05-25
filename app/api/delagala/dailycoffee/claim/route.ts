@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { generateCouponCode, COUPON_EXPIRES_DAYS } from '@/lib/coupon';
-import { sendCouponWhatsApp } from '@/lib/whatsapp';
+import { sendCouponWhatsApp, sendBarStaffNotification } from '@/lib/whatsapp';
 
 export const runtime = 'nodejs';
 
@@ -42,18 +42,40 @@ export async function POST(request: NextRequest) {
   }
 
   // Resolve bar — prefer bar_name sent by the form, fall back to first active bar
-  let resolvedBarId: number | null = null;
+  let resolvedBar: { id: number; staff_whatsapp: string | null; coupon_limit: number; name: string } | null = null;
   if (bar_name?.trim()) {
     const barByName = await sql`
-      SELECT id FROM marketing_pilot.bars WHERE name = ${bar_name.trim()} AND is_active = true LIMIT 1
+      SELECT id, name, staff_whatsapp, coupon_limit
+      FROM marketing_pilot.bars
+      WHERE name = ${bar_name.trim()} AND is_active = true
+      LIMIT 1
     `;
-    resolvedBarId = barByName[0]?.id ?? null;
+    resolvedBar = barByName[0] ?? null;
   }
-  if (!resolvedBarId) {
+  if (!resolvedBar) {
     const defaultBar = await sql`
-      SELECT id FROM marketing_pilot.bars WHERE is_active = true ORDER BY id LIMIT 1
+      SELECT id, name, staff_whatsapp, coupon_limit
+      FROM marketing_pilot.bars
+      WHERE is_active = true ORDER BY id LIMIT 1
     `;
-    resolvedBarId = defaultBar[0]?.id ?? null;
+    resolvedBar = defaultBar[0] ?? null;
+  }
+  const resolvedBarId: number | null = resolvedBar?.id ?? null;
+
+  // Comprueba límite mensual del bar
+  if (resolvedBar) {
+    const [{ count: usedCount }] = await sql`
+      SELECT COUNT(*)::int AS count
+      FROM marketing_pilot.coffee_coupons
+      WHERE bar_id = ${resolvedBar.id}
+        AND DATE_TRUNC('month', created_at) = DATE_TRUNC('month', NOW())
+    `;
+    if (usedCount >= resolvedBar.coupon_limit) {
+      return NextResponse.json(
+        { error: `Lo sentimos, el bar ${resolvedBar.name} ha alcanzado el límite de cafés de este mes (${resolvedBar.coupon_limit}). ¡Hasta el mes que viene!` },
+        { status: 409 }
+      );
+    }
   }
 
   const coupon_code = generateCouponCode();
@@ -74,10 +96,30 @@ export async function POST(request: NextRequest) {
     VALUES (${coupon.id}, 'coupon_generated', ${JSON.stringify({ source_url: source_url ?? null })}::jsonb)
   `;
 
-  // Send WhatsApp message with the coupon code (fire-and-forget)
+  // Send WhatsApp to customer (fire-and-forget)
   sendCouponWhatsApp(phone, lead_name.trim(), coupon_code).catch(e =>
     console.error('[WA] send error', e)
   );
+
+  // Send notification to bar staff (fire-and-forget)
+  if (resolvedBar?.staff_whatsapp) {
+    // Count this month's coupons for the bar (including the one just created)
+    sql`
+      SELECT COUNT(*)::int AS count
+      FROM marketing_pilot.coffee_coupons
+      WHERE bar_id = ${resolvedBar.id}
+        AND DATE_TRUNC('month', created_at) = DATE_TRUNC('month', NOW())
+    `.then(([{ count: newCount }]) => {
+      sendBarStaffNotification(
+        resolvedBar!.staff_whatsapp!,
+        resolvedBar!.name,
+        lead_name.trim(),
+        coupon_code,
+        newCount,
+        resolvedBar!.coupon_limit,
+      ).catch(e => console.error('[WA staff] send error', e));
+    }).catch(e => console.error('[WA staff] count error', e));
+  }
 
   return NextResponse.json({ coupon_id: coupon.id, coupon_code: coupon.coupon_code, expires_at: coupon.expires_at }, { status: 201 });
 }
