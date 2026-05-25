@@ -74,7 +74,7 @@ export async function sendCouponWhatsApp(phone: string, name: string, code: stri
       },
     });
 
-    // Mensaje 2: PDF adjunto (dentro de la ventana de conversación abierta por el template)
+    // Mensaje 2: PDF adjunto con texto cariñoso
     await sendWA(phoneId, token, {
       messaging_product: 'whatsapp',
       to,
@@ -82,7 +82,7 @@ export async function sendCouponWhatsApp(phone: string, name: string, code: stri
       document: {
         link: PDF_URL,
         filename: 'Delagala-Daily.pdf',
-        caption: '📰 Tu Delagala Daily de este mes.',
+        caption: `El equipo de DELAGALA te manda un abrazo, ${name} 🤗\n\nAquí tienes el Delagala Daily de este mes — el análisis del mercado inmobiliario de Bizkaia, para leerlo mientras disfrutas el café ☕\n\nHasta pronto 👋\nEl equipo de DELAGALA · Getxo\nidelagala.com · 662 128 409`,
       },
     });
   }
