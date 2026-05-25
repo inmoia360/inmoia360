@@ -59,16 +59,16 @@ export default function DailyCoffeeLanding() {
         .form-hero .inner{width:100%;max-width:480px;margin:0 auto;padding:0 20px;}
 
         /* Logo top */
-        .form-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;}
-        .form-logo .name{font-family:'Montserrat',sans-serif;font-weight:900;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#fff;line-height:1.1;}
-        .form-logo .sub{font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);}
+        .form-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.12);}
+        .form-logo .name{font-family:'Montserrat',sans-serif;font-weight:900;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:#fff;line-height:1.1;}
+        .form-logo .sub{font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);}
 
         /* Headline */
-        .form-hl{margin-bottom:24px;}
-        .form-hl .tag{display:inline-block;background:var(--yellow);color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:800;font-size:9px;letter-spacing:.3em;text-transform:uppercase;padding:5px 10px;margin-bottom:12px;}
-        .form-hl h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(36px,9vw,52px);line-height:1;letter-spacing:-.02em;color:#fff;}
-        .form-hl h1 em{font-style:italic;color:var(--yellow);}
-        .form-hl p{margin-top:10px;font-size:14px;color:rgba(255,255,255,.7);line-height:1.5;}
+        .form-hl{margin-bottom:22px;text-align:center;}
+        .form-hl .tag{display:inline-block;background:var(--yellow);color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:800;font-size:9px;letter-spacing:.3em;text-transform:uppercase;padding:5px 12px;margin-bottom:14px;}
+        .form-hl h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(42px,10vw,60px);line-height:.95;letter-spacing:-.02em;color:#fff;}
+        .form-hl h1 em{font-style:italic;color:var(--yellow);display:block;}
+        .form-hl p{margin-top:12px;font-size:14px;color:rgba(255,255,255,.65);line-height:1.5;}
 
         /* Card */
         .form-card{background:#fff;padding:28px 24px 24px;border-top:4px solid var(--yellow);}
@@ -306,9 +306,9 @@ export default function DailyCoffeeLanding() {
       <section className="form-hero" id="registro">
         <div className="inner">
 
-          {/* Logo */}
+          {/* Logo — igual que el periódico */}
           <div className="form-logo">
-            <svg width="36" height="36" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
               <text x="1" y="42" fontFamily="Montserrat,Arial Black,sans-serif" fontWeight="900" fontSize="46" fill="#F5C842">D</text>
               <g transform="translate(30,1)">
                 <polygon points="9,0 18,8 0,8" fill="#F5C842"/>
