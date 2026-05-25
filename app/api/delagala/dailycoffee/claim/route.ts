@@ -11,7 +11,7 @@ function isValidPhone(phone: string): boolean {
 
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => ({}));
-  const { lead_name, lead_phone, source_url } = body;
+  const { lead_name, lead_phone, source_url, bar_name } = body;
 
   if (!lead_name?.trim()) return NextResponse.json({ error: 'El nombre es obligatorio' }, { status: 400 });
   if (!lead_phone?.trim() || !isValidPhone(lead_phone)) return NextResponse.json({ error: 'WhatsApp inválido' }, { status: 400 });
@@ -41,11 +41,20 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  // Resolve bar
-  const defaultBar = await sql`
-    SELECT id FROM marketing_pilot.bars WHERE is_active = true ORDER BY id LIMIT 1
-  `;
-  const resolvedBarId: number | null = defaultBar[0]?.id ?? null;
+  // Resolve bar — prefer bar_name sent by the form, fall back to first active bar
+  let resolvedBarId: number | null = null;
+  if (bar_name?.trim()) {
+    const barByName = await sql`
+      SELECT id FROM marketing_pilot.bars WHERE name = ${bar_name.trim()} AND is_active = true LIMIT 1
+    `;
+    resolvedBarId = barByName[0]?.id ?? null;
+  }
+  if (!resolvedBarId) {
+    const defaultBar = await sql`
+      SELECT id FROM marketing_pilot.bars WHERE is_active = true ORDER BY id LIMIT 1
+    `;
+    resolvedBarId = defaultBar[0]?.id ?? null;
+  }
 
   const coupon_code = generateCouponCode();
   const expires_at = new Date(Date.now() + COUPON_EXPIRES_DAYS * 86_400_000).toISOString();

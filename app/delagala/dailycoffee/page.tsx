@@ -9,6 +9,7 @@ const EMAIL = 'info@idelagala.com';
 export default function DailyCoffeeLanding() {
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');
+  const [bar, setBar] = useState('');
   const [consentPromo, setConsentPromo] = useState(false);
   const [consentMarketing, setConsentMarketing] = useState(false);
   const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -19,13 +20,14 @@ export default function DailyCoffeeLanding() {
     e.preventDefault();
     if (!consentPromo) { alert('Necesitamos que aceptes participar en la promoción para enviarte el café.'); return; }
     if (!nombre.trim() || !telefono.trim()) { alert('Rellena tu nombre y tu WhatsApp.'); return; }
+    if (!bar) { alert('Indica en qué bar estás.'); return; }
     setState('loading');
     setErrorMsg('');
     try {
       const res = await fetch('/api/delagala/dailycoffee/claim', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lead_name: nombre.trim(), lead_phone: telefono.trim(), source_url: window.location.href }),
+        body: JSON.stringify({ lead_name: nombre.trim(), lead_phone: telefono.trim(), source_url: window.location.href, bar_name: bar }),
       });
       const data = await res.json();
       if (!res.ok) { setErrorMsg(data.error ?? 'Error al procesar'); setState('error'); return; }
@@ -87,6 +89,24 @@ export default function DailyCoffeeLanding() {
         }
         .field input:focus{border-color:var(--ink);background:#fff;box-shadow:0 0 0 3px rgba(245,200,66,.35);}
         .field input::placeholder{color:#AAA;font-size:15px;}
+
+        /* Bar selector */
+        .bar-selector{margin-bottom:16px;}
+        .bar-selector .bar-label{display:flex;align-items:center;gap:6px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin-bottom:7px;}
+        .bar-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+        .bar-opt{
+          display:flex;flex-direction:column;align-items:center;justify-content:center;
+          gap:4px;padding:16px 12px;min-height:60px;cursor:pointer;
+          border:2px solid #D5D5D0;background:var(--bg-soft);
+          font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;
+          color:var(--ink);text-align:center;letter-spacing:.03em;
+          transition:border-color .15s,background .15s,color .15s;
+          -webkit-tap-highlight-color:transparent;user-select:none;
+        }
+        .bar-opt:hover{border-color:var(--yellow-deep);}
+        .bar-opt.bar-selected{border-color:var(--ink);background:var(--ink);color:#fff;}
+        .bar-opt.bar-selected .bar-check{background:var(--yellow);color:var(--ink);}
+        .bar-check{width:16px;height:16px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;margin-bottom:2px;}
 
         /* Checkboxes */
         .check-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
@@ -346,6 +366,24 @@ export default function DailyCoffeeLanding() {
                     <span className="hint">· aquí recibes el código</span>
                   </label>
                   <input type="tel" id="telefono" placeholder="+34 600 000 000" autoComplete="tel" inputMode="tel" value={telefono} onChange={e => setTelefono(e.target.value)} required />
+                </div>
+
+                {/* Bar selector */}
+                <div className="bar-selector">
+                  <div className="bar-label">¿Dónde estás?</div>
+                  <div className="bar-options">
+                    {['Las Mercedes', 'Premier'].map(b => (
+                      <button
+                        key={b}
+                        type="button"
+                        className={`bar-opt${bar === b ? ' bar-selected' : ''}`}
+                        onClick={() => setBar(b)}
+                      >
+                        <span className="bar-check">{bar === b ? '✓' : ''}</span>
+                        {b}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 <label className="check-row">
