@@ -2,654 +2,628 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Delagala Daily · Lunes 11 de mayo de 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delagala Daily · Nº 05 · Junio 2026</title>
 <style>
-  @page {
-    size: A4;
-    margin: 14mm 14mm 12mm;
-  }
-  :root{
-    --bg:#FFFFFF;
-    --bg-soft:#FAF7ED;     /* crema muy claro con tinte amarillo */
-    --bg-card:#FFFCEF;     /* fondo cards aún más sutil */
-    --ink:#0A0A0A;
-    --ink-soft:#2A2A2A;
-    --ink-mute:#6B6B6B;
-    --rule:#0A0A0A;
-    --gray:#E5E5E0;
-    --yellow:#F5C842;
-    --yellow-deep:#E5B520;
-    --yellow-soft:#FFF4C2;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html,body{
-    background:var(--bg);
-    font-family:'Montserrat',sans-serif;color:var(--ink);
-    line-height:1.55;font-size:10pt;
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --ink: #0A0A0A;
+    --gold: #F5C842;
+    --gold-dk: #C9A227;
+    --cream: #FAF7F2;
+    --warm-gray: #F0EDE6;
+    --mid-gray: #888;
+    --rule: 1.5px solid var(--ink);
+    --rule-thin: 0.5px solid #AAA;
+    --col: calc((100% - 64px) / 3);
   }
 
-  /* ============ DATELINE BAR ============ */
-  .dateline{
-    background:var(--ink);color:var(--bg);
-    padding:5px 12px;
-    font-family:'Montserrat',sans-serif;font-size:7.5pt;
-    letter-spacing:.22em;text-transform:uppercase;font-weight:500;
-    text-align:center;
-  }
-  .dateline .dot{color:var(--yellow);margin:0 8px;}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ============ MASTHEAD ============ */
-  .masthead{
-    text-align:center;
-    padding:10px 0 6px;
-    border-bottom:4px double var(--ink);
-    margin-bottom:14px;
-  }
-  .masthead h1{
-    font-family:'Playfair Display',serif;
-    font-weight:900;font-size:56pt;line-height:.9;letter-spacing:-.02em;
-    font-style:italic;
-    color:var(--ink);
-  }
-  .masthead .strap{
-    margin-top:6px;
-    font-family:'Montserrat',sans-serif;
-    font-size:8pt;color:var(--ink-soft);
-    letter-spacing:.04em;
-  }
-  .masthead .strap em{color:var(--yellow-deep);font-style:normal;font-weight:600;}
-
-  /* Sub-bar: date + tagline + edition */
-  .sub-bar{
-    display:flex;justify-content:space-between;align-items:center;
-    font-family:'Montserrat',sans-serif;font-size:8pt;
-    text-transform:uppercase;letter-spacing:.16em;
-    color:var(--ink);font-weight:600;
-    padding:6px 0 8px;border-bottom:1px solid var(--ink);
-    margin-bottom:10px;
-  }
-  .sub-bar .center-quote{
-    font-family:'Playfair Display',serif;
-    font-style:italic;font-weight:400;
-    text-transform:none;letter-spacing:0;
-    color:var(--ink-mute);font-size:9pt;
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
-  /* Coverage strip */
-  .coverage{
-    text-align:center;
-    font-family:'Montserrat',sans-serif;font-size:7pt;
-    color:var(--ink-mute);
-    letter-spacing:.06em;
-    padding:4px 0 14px;
-  }
-  .coverage strong{color:var(--ink);font-weight:600;}
-  .coverage .yellow-bullet{
-    display:inline-block;width:5px;height:5px;
-    background:var(--yellow);margin:0 6px;vertical-align:middle;
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    background: #fff;
+    padding: 10mm 12mm 14mm;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.12);
   }
 
-  /* ============ SECTION HEADER ============ */
-  .section-head{
-    margin:18px 0 12px;
-    padding:8px 0 8px;
-    border-top:2px solid var(--ink);
-    border-bottom:2px solid var(--ink);
-    display:flex;justify-content:space-between;align-items:center;
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-top: 4px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding: 6px 0 8px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
-  .section-head .section-num{
-    font-family:'Montserrat',sans-serif;
-    font-weight:800;font-size:9pt;letter-spacing:.32em;
-    text-transform:uppercase;color:var(--ink);
+  .masthead-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
   }
-  .section-head .section-num .yellow{
-    color:var(--ink);background:var(--yellow);
-    padding:2px 8px;margin-right:8px;
+  .masthead-name {
+    flex: 1;
+    text-align: center;
   }
-  .section-head .section-tag{
-    font-family:'Montserrat',sans-serif;
-    font-weight:700;font-size:8pt;letter-spacing:.28em;
-    text-transform:uppercase;color:var(--ink-mute);
+  .masthead-name h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 42pt;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+    text-transform: uppercase;
   }
-  .section-head .section-tag::before{
-    content:"";display:inline-block;
-    width:14px;height:2px;background:var(--yellow);
-    vertical-align:middle;margin-right:8px;
+  .masthead-name .subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7pt;
+    font-weight: 600;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-top: 4px;
   }
-
-  /* ============ ARTICLE TYPES ============ */
-
-  /* PORTADA / Lead article */
-  .lead-article{
-    background:var(--bg-soft);
-    padding:14px 16px;
-    margin-bottom:14px;
-    border-left:5px solid var(--yellow);
-    page-break-inside:avoid;
+  .masthead-meta {
+    flex-shrink: 0;
+    text-align: right;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7pt;
+    font-weight: 500;
+    color: var(--mid-gray);
+    line-height: 1.7;
   }
-  .lead-article .source-tag{
-    font-family:'Montserrat',sans-serif;
-    font-weight:700;font-size:7pt;letter-spacing:.32em;
-    text-transform:uppercase;color:var(--ink);
-    margin-bottom:8px;
-  }
-  .lead-article .source-tag .yellow-dot{
-    display:inline-block;width:6px;height:6px;
-    background:var(--yellow);margin-right:6px;vertical-align:middle;
-  }
-  .lead-article h2{
-    font-family:'Playfair Display',serif;
-    font-weight:800;font-size:20pt;line-height:1.05;
-    letter-spacing:-.01em;color:var(--ink);
-    margin-bottom:10px;
-  }
-  .lead-article p{
-    font-family:'Montserrat',sans-serif;
-    font-weight:400;font-size:9.5pt;line-height:1.55;
-    color:var(--ink-soft);
-    margin-bottom:10px;
+  .masthead-meta strong {
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 8pt;
   }
 
-  /* KPI strip */
-  .kpis{
-    display:table;width:100%;
-    margin:10px 0;
-    border-top:1px solid var(--ink);
-    border-bottom:1px solid var(--ink);
-  }
-  .kpi{
-    display:table-cell;
-    text-align:center;padding:8px 6px;
-    border-right:1px solid var(--ink);
-  }
-  .kpi:last-child{border-right:none;}
-  .kpi .num{
-    font-family:'Playfair Display',serif;
-    font-weight:800;font-size:18pt;line-height:1;
-    color:var(--ink);
-  }
-  .kpi .num.yellow-bg{
-    background:var(--yellow);padding:2px 6px;display:inline-block;
-  }
-  .kpi .lbl{
-    font-family:'Montserrat',sans-serif;
-    font-weight:600;font-size:7pt;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--ink-mute);
-    margin-top:4px;
+  /* ── TOP STRIP ── */
+  .top-strip {
+    background: var(--gold);
+    padding: 4px 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--ink);
   }
 
-  /* Source line */
-  .source{
-    font-family:'Montserrat',sans-serif;
-    font-size:7.5pt;color:var(--ink-mute);
-    letter-spacing:.04em;
-    padding-top:6px;border-top:1px dashed var(--ink-mute);
+  /* ── EURIBOR BOX ── */
+  .euribor-band {
+    background: var(--ink);
+    color: #fff;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
   }
-  .source strong{color:var(--ink);font-weight:600;}
-  .source .sep{color:var(--yellow-deep);margin:0 5px;font-weight:700;}
-
-  /* Two-column secondary articles */
-  .two-col{
-    display:table;width:100%;border-collapse:separate;border-spacing:10px 0;
-    margin:0 -10px 14px;
+  .euribor-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8pt;
+    font-weight: 800;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    flex-shrink: 0;
   }
-  .two-col .col{
-    display:table-cell;
-    width:50%;vertical-align:top;
-    padding:0 10px;
+  .euribor-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 22pt;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    flex-shrink: 0;
   }
-  .article-card{
-    padding:12px 14px;
-    border:1px solid var(--ink);
-    background:var(--bg);
-    page-break-inside:avoid;
-    height:100%;
+  .euribor-hist {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
   }
-  .article-card.with-bg{background:var(--bg-card);}
-  .article-card .source-tag{
-    font-family:'Montserrat',sans-serif;
-    font-weight:700;font-size:6.5pt;letter-spacing:.3em;
-    text-transform:uppercase;color:var(--yellow-deep);
-    margin-bottom:6px;
+  .euribor-item {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7.5pt;
+    color: #ccc;
+    text-align: center;
   }
-  .article-card h3{
-    font-family:'Playfair Display',serif;
-    font-weight:700;font-size:13pt;line-height:1.1;
-    letter-spacing:-.005em;color:var(--ink);
-    margin-bottom:8px;
+  .euribor-item .val {
+    display: block;
+    font-weight: 700;
+    font-size: 10pt;
+    color: #fff;
   }
-  .article-card p{
-    font-family:'Montserrat',sans-serif;
-    font-weight:400;font-size:8.5pt;line-height:1.5;
-    color:var(--ink-soft);
-    margin-bottom:8px;
-  }
-  .article-card .data{
-    font-family:'Montserrat',sans-serif;
-    font-size:7pt;letter-spacing:.06em;color:var(--ink-mute);
-    border-top:1px dashed var(--ink-mute);
-    padding-top:6px;
-  }
-  .article-card .data strong{color:var(--ink);font-weight:700;}
-  .article-card .data .yellow-pill{
-    display:inline-block;background:var(--yellow);
-    color:var(--ink);font-weight:700;
-    padding:1px 6px;margin-right:4px;
-  }
-  .article-card .source{border:none;padding-top:4px;font-size:7pt;}
-
-  /* OTROS MOVIMIENTOS */
-  .briefs-section{
-    margin-top:14px;
-    background:var(--ink);color:var(--bg);
-    padding:14px 16px;
-    page-break-inside:avoid;
-  }
-  .briefs-section .head{
-    font-family:'Montserrat',sans-serif;
-    font-weight:800;font-size:9pt;letter-spacing:.32em;
-    text-transform:uppercase;color:var(--yellow);
-    margin-bottom:10px;
-  }
-  .briefs-section .head::before{
-    content:"";display:inline-block;
-    width:18px;height:2px;background:var(--yellow);
-    vertical-align:middle;margin-right:10px;
-  }
-  .briefs-grid{
-    display:table;width:100%;border-collapse:separate;border-spacing:10px 0;
-    margin:0 -10px;
-  }
-  .briefs-row{display:table-row;}
-  .brief{
-    display:table-cell;width:33.33%;
-    padding:0 10px;
-    vertical-align:top;
-  }
-  .brief-content{
-    padding-left:10px;
-    border-left:2px solid var(--yellow);
-    margin-bottom:10px;
-  }
-  .brief-tag{
-    font-family:'Montserrat',sans-serif;
-    font-weight:700;font-size:6.5pt;letter-spacing:.28em;
-    text-transform:uppercase;color:var(--yellow);
-    margin-bottom:4px;
-  }
-  .brief-text{
-    font-family:'Montserrat',sans-serif;
-    font-size:8pt;line-height:1.45;color:#E5E5E0;
-  }
-  .brief-text strong{color:var(--bg);font-weight:600;}
-
-  /* ============ FOOTER ============ */
-  .footer{
-    margin-top:18px;
-    border-top:4px double var(--ink);
-    padding-top:10px;
-    page-break-inside:avoid;
-  }
-  .footer .brand{
-    font-family:'Playfair Display',serif;
-    font-weight:700;font-style:italic;font-size:14pt;
-    text-align:center;margin-bottom:6px;
-  }
-  .footer .brand .yellow{color:var(--yellow-deep);}
-  .footer .meta{
-    text-align:center;
-    font-family:'Montserrat',sans-serif;
-    font-size:7pt;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--ink);font-weight:600;
-    margin-bottom:8px;
-  }
-  .footer .disclaimer{
-    font-family:'Montserrat',sans-serif;
-    font-size:6.5pt;color:var(--ink-mute);
-    line-height:1.5;text-align:justify;
-    padding:8px 12px;background:var(--bg-soft);
-    border-left:3px solid var(--yellow);
+  .euribor-item .arrow-up { color: #FF6B6B; }
+  .euribor-item .arrow-dn { color: #6BFF9E; }
+  .euribor-note {
+    margin-left: auto;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7pt;
+    color: #aaa;
+    max-width: 140px;
+    line-height: 1.4;
+    font-style: italic;
   }
 
-  /* ============ FORCE PAGE BREAKS ============ */
-  .pagebreak{page-break-before:always;}
+  /* ── GRID ── */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 16px;
+    margin-bottom: 10px;
+  }
+  .col-span-2 { grid-column: span 2; }
+
+  /* ── SECTION HEADERS ── */
+  .section-tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 6.5pt;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: #fff;
+    display: inline-block;
+    padding: 2px 8px;
+    margin-bottom: 5px;
+  }
+  .section-tag.local { background: var(--gold); color: var(--ink); }
+  .section-tag.europa { background: #1A3A5C; }
+
+  .section-rule {
+    border: none;
+    border-top: var(--rule);
+    margin: 6px 0 5px;
+  }
+  .section-rule-thin {
+    border: none;
+    border-top: var(--rule-thin);
+    margin: 6px 0 5px;
+  }
+
+  /* ── ARTICLE ── */
+  article { margin-bottom: 10px; }
+  article h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 13.5pt;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  article h2 em { font-style: italic; }
+  article h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 11pt;
+    line-height: 1.25;
+    margin-bottom: 3px;
+  }
+  article .deck {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: 9.5pt;
+    color: #444;
+    margin-bottom: 5px;
+    line-height: 1.4;
+  }
+  article p {
+    font-size: 9.5pt;
+    line-height: 1.55;
+    text-align: justify;
+    hyphens: auto;
+    margin-bottom: 5px;
+  }
+  article .byline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 6.5pt;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 4px;
+  }
+
+  /* ── DATA BOXES ── */
+  .data-box {
+    border: 1.5px solid var(--ink);
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    background: var(--warm-gray);
+  }
+  .data-box .label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 3px;
+  }
+  .data-box .value {
+    font-family: 'Playfair Display', serif;
+    font-size: 20pt;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .data-box .sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7.5pt;
+    color: #555;
+    margin-top: 2px;
+  }
+
+  /* ── EUROPA STRIP ── */
+  .europa-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0 12px;
+    border-top: var(--rule);
+    border-bottom: var(--rule);
+    padding: 6px 0;
+    margin-bottom: 8px;
+  }
+  .europa-strip .item {
+    font-size: 8.5pt;
+    line-height: 1.45;
+    padding-right: 12px;
+    border-right: var(--rule-thin);
+  }
+  .europa-strip .item:last-child { border-right: none; padding-right: 0; }
+  .europa-strip .item strong {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7pt;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #1A3A5C;
+    margin-bottom: 2px;
+  }
+
+  /* ── EFEMERIDES ── */
+  .efem-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  .efem-item {
+    border-left: 3px solid var(--gold);
+    padding-left: 7px;
+  }
+  .efem-item .year {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 15pt;
+    line-height: 1;
+    color: var(--gold-dk);
+  }
+  .efem-item p {
+    font-size: 8pt;
+    text-align: left;
+    line-height: 1.4;
+    margin-bottom: 0;
+  }
+
+  /* ── ESCRIBENOS BOX ── */
+  .escribenos {
+    background: var(--ink);
+    color: #fff;
+    padding: 10px 14px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .escribenos .wa-icon {
+    font-size: 22pt;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .escribenos .text h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 12pt;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 2px;
+  }
+  .escribenos .text p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7.5pt;
+    color: #ccc;
+    line-height: 1.4;
+    text-align: left;
+    margin-bottom: 0;
+  }
+  .escribenos .wa-link {
+    margin-left: auto;
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8pt;
+    font-weight: 800;
+    text-decoration: none;
+    padding: 7px 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: var(--rule);
+    padding-top: 6px;
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7pt;
+    color: var(--mid-gray);
+  }
+  .footer strong { color: var(--ink); }
+
+  /* ── VERTICAL RULE ── */
+  .vrule { border-left: var(--rule-thin); }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding: 8px 0;
+    margin: 8px 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 12pt;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: center;
+    color: var(--ink);
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; }
+    .page { box-shadow: none; margin: 0; padding: 8mm 10mm 12mm; width: 100%; }
+  }
 </style>
 </head>
 <body>
+<div class="page">
 
-<!-- ============ CABECERA ============ -->
-<div class="dateline">
-  Boletín diario <span class="dot">·</span> Sector inmobiliario en España
-</div>
-
-<header class="masthead">
-  <h1>Delagala Daily</h1>
-  <p class="strap">El pulso diario del ladrillo · <em>análisis y datos del mercado, cada mañana</em></p>
-</header>
-
-<div class="sub-bar">
-  <span>Lunes, 11 de mayo de 2026</span>
-  <span class="center-quote">"El pulso diario del ladrillo"</span>
-  <span>Edición Nº 1</span>
-</div>
-
-<p class="coverage">
-  Ventana de cobertura: <strong>24-72 h</strong>
-  <span class="yellow-bullet"></span>
-  Fuentes: <strong>Tinsa, idealista, Colliers, Savills, CBRE, BOE, Banco de España</strong>
-</p>
-
-<!-- ============ SECCIÓN 1: MERCADO Y PRECIOS ============ -->
-<div class="section-head">
-  <div class="section-num"><span class="yellow">01</span>Mercado y precios</div>
-  <div class="section-tag">Lo que mueve la aguja</div>
-</div>
-
-<!-- Lead article -->
-<article class="lead-article">
-  <div class="source-tag"><span class="yellow-dot"></span>Portada · Tinsa</div>
-  <h2>La vivienda se dispara un 15,4% en abril: mayor subida desde 2006</h2>
-  <p>
-    El IMIE General de Tinsa registra en abril una subida interanual del 15,4%, el mayor incremento
-    mensual desde octubre de 2006, justo antes de la anterior burbuja. La inflación derivada del
-    conflicto en Oriente Medio y la presión de demanda sobre una oferta estrecha aceleran los
-    precios en todas las zonas, con las islas (+20,3%) y la costa mediterránea (+16,7%) a la cabeza.
-  </p>
-  <div class="kpis">
-    <div class="kpi"><span class="num yellow-bg">+15,4%</span><div class="lbl">Interanual abril</div></div>
-    <div class="kpi"><div class="num">+1,6%</div><div class="lbl">Mensual</div></div>
-    <div class="kpi"><div class="num">+20,3%</div><div class="lbl">Islas</div></div>
-    <div class="kpi"><div class="num">+15,1%</div><div class="lbl">Capitales</div></div>
-  </div>
-  <div class="source">
-    <strong>Fuente:</strong> Tinsa by Accumin (IMIE)
-    <span class="sep">·</span> <strong>Publicado:</strong> 7 mayo 2026
-    <span class="sep">·</span> <strong>Portavoz:</strong> Cristina Arias, Servicio de Estudios
-    <span class="sep">·</span> Leer en Infobae · El Economista
-  </div>
-</article>
-
-<!-- Two secondary articles -->
-<div class="two-col">
-  <div class="col">
-    <div class="article-card with-bg">
-      <div class="source-tag">Idealista</div>
-      <h3>La vivienda usada vuelve al doble dígito: +16,9% interanual</h3>
-      <p>
-        El precio medio de la vivienda usada en España cerró abril en 2.748 €/m², una
-        subida del 16,9% interanual según el último informe de idealista. Es el segundo
-        mes consecutivo en territorio de doble dígito y consolida la idea de que el ajuste
-        por accesibilidad sigue muy lejos.
-      </p>
-      <div class="data">
-        <span class="yellow-pill">2.748 €/m²</span><strong>Precio medio</strong> ·
-        <span class="yellow-pill">+16,9%</span><strong>Interanual</strong> · Abril 2026
-      </div>
-      <div class="source">Informe en idealista/news</div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="article-card with-bg">
-      <div class="source-tag">Análisis · Tinsa</div>
-      <h3>Tinsa advierte: una subida de tipos golpearía al poder adquisitivo</h3>
-      <p>
-        En un análisis publicado hoy, Tinsa alerta de que un nuevo movimiento al alza del
-        BCE encarecería las hipotecas y restaría poder adquisitivo a los hogares, justo
-        cuando el coste financiero ya está empezando a frenar la capacidad de compra. El
-        servicio de estudios pide cautela ante la "doble presión" de precios e intereses.
-      </p>
-      <div class="data">
-        <strong>Publicado:</strong> 11 mayo 2026 (hoy) ·
-        <strong>Riesgo señalado:</strong> erosión accesibilidad
-      </div>
-      <div class="source">Vía idealista/news</div>
-    </div>
-  </div>
-</div>
-
-<!-- ============ SECCIÓN 2: INVERSIÓN INSTITUCIONAL ============ -->
-<div class="section-head">
-  <div class="section-num"><span class="yellow">02</span>Inversión institucional &amp; operaciones</div>
-  <div class="section-tag">Capital que aterriza</div>
-</div>
-
-<article class="lead-article">
-  <div class="source-tag"><span class="yellow-dot"></span>Colliers · Q1 2026</div>
-  <h2>España rompe la baraja europea: 6.394 M€ invertidos en Q1, +45%</h2>
-  <p>
-    El primer trimestre cerró con 6.394 millones de euros de inversión inmobiliaria, un 45,4% por
-    encima de la media de 2025, mientras la eurozona cae un 26% de media. El segmento Living
-    lidera con 2.386 M€ (+127%), arrastrado por el multifamily/BTR, que concentra el 90% de la
-    inversión residencial. Logística pierde algo de empuje (-16,2%) pero retiene el interés en
-    nearshoring, última milla y activos energéticamente eficientes.
-  </p>
-  <div class="kpis">
-    <div class="kpi"><span class="num yellow-bg">6.394 M€</span><div class="lbl">Inversión Q1</div></div>
-    <div class="kpi"><div class="num">+45,4%</div><div class="lbl">Vs. media 2025</div></div>
-    <div class="kpi"><div class="num">2.386 M€</div><div class="lbl">Living (+127%)</div></div>
-    <div class="kpi"><div class="num">37%</div><div class="lbl">Peso residencial</div></div>
-  </div>
-  <div class="source">
-    <strong>Fuente:</strong> Snapshot Colliers
-    <span class="sep">·</span> <strong>Periodo:</strong> Q1 2026
-    <span class="sep">·</span> Informe completo en Colliers España · resumen en Urbanitae
-  </div>
-</article>
-
-<div class="two-col">
-  <div class="col">
-    <div class="article-card">
-      <div class="source-tag">Brookfield · Living</div>
-      <h3>Brookfield se queda Fidere por 1.050 M€, mayor operación del año</h3>
-      <p>
-        La adquisición de la SOCIMI residencial Fidere por Brookfield, valorada en 1.050
-        millones de euros, es la mayor transacción inmobiliaria cerrada en España en lo que
-        va de 2026. Refuerza la apuesta del fondo canadiense por el alquiler residencial en
-        plazas tensionadas.
-      </p>
-      <div class="data">
-        <span class="yellow-pill">1.050 M€</span><strong>Importe</strong> ·
-        <strong>Comprador:</strong> Brookfield · <strong>Activo:</strong> Fidere (SOCIMI BTR)
-      </div>
-      <div class="source">Detalle del ranking en Brains RE News</div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="article-card">
-      <div class="source-tag">Retail · Oficinas</div>
-      <h3>Estel (385 M€) e Islazul (340 M€) animan oficinas y retail</h3>
-      <p>
-        Dos grandes operaciones marcan el pulso fuera de Living: la venta del edificio de
-        oficinas Estel en Barcelona por 385 M€ y la compraventa del centro comercial Islazul
-        en Madrid por 340 M€. Castellana Properties (cartera de 279 M€) y el centro Berceo
-        (108 M€) completan el podio del trimestre en retail.
-      </p>
-      <div class="data">
-        <strong>Estel:</strong> 385 M€ · <strong>Islazul:</strong> 340 M€ · <strong>Castellana:</strong> 279 M€
-      </div>
-      <div class="source">Vía Brains RE News</div>
-    </div>
-  </div>
-</div>
-
-<!-- ============ SECCIÓN 3: BIZKAIA & MARGEN DERECHA ============ -->
-<div class="pagebreak"></div>
-<div class="section-head">
-  <div class="section-num"><span class="yellow">03</span>Bizkaia &amp; Margen Derecha</div>
-  <div class="section-tag">La casa, vista desde aquí</div>
-</div>
-
-<article class="lead-article">
-  <div class="source-tag"><span class="yellow-dot"></span>Bilbao · Idealista</div>
-  <h2>Bilbao sigue al alza: la vivienda sube un 10,8% interanual en abril</h2>
-  <p>
-    El precio de la vivienda en Bilbao se anotó en abril una subida del 10,8% interanual según
-    idealista, consolidando la tendencia que ya marcaba un +9% en marzo. El alquiler, por su parte,
-    subió un 5,8% en el mismo mes. La presión sobre la capital empuja a parte de la demanda
-    hacia Getxo, Leioa y Barakaldo, donde los precios todavía son más moderados.
-  </p>
-  <div class="kpis">
-    <div class="kpi"><span class="num yellow-bg">+10,8%</span><div class="lbl">Venta abril (interanual)</div></div>
-    <div class="kpi"><div class="num">+5,8%</div><div class="lbl">Alquiler abril</div></div>
-    <div class="kpi"><div class="num">+9%</div><div class="lbl">Venta marzo</div></div>
-    <div class="kpi"><div class="num">~3.721 €</div><div class="lbl">€/m² Bilbao</div></div>
-  </div>
-  <div class="source">
-    <strong>Fuente:</strong> idealista/news + Fotocasa
-    <span class="sep">·</span> <strong>Mes:</strong> Abril 2026
-    <span class="sep">·</span> Datos de marzo en idealista · indicador en Fotocasa
-  </div>
-</article>
-
-<div class="two-col">
-  <div class="col">
-    <div class="article-card">
-      <div class="source-tag">País Vasco · Inversión</div>
-      <h3>El País Vasco emerge entre las plazas con operaciones de calado</h3>
-      <p>
-        Aunque Madrid y Cataluña concentran el grueso del volumen de inversión, el País
-        Vasco —y singularmente Bilbao— aparecen entre las plazas con "varias
-        operaciones de calado" en lo que va de 2026, según el ranking semestral del
-        sector. Importe agregado del País Vasco: no comunicado.
-      </p>
-      <div class="data">
-        <strong>Plaza:</strong> Bilbao y entorno · <strong>Volumen agregado:</strong> no comunicado
-      </div>
-      <div class="source">Vía Brains RE News</div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="article-card">
-      <div class="source-tag">Obra nueva · Neguri</div>
-      <h3>Los Tilos de Neguri: Acciona Inmobiliaria reactiva la Margen Derecha</h3>
-      <p>
-        La promoción Los Tilos de Neguri, en una de las zonas más exclusivas de Getxo, se
-        mantiene como referencia de obra nueva en la Margen Derecha. Importe de
-        comercialización por vivienda: no comunicado. Está a 12 km de Bilbao y
-        combina vivienda contemporánea con la estética tradicional del entorno.
-      </p>
-      <div class="data">
-        <strong>Promotor:</strong> Acciona Inmobiliaria · <strong>Ubicación:</strong> Neguri (Getxo)
-      </div>
-      <div class="source">Ficha en Acciona Inmobiliaria</div>
-    </div>
-  </div>
-</div>
-
-<!-- ============ SECCIÓN 4: NORMATIVA & FINANCIACIÓN ============ -->
-<div class="section-head">
-  <div class="section-num"><span class="yellow">04</span>Normativa &amp; financiación</div>
-  <div class="section-tag">Lo que cambia el tablero</div>
-</div>
-
-<article class="lead-article">
-  <div class="source-tag"><span class="yellow-dot"></span>BOE · Plan Estatal Vivienda 2026-2030</div>
-  <h2>Aprobado el Plan Estatal de Vivienda 2026-2030: 7.000 M€ para cinco años</h2>
-  <p>
-    El Real Decreto 326/2026, de 22 de abril, publicado recientemente en el BOE, despliega el Plan
-    Estatal de Vivienda 2026-2030, con una dotación de 7.000 millones de euros para corregir el
-    déficit estructural de vivienda asequible al amparo de la Ley 12/2023 por el derecho a la
-    vivienda. Incluye ayudas al alquiler, rehabilitación y compra de vivienda protegida.
-  </p>
-  <div class="kpis">
-    <div class="kpi"><span class="num yellow-bg">7.000 M€</span><div class="lbl">Dotación quinquenal</div></div>
-    <div class="kpi"><div class="num">2026-30</div><div class="lbl">Horizonte</div></div>
-    <div class="kpi"><div class="num">RD 326/2026</div><div class="lbl">Norma base</div></div>
-  </div>
-  <div class="source">
-    <strong>Publicado:</strong> BOE, abril 2026
-    <span class="sep">·</span> <strong>Marco:</strong> Ley 12/2023
-    <span class="sep">·</span> Texto íntegro en BOE · guía práctica en InfoBOE
-  </div>
-</article>
-
-<div class="two-col">
-  <div class="col">
-    <div class="article-card with-bg">
-      <div class="source-tag">RDL 8/2026 · Alquiler</div>
-      <h3>Prórroga de dos años y tope del 2% en la actualización del alquiler</h3>
-      <p>
-        El Real Decreto-ley 8/2026, de 20 de marzo, mantiene una limitación extraordinaria
-        de la actualización anual de la renta hasta el 31 de diciembre de 2027: en defecto
-        de acuerdo entre las partes, la subida no puede superar el 2%. Se completa con una
-        prórroga contractual extraordinaria de hasta dos años para inquilinos.
-      </p>
-      <div class="data">
-        <span class="yellow-pill">+2% máx</span><strong>Tope subida</strong> ·
-        <strong>Vigencia:</strong> hasta 31-dic-2027 · <strong>Prórroga:</strong> 2 años
-      </div>
-      <div class="source">Texto en BOE · análisis en Civio</div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="article-card with-bg">
-      <div class="source-tag">Euríbor · Hipotecas</div>
-      <h3>El Euríbor se asienta cerca del 2,85% y encarece la cuota mensual</h3>
-      <p>
-        El Euríbor a 12 meses se sitúa estos días en el entorno del 2,818%-2,846%, tras subir
-        del 2,565% (marzo) al 2,747% (abril). Para una hipoteca media de 150.000 € a 25
-        años con diferencial del 1%, la cuota mensual sube unos 60 € respecto a la
-        revisión anterior. Las hipotecas mixtas siguen ganando peso como cobertura.
-      </p>
-      <div class="data">
-        <span class="yellow-pill">~2,85%</span><strong>Euríbor mayo</strong> ·
-        <span class="yellow-pill">+60 €</span><strong>Cuota mensual</strong>
-      </div>
-      <div class="source">Diario en Euribor.com.es · cobertura en Qué.es</div>
-    </div>
-  </div>
-</div>
-
-<!-- ============ OTROS MOVIMIENTOS ============ -->
-<div class="briefs-section">
-  <div class="head">Otros movimientos</div>
-  <div class="briefs-grid">
-    <div class="briefs-row">
-      <div class="brief">
-        <div class="brief-content">
-          <div class="brief-tag">Madrid · Precios</div>
-          <div class="brief-text">La vivienda terminada en Madrid escala un <strong>18,1% interanual</strong> en Q1 hasta 5.162 €/m² (Tinsa).</div>
-        </div>
-        <div class="brief-content">
-          <div class="brief-tag">Barcelona · Precios</div>
-          <div class="brief-text">Barcelona alcanza los <strong>5.221 €/m²</strong> en abril, con un +7,1% interanual (idealista).</div>
-        </div>
-      </div>
-      <div class="brief">
-        <div class="brief-content">
-          <div class="brief-tag">BTR · Mercado</div>
-          <div class="brief-text">El BTR concentra el <strong>90% de la inversión residencial</strong> Q1 y proyecta 37.000 viviendas para finales de 2026 (Brains RE).</div>
-        </div>
-        <div class="brief-content">
-          <div class="brief-tag">CBRE · Perspectivas</div>
-          <div class="brief-text">CBRE prevé inversión total en 2026 entre <strong>19.000 y 21.000 M€</strong> (+5/10%), con liquidez elevada pero costes de deuda al alza.</div>
-        </div>
-      </div>
-      <div class="brief">
-        <div class="brief-content">
-          <div class="brief-tag">Savills · Europa</div>
-          <div class="brief-text">Savills pronostica un <strong>+15% global</strong> y un +22% en EMEA para la inversión inmobiliaria en 2026.</div>
-        </div>
-        <div class="brief-content">
-          <div class="brief-tag">Retail · Logroño</div>
-          <div class="brief-text">El centro comercial Berceo cambia de manos por <strong>108 M€</strong> en una de las operaciones retail destacadas del año.</div>
-        </div>
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-logo">
+      <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <text x="1" y="42" font-family="Montserrat,Arial Black,sans-serif" font-weight="900" font-size="46" fill="#F5C842">D</text>
+        <g transform="translate(30,1)">
+          <polygon points="9,0 18,8 0,8" fill="#F5C842"/>
+          <rect x="3" y="8" width="12" height="9" fill="#F5C842"/>
+        </g>
+      </svg>
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:11pt;letter-spacing:3px;text-transform:uppercase;line-height:1.1">DELAGALA</div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:6.5pt;letter-spacing:2px;text-transform:uppercase;color:#888">Consultoría Inmobiliaria</div>
       </div>
     </div>
+    <div class="masthead-name">
+      <h1>Daily</h1>
+      <div class="subtitle">El periódico inmobiliario de Getxo</div>
+    </div>
+    <div class="masthead-meta">
+      <strong>Nº 05 · Junio 2026</strong><br>
+      Lunes, 2 de junio de 2026<br>
+      Distribución gratuita<br>
+      idelagala.com
+    </div>
   </div>
+
+  <!-- TOP STRIP -->
+  <div class="top-strip">
+    <span>Inmobiliario · Mercado · Economía · Getxo</span>
+    <span>📍 Getxo, Bizkaia · Edición digital y en papel</span>
+  </div>
+
+  <!-- EURIBOR BAND -->
+  <div class="euribor-band">
+    <div class="euribor-label">Euríbor<br>12 meses</div>
+    <div class="euribor-value">2,65%</div>
+    <div class="euribor-hist">
+      <div class="euribor-item">
+        <span class="val arrow-up">2,20%</span>
+        Hace 1 año
+      </div>
+      <div class="euribor-item">
+        <span class="val arrow-up">3,86%</span>
+        Hace 3 años
+      </div>
+      <div class="euribor-item">
+        <span class="val arrow-dn">-0,48%</span>
+        Hace 5 años
+      </div>
+      <div class="euribor-item">
+        <span class="val arrow-dn">-0,03%</span>
+        Hace 10 años
+      </div>
+    </div>
+    <div class="euribor-note">Dato mensual mayo 2026. BCE recortó tipos al 2,25% en abril. Próxima reunión: 5 jun.</div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="columns">
+
+    <!-- COL 1 + 2: PORTADA LOCAL -->
+    <div class="col-span-2" style="padding-right:16px;border-right:var(--rule-thin)">
+      <span class="section-tag local">Local · Bizkaia</span>
+      <article>
+        <h2>Getxo rompe su récord histórico: <em>4.247 €/m²</em></h2>
+        <div class="deck">La vivienda en el municipio costero se encarece un 11,4% interanual y consolida su posición como el mercado más premium de Bizkaia</div>
+        <div class="byline">Redacción · Mercado Local</div>
+        <p>El precio medio de la vivienda en Getxo ha alcanzado los <strong>4.247 euros por metro cuadrado</strong> en el segundo trimestre de 2026, según datos del portal Idealista, superando por primera vez los 4.200 €/m² y estableciendo un nuevo máximo histórico para el municipio. La cifra supone un incremento del 11,4% respecto al mismo periodo de 2025, cuando el precio rondaba los 3.811 €/m².</p>
+        <p>Los barrios de Las Arenas y Neguri lideran la subida, con operaciones por encima de los 5.000 €/m² en primera línea de playa. La escasa oferta disponible —menos de 180 viviendas en venta en toda la localidad— y la demanda sostenida de compradores procedentes de Bilbao y de la diáspora vasca en el extranjero explican la tensión del mercado.</p>
+        <p>"El stock no da para absorber la demanda existente. Llevamos tres trimestres consecutivos viendo cómo se amplía la brecha entre oferta y demanda", señalan desde DELAGALA Consultoría Inmobiliaria. "Las propiedades bien presentadas se venden en menos de tres semanas."</p>
+      </article>
+
+      <hr class="section-rule-thin">
+
+      <article>
+        <h3>Barakaldo, la <em>otra</em> cara del mercado: demanda récord a precios asequibles</h3>
+        <div class="byline">Redacción · Margen Derecha</div>
+        <p>A apenas 12 kilómetros, Barakaldo vive una realidad distinta. Con un precio medio de <strong>1.920 €/m²</strong>, el municipio atrae a compradores de primera vivienda que no pueden acceder a los precios de Getxo o Bilbao. Las solicitudes de información han crecido un 34% en el primer semestre, y los plazos de venta se han reducido a menos de 45 días para pisos en buen estado.</p>
+        <p>El nuevo barrio de Galindo, con urbanización reciente y buenas comunicaciones con el metro y la A-8, concentra el mayor interés. Los pisos de dos dormitorios entre 180.000 y 220.000 euros son los que más rápido rotan.</p>
+      </article>
+
+      <div class="pull-quote">"El Euríbor ha bajado 121 puntos básicos en un año. Para una hipoteca de 250.000 €, eso es 200 € menos al mes."</div>
+
+      <!-- NACIONAL -->
+      <span class="section-tag">Nacional</span>
+      <hr class="section-rule" style="margin-top:4px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 14px">
+        <article>
+          <h3>El Gobierno prorroga la congelación del alquiler hasta diciembre</h3>
+          <div class="byline">Redacción · Política</div>
+          <p>El Consejo de Ministros aprobó el pasado martes extender la limitación del 3% en la actualización de contratos de alquiler hasta el 31 de diciembre de 2026, en aplicación del artículo 46 de la Ley de Vivienda. La medida afecta a las zonas declaradas tensionadas y a los grandes tenedores. Los pequeños propietarios fuera de área tensionada quedan exentos.</p>
+        </article>
+        <article>
+          <h3>Hacienda amplia la deducción por compra a jóvenes menores de 35</h3>
+          <div class="byline">Redacción · Fiscal</div>
+          <p>La reforma del IRPF incluye una nueva deducción estatal del <strong>15% sobre intereses hipotecarios</strong> para menores de 35 años en su primera vivienda, con un límite de 9.040 euros anuales. En el País Vasco, la Hacienda Foral ya contemplaba medidas similares; las novedades estatales se aplicarán de forma complementaria en los territorios con concierto.</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- COL 3: DATOS + SIDEBAR -->
+    <div>
+      <div class="data-box">
+        <div class="label">Precio m² · Getxo</div>
+        <div class="value">4.247€</div>
+        <div class="sub">+11,4% interanual · Récord histórico</div>
+      </div>
+
+      <div class="data-box">
+        <div class="label">Hipoteca 250.000€ · 30 años</div>
+        <div class="value">1.098€</div>
+        <div class="sub">Cuota mensual estimada (Euríbor 2,65% + diferencial 0,89%)</div>
+      </div>
+
+      <div class="data-box">
+        <div class="label">Viviendas en venta · Getxo</div>
+        <div class="value">~178</div>
+        <div class="sub">Stock mínimo histórico (jun. 2026)</div>
+      </div>
+
+      <hr class="section-rule" style="margin-top:10px">
+      <span class="section-tag local" style="margin-bottom:6px;display:block">Consejo DELAGALA</span>
+      <p style="font-size:8.5pt;line-height:1.5;text-align:justify;hyphens:auto">Si tienes una hipoteca variable contratada antes de 2022, revisa tu escritura: es muy probable que puedas renegociar las condiciones o trasladarla a tipo fijo por debajo del 3%. El diferencial medio contratado entre 2015 y 2019 era de Euríbor +1,1%, lo que hoy equivale a pagar un 3,75% efectivo. Las nuevas hipotecas fijas se están firmando al 2,9–3,1%.</p>
+
+      <hr class="section-rule" style="margin-top:10px">
+      <span class="section-tag europa" style="margin-bottom:6px;display:block">En números</span>
+      <table style="width:100%;font-size:8pt;border-collapse:collapse;line-height:1.6">
+        <tr><td style="color:#666">BCE tipo depo.</td><td style="text-align:right;font-weight:700">2,25%</td></tr>
+        <tr style="background:var(--warm-gray)"><td style="color:#666;padding:2px 0">Fed Funds</td><td style="text-align:right;font-weight:700">4,25–4,50%</td></tr>
+        <tr><td style="color:#666">IPC España (abr)</td><td style="text-align:right;font-weight:700">2,2%</td></tr>
+        <tr style="background:var(--warm-gray)"><td style="color:#666;padding:2px 0">IPC Zona Euro</td><td style="text-align:right;font-weight:700">2,3%</td></tr>
+        <tr><td style="color:#666">Paro España</td><td style="text-align:right;font-weight:700">10,6%</td></tr>
+        <tr style="background:var(--warm-gray)"><td style="color:#666;padding:2px 0">Concesión hipotecas (abr)</td><td style="text-align:right;font-weight:700">+22% a/a</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- EUROPA FULL WIDTH -->
+  <hr class="section-rule">
+  <span class="section-tag europa">Europa · Mercado Inmobiliario</span>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px;margin-top:6px;margin-bottom:6px">
+    <article>
+      <h3>BCE recorta tipos al 2,25%: la cuarta bajada consecutiva alivia las hipotecas</h3>
+      <div class="byline">Frankfurt · Política monetaria</div>
+      <p>El Banco Central Europeo aprobó en abril su cuarto recorte consecutivo de tipos, situando el tipo de depósito en el <strong>2,25%</strong>, el nivel más bajo desde 2022. La presidenta Christine Lagarde señaló que la inflación de la zona euro "está en vía de convergencia al objetivo del 2%" y dejó la puerta abierta a nuevas bajadas si los datos lo permiten. La próxima reunión del Consejo de Gobierno será el <strong>5 de junio</strong>.</p>
+      <p>Para los propietarios con hipoteca variable, el ciclo de bajadas acumulado desde julio de 2024 ya ha supuesto una reducción media de 180–210 euros mensuales en préstamos de 200.000 euros a 25 años. Las entidades españolas están revisando al alza sus previsiones de concesión de nuevas hipotecas para 2026, con incrementos del 20–25% respecto a 2025.</p>
+    </article>
+    <article>
+      <h3>Berlín da la vuelta: el mercado residencial alemán repunta tras dos años en caída</h3>
+      <div class="byline">Berlín · Recuperación</div>
+      <p>El mercado residencial de Berlín registró en el primer trimestre de 2026 su primera subida trimestral en más de dos años: <strong>+3,2%</strong>. Después de una corrección acumulada del 18% desde el pico de 2022, la combinación de bajadas del BCE, escasez estructural de vivienda y aumento de la demanda de alquiler —Berlín registra un 85% de hogares inquilinos— está impulsando la recuperación.</p>
+      <p>Los analistas advierten de que la recuperación es frágil y desigual: los activos de calidad en distritos céntricos como Mitte o Prenzlauer Berg ya han recuperado el 60% de la corrección, mientras que la periferia sigue a la baja. Inversores institucionales españoles y franceses están volviendo a mirar el mercado alemán como alternativa de diversificación.</p>
+    </article>
+  </div>
+
+  <div class="europa-strip">
+    <div class="item">
+      <strong>Portugal · Lisboa</strong>
+      El precio medio en Lisboa supera los 5.200 €/m², un 8,7% más que hace un año. La "golden visa" reformada sigue atrayendo capital no europeo hacia activos de lujo en Cascais y Estoril.
+    </div>
+    <div class="item">
+      <strong>Francia · Mercado nacional</strong>
+      París cede un 3,1% en 12 meses hasta los 9.400 €/m² en el centro histórico. Sin embargo, ciudades como Lyon (+4,2%) y Burdeos (+5,1%) ganan atractivo por la descentralización post-pandemia.
+    </div>
+    <div class="item">
+      <strong>Europa · Inversión</strong>
+      El volumen de inversión inmobiliaria institucional en Europa alcanzó los 42.000 M€ en el 1T 2026, un 28% más que en el mismo periodo de 2025. El residencial y la logística lideran la recuperación del apetito inversor.
+    </div>
+  </div>
+
+  <!-- EFEMERIDES -->
+  <hr class="section-rule">
+  <span class="section-tag local">Efemérides de Getxo · Junio</span>
+  <div class="efem-grid" style="margin-top:7px;margin-bottom:10px">
+    <div class="efem-item">
+      <div class="year">1901</div>
+      <p>Se inaugura el Puente Bizkaia, primer puente transbordador del mundo, que une Las Arenas con Portugalete. Declarado Patrimonio de la Humanidad por la UNESCO en 2006.</p>
+    </div>
+    <div class="efem-item">
+      <div class="year">1969</div>
+      <p>Getxo aprueba su primer Plan General de Ordenación Urbana, que define el crecimiento residencial de Las Arenas y sienta las bases del parque de viviendas actual.</p>
+    </div>
+    <div class="efem-item">
+      <div class="year">1995</div>
+      <p>Se abre al público el paseo marítimo de Ereaga, reformado integralmente. El proyecto revitalizó la zona costera y disparó el interés inmobiliario en primera línea de playa.</p>
+    </div>
+    <div class="efem-item">
+      <div class="year">2026</div>
+      <p>Getxo supera los 4.200 €/m² de precio medio de vivienda por primera vez en su historia, consolidándose como el mercado residencial premium del País Vasco.</p>
+    </div>
+  </div>
+
+  <!-- ESCRIBENOS -->
+  <div class="escribenos">
+    <div class="wa-icon">✉️</div>
+    <div class="text">
+      <h4>Escríbenos</h4>
+      <p>¿Sobre qué quieres leer en el próximo número? Mándanos el tema que más te interesa —hipotecas, barrios, inversión, alquiler— y lo incluimos en la siguiente edición.</p>
+    </div>
+    <a href="https://wa.me/34662128409?text=Hola%20DELAGALA%2C%20me%20gustar%C3%ADa%20leer%20sobre%3A%20" class="wa-link">WhatsApp →<br>662 128 409</a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div><strong>DELAGALA Daily</strong> · Nº 05 · Junio 2026 · Distribución gratuita</div>
+    <div style="text-align:center">idelagala.com · info@idelagala.com</div>
+    <div style="text-align:right"><strong>ICA HOME S.L.</strong> · CIF B10641546<br>Calle Las Mercedes 17, 48930 Getxo</div>
+  </div>
+
 </div>
-
-<!-- ============ FOOTER ============ -->
-<footer class="footer">
-  <div class="brand"><span class="yellow">Delagala</span> Daily</div>
-  <div class="meta">idelagala.com · ICA HOME S.L. · Boletín Nº 1</div>
-  <div class="disclaimer">
-    Boletín informativo elaborado a partir de fuentes públicas (Tinsa, idealista, Fotocasa,
-    Colliers, Savills, CBRE, BOE, Banco de España). Las cifras citadas se han tomado de los
-    comunicados originales; donde el importe no se hizo público se indica "no comunicado".
-    Verifique siempre con la fuente original antes de tomar decisiones de inversión o contratación.
-  </div>
-</footer>
-
 </body>
 </html>
