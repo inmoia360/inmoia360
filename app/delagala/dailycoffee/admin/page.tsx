@@ -17,6 +17,8 @@ export default function AdminPage() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [tab, setTab] = useState<'dashboard' | 'registros' | 'bares'>('dashboard');
   const [saving, setSaving] = useState(false);
+  const [newBar, setNewBar] = useState({ name: '', staff_whatsapp: '', coupon_limit: '50' });
+  const [addingBar, setAddingBar] = useState(false);
 
   const load = useCallback(async (password: string) => {
     const res = await fetch('/api/delagala/dailycoffee/admin/data', {
@@ -46,6 +48,20 @@ export default function AdminPage() {
     });
     await load(pwd);
     setSaving(false);
+  }
+
+  async function createBar(e: React.FormEvent) {
+    e.preventDefault();
+    if (!newBar.name.trim()) return;
+    setAddingBar(true);
+    await fetch('/api/delagala/dailycoffee/admin/data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': pwd },
+      body: JSON.stringify({ name: newBar.name, staff_whatsapp: newBar.staff_whatsapp || null, coupon_limit: Number(newBar.coupon_limit) }),
+    });
+    setNewBar({ name: '', staff_whatsapp: '', coupon_limit: '50' });
+    await load(pwd);
+    setAddingBar(false);
   }
 
   useEffect(() => {
@@ -173,6 +189,28 @@ export default function AdminPage() {
         {/* BARES */}
         {tab === 'bares' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+
+            {/* Añadir nuevo bar */}
+            <form onSubmit={createBar} style={{ background: '#fff', padding: '22px 24px', borderLeft: `4px solid ${Y}`, display: 'flex', alignItems: 'flex-end', gap: 14, flexWrap: 'wrap' }}>
+              <div style={{ flex: '0 0 160px' }}>
+                <div style={{ fontWeight: 700, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#888', marginBottom: 12 }}>+ Nuevo bar</div>
+                <label style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#888', display: 'block', marginBottom: 4 }}>Nombre</label>
+                <input value={newBar.name} onChange={e => setNewBar(p => ({ ...p, name: e.target.value }))} placeholder="Nombre del bar" required style={{ width: '100%', padding: '8px 10px', border: '1.5px solid #ddd', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
+              </div>
+              <div style={{ flex: 1, minWidth: 160 }}>
+                <label style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#888', display: 'block', marginBottom: 4 }}>WhatsApp camarera</label>
+                <input value={newBar.staff_whatsapp} onChange={e => setNewBar(p => ({ ...p, staff_whatsapp: e.target.value }))} placeholder="6XXXXXXXX" style={{ width: '100%', padding: '8px 10px', border: '1.5px solid #ddd', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
+              </div>
+              <div style={{ flex: '0 0 100px' }}>
+                <label style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#888', display: 'block', marginBottom: 4 }}>Límite/mes</label>
+                <input value={newBar.coupon_limit} onChange={e => setNewBar(p => ({ ...p, coupon_limit: e.target.value }))} type="number" min="1" max="500" style={{ width: '100%', padding: '8px 10px', border: '1.5px solid #ddd', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
+              </div>
+              <button type="submit" disabled={addingBar} style={{ padding: '9px 20px', background: Y, color: INK, border: 'none', fontFamily: 'inherit', fontWeight: 800, fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', cursor: 'pointer', opacity: addingBar ? 0.5 : 1 }}>
+                {addingBar ? '...' : 'Añadir'}
+              </button>
+            </form>
+
+            {/* Bares existentes */}
             {bars.map(b => (
               <BarCard key={b.id} bar={b} onSave={changes => updateBar(b, changes)} saving={saving} />
             ))}
@@ -185,16 +223,18 @@ export default function AdminPage() {
 }
 
 function BarCard({ bar, onSave, saving }: { bar: Bar; onSave: (c: Partial<Bar>) => void; saving: boolean }) {
+  const [name, setName] = useState(bar.name);
   const [phone, setPhone] = useState(bar.staff_whatsapp ?? '');
   const [limit, setLimit] = useState(String(bar.coupon_limit));
 
   return (
-    <div style={{ background: '#fff', padding: '22px 24px', borderLeft: `4px solid ${bar.is_active ? '#F5C842' : '#ddd'}`, display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
+    <div style={{ background: '#fff', padding: '22px 24px', borderLeft: `4px solid ${bar.is_active ? '#F5C842' : '#ddd'}`, display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
       <div style={{ flex: '0 0 160px' }}>
-        <div style={{ fontWeight: 700, fontSize: 14 }}>{bar.name}</div>
-        <div style={{ fontSize: 10, color: '#888', marginTop: 3, letterSpacing: '0.1em' }}>{bar.used_this_month} / {bar.coupon_limit} este mes</div>
+        <label style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#888', display: 'block', marginBottom: 4 }}>Nombre del bar</label>
+        <input value={name} onChange={e => setName(e.target.value)} style={{ width: '100%', padding: '8px 10px', border: '1.5px solid #ddd', fontSize: 13, fontWeight: 700, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
+        <div style={{ fontSize: 10, color: '#aaa', marginTop: 4 }}>{bar.used_this_month} / {bar.coupon_limit} este mes</div>
       </div>
-      <div style={{ flex: 1, minWidth: 180 }}>
+      <div style={{ flex: 1, minWidth: 160 }}>
         <label style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#888', display: 'block', marginBottom: 4 }}>WhatsApp camarera</label>
         <input value={phone} onChange={e => setPhone(e.target.value)} placeholder="6XXXXXXXX" style={{ width: '100%', padding: '8px 10px', border: '1.5px solid #ddd', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
       </div>
@@ -203,7 +243,7 @@ function BarCard({ bar, onSave, saving }: { bar: Bar; onSave: (c: Partial<Bar>) 
         <input value={limit} onChange={e => setLimit(e.target.value)} type="number" min="1" max="500" style={{ width: '100%', padding: '8px 10px', border: '1.5px solid #ddd', fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box', outline: 'none' }} />
       </div>
       <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-        <button onClick={() => onSave({ staff_whatsapp: phone, coupon_limit: Number(limit) })} disabled={saving} style={{ padding: '9px 18px', background: '#0A0A0A', color: '#fff', border: 'none', fontFamily: 'inherit', fontWeight: 700, fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', cursor: 'pointer', opacity: saving ? 0.5 : 1 }}>
+        <button onClick={() => onSave({ name, staff_whatsapp: phone || null, coupon_limit: Number(limit) })} disabled={saving} style={{ padding: '9px 18px', background: '#0A0A0A', color: '#fff', border: 'none', fontFamily: 'inherit', fontWeight: 700, fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', cursor: 'pointer', opacity: saving ? 0.5 : 1 }}>
           Guardar
         </button>
         <button onClick={() => onSave({ is_active: !bar.is_active })} disabled={saving} style={{ padding: '9px 14px', background: bar.is_active ? '#FEF2F2' : '#F0FDF4', color: bar.is_active ? '#B91C1C' : '#166534', border: `1px solid ${bar.is_active ? '#FCA5A5' : '#86EFAC'}`, fontFamily: 'inherit', fontWeight: 700, fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', opacity: saving ? 0.5 : 1 }}>

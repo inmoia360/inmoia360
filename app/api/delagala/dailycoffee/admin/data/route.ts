@@ -46,13 +46,14 @@ export async function PATCH(req: NextRequest) {
   if (!checkAuth(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const body = await req.json().catch(() => ({}));
-  const { bar_id, staff_whatsapp, coupon_limit, is_active } = body;
+  const { bar_id, staff_whatsapp, coupon_limit, is_active, name } = body;
   if (!bar_id) return NextResponse.json({ error: 'bar_id requerido' }, { status: 400 });
 
   const sql = getDb();
   const [bar] = await sql`
     UPDATE marketing_pilot.bars
     SET
+      name           = COALESCE(${name ?? null}, name),
       staff_whatsapp = COALESCE(${staff_whatsapp ?? null}, staff_whatsapp),
       coupon_limit   = COALESCE(${coupon_limit ?? null}, coupon_limit),
       is_active      = COALESCE(${is_active ?? null}, is_active)
@@ -60,4 +61,22 @@ export async function PATCH(req: NextRequest) {
     RETURNING id, name, staff_whatsapp, coupon_limit, is_active
   `;
   return NextResponse.json(bar);
+}
+
+export async function POST(req: NextRequest) {
+  if (!checkAuth(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+  const body = await req.json().catch(() => ({}));
+  const { name, staff_whatsapp, coupon_limit } = body;
+  if (!name?.trim()) return NextResponse.json({ error: 'Nombre requerido' }, { status: 400 });
+
+  const slug = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  const sql = getDb();
+  const [bar] = await sql`
+    INSERT INTO marketing_pilot.bars (slug, name, staff_whatsapp, coupon_limit, is_active)
+    VALUES (${slug}, ${name.trim()}, ${staff_whatsapp ?? null}, ${coupon_limit ?? 50}, true)
+    ON CONFLICT (slug) DO UPDATE SET name = EXCLUDED.name
+    RETURNING id, name, staff_whatsapp, coupon_limit, is_active
+  `;
+  return NextResponse.json(bar, { status: 201 });
 }
