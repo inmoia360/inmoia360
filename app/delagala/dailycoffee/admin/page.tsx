@@ -177,6 +177,12 @@ export default function AdminPage() {
 
         {/* REGISTROS */}
         {tab === 'registros' && (
+          <div>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 14 }}>
+              <span style={{ fontFamily: "'Playfair Display',serif", fontWeight: 900, fontSize: 48, lineHeight: 1 }}>{coupons.length}</span>
+              <span style={{ fontWeight: 700, fontSize: 11, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#888' }}>registros totales</span>
+              {stats && <span style={{ marginLeft: 'auto', fontSize: 11, color: '#888' }}>Hoy: <strong style={{ color: '#0A0A0A' }}>{stats.today}</strong> · Esta semana: <strong style={{ color: '#0A0A0A' }}>{stats.this_week}</strong> · Este mes: <strong style={{ color: '#0A0A0A' }}>{stats.this_month}</strong></span>}
+            </div>
           <div style={{ background: '#fff', overflow: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
               <thead>
@@ -204,6 +210,7 @@ export default function AdminPage() {
                 ))}
               </tbody>
             </table>
+          </div>
           </div>
         )}
 
