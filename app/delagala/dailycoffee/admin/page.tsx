@@ -41,27 +41,48 @@ export default function AdminPage() {
 
   async function updateBar(bar: Bar, changes: Partial<Bar>) {
     setSaving(true);
-    await fetch('/api/delagala/dailycoffee/admin/data', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', 'x-admin-password': pwd },
-      body: JSON.stringify({ bar_id: bar.id, ...changes }),
-    });
-    await load(pwd);
-    setSaving(false);
+    try {
+      const res = await fetch('/api/delagala/dailycoffee/admin/data', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': pwd },
+        body: JSON.stringify({ bar_id: bar.id, ...changes }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        alert('Error al guardar: ' + (err.error ?? res.status));
+        return;
+      }
+      await load(pwd);
+    } catch (e) {
+      alert('Error de conexión al guardar');
+      console.error(e);
+    } finally {
+      setSaving(false);
+    }
   }
 
   async function createBar(e: React.FormEvent) {
     e.preventDefault();
     if (!newBar.name.trim()) return;
     setAddingBar(true);
-    await fetch('/api/delagala/dailycoffee/admin/data', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-admin-password': pwd },
-      body: JSON.stringify({ name: newBar.name, staff_whatsapp: newBar.staff_whatsapp || null, coupon_limit: Number(newBar.coupon_limit) }),
-    });
-    setNewBar({ name: '', staff_whatsapp: '', coupon_limit: '50' });
-    await load(pwd);
-    setAddingBar(false);
+    try {
+      const res = await fetch('/api/delagala/dailycoffee/admin/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': pwd },
+        body: JSON.stringify({ name: newBar.name, staff_whatsapp: newBar.staff_whatsapp || null, coupon_limit: Number(newBar.coupon_limit) }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        alert('Error al crear bar: ' + (err.error ?? res.status));
+        return;
+      }
+      setNewBar({ name: '', staff_whatsapp: '', coupon_limit: '50' });
+      await load(pwd);
+    } catch (e) {
+      alert('Error de conexión');
+    } finally {
+      setAddingBar(false);
+    }
   }
 
   useEffect(() => {
