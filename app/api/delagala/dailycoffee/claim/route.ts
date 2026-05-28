@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { generateCouponCode, COUPON_EXPIRES_DAYS } from '@/lib/coupon';
-import { sendCouponWhatsApp, sendBarStaffNotification } from '@/lib/whatsapp';
+import { sendCouponWhatsApp, sendBarStaffNotification, normalizeSpanishPhone } from '@/lib/whatsapp';
 
 export const runtime = 'nodejs';
 
@@ -16,9 +16,9 @@ export async function POST(request: NextRequest) {
   if (!lead_name?.trim()) return NextResponse.json({ error: 'El nombre es obligatorio' }, { status: 400 });
   if (!lead_phone?.trim() || !isValidPhone(lead_phone)) return NextResponse.json({ error: 'WhatsApp inválido' }, { status: 400 });
 
-  const phone = lead_phone.trim();
-  // Use phone as unique key; store a derived placeholder in the email column (NOT NULL in DB)
-  const derived_email = `${phone.replace(/[^0-9]/g, '')}@wa.delagala`;
+  // Normalizar teléfono: +34680648795 y 680648795 → mismo número
+  const phone = normalizeSpanishPhone(lead_phone.trim());
+  const derived_email = `${phone}@wa.delagala`;
 
   const sql = getDb();
 

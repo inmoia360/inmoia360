@@ -33,7 +33,7 @@ export async function sendBarStaffNotification(
   });
 }
 
-function normalizeSpanishPhone(phone: string): string {
+export function normalizeSpanishPhone(phone: string): string {
   let d = phone.replace(/[^0-9]/g, '');
   if (d.startsWith('0034')) d = d.slice(4);
   if (d.length === 9) d = '34' + d;
