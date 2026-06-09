@@ -24,24 +24,28 @@ export default function QRPage() {
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, background: '#f5f5f5' }}>
         <div className="card" style={{ width: 400, background: '#fff', padding: '40px 36px 32px', textAlign: 'center', border: `2px solid ${INK}`, boxShadow: `8px 8px 0 ${Y}` }}>
 
-          {/* Logo */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 24 }}>
-            <svg width="42" height="42" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-              <text x="1" y="42" fontFamily="Montserrat,Arial Black,sans-serif" fontWeight="900" fontSize="46" fill={Y}>D</text>
-              <g transform="translate(30,1)">
-                <polygon points="9,0 18,8 0,8" fill={Y} />
-                <rect x="3" y="8" width="12" height="9" fill={Y} />
-              </g>
-            </svg>
-            <div style={{ textAlign: 'left' }}>
-              <div style={{ fontWeight: 800, fontSize: 15, letterSpacing: 3, textTransform: 'uppercase', lineHeight: 1.1 }}>DELAGALA</div>
-              <div style={{ fontWeight: 500, fontSize: 9, letterSpacing: 2, textTransform: 'uppercase', color: '#6B6B6B' }}>Consultoría Inmobiliaria</div>
-            </div>
+          {/* Logo — banda negra a sangre para que el amarillo se lea */}
+          <div style={{ background: INK, margin: '-40px -36px 24px', padding: '26px 30px 22px' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/delagala-logo.png" alt="DELAGALA" style={{ width: '100%', maxWidth: 290, height: 'auto', display: 'block', margin: '0 auto' }} />
+            <div style={{ fontWeight: 500, fontSize: 10, letterSpacing: 3, textTransform: 'uppercase', color: 'rgba(255,255,255,0.55)', textAlign: 'center', marginTop: 8 }}>Consultoría Inmobiliaria</div>
           </div>
 
           {/* Badge */}
           <div style={{ background: Y, padding: '6px 16px', display: 'inline-block', marginBottom: 16, fontWeight: 700, fontSize: 11, letterSpacing: '0.28em', textTransform: 'uppercase' }}>
             ★ Invitación
+          </div>
+
+          {/* Café grande */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 6 }}>
+            <svg viewBox="0 0 105 115" width="120" height="132" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ overflow: 'visible' }}>
+              <g stroke={YD} strokeWidth="5" strokeLinecap="round" fill="none">
+                <path d="M28 42 Q22 33 28 24 Q34 15 28 6" /><path d="M46 42 Q40 33 46 24 Q52 15 46 6" /><path d="M64 42 Q58 33 64 24 Q70 15 64 6" />
+              </g>
+              <path d="M12 50 L80 50 L74 96 Q73 104 64 104 L28 104 Q19 104 18 96 Z" stroke={INK} strokeWidth="5" fill="none" strokeLinejoin="round" />
+              <path d="M80 62 Q102 62 102 77 Q102 92 80 92" stroke={INK} strokeWidth="5" fill="none" />
+              <line x1="4" y1="110" x2="88" y2="110" stroke={INK} strokeWidth="5" strokeLinecap="round" />
+            </svg>
           </div>
 
           {/* Headline */}
