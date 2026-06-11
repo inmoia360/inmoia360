@@ -26,6 +26,7 @@ export async function POST(request: NextRequest) {
   const existing = await sql`
     SELECT id, coupon_code, created_at FROM marketing_pilot.coffee_coupons
     WHERE lead_phone = ${phone}
+      AND campaign_id = (SELECT id FROM marketing_pilot.campaigns WHERE slug = 'dailycoffee')
       AND created_at >= NOW() - INTERVAL '30 days'
     ORDER BY created_at DESC
     LIMIT 1
@@ -49,6 +50,7 @@ export async function POST(request: NextRequest) {
       SELECT id, name, staff_whatsapp, coupon_limit
       FROM marketing_pilot.bars
       WHERE name = ${bar_name.trim()} AND is_active = true
+        AND campaign_id = (SELECT id FROM marketing_pilot.campaigns WHERE slug = 'dailycoffee')
       LIMIT 1
     `;
     resolvedBar = (barByName[0] as BarRow) ?? null;
@@ -57,7 +59,9 @@ export async function POST(request: NextRequest) {
     const defaultBar = await sql`
       SELECT id, name, staff_whatsapp, coupon_limit
       FROM marketing_pilot.bars
-      WHERE is_active = true ORDER BY id LIMIT 1
+      WHERE is_active = true
+        AND campaign_id = (SELECT id FROM marketing_pilot.campaigns WHERE slug = 'dailycoffee')
+      ORDER BY id LIMIT 1
     `;
     resolvedBar = (defaultBar[0] as BarRow) ?? null;
   }
@@ -84,17 +88,18 @@ export async function POST(request: NextRequest) {
 
   const [coupon] = await sql`
     INSERT INTO marketing_pilot.coffee_coupons
-      (coupon_code, lead_name, lead_email, lead_phone, source_url, bar_id, status, claimed_at, expires_at)
+      (coupon_code, lead_name, lead_email, lead_phone, source_url, bar_id, campaign_id, status, claimed_at, expires_at)
     VALUES
       (${coupon_code}, ${lead_name.trim()}, ${derived_email},
-       ${phone}, ${source_url ?? null}, ${resolvedBarId}, 'generated',
+       ${phone}, ${source_url ?? null}, ${resolvedBarId},
+       (SELECT id FROM marketing_pilot.campaigns WHERE slug = 'dailycoffee'), 'generated',
        NOW(), ${expires_at})
     RETURNING id, coupon_code, expires_at
   `;
 
   await sql`
-    INSERT INTO marketing_pilot.coffee_coupon_events (coupon_id, event_type, metadata)
-    VALUES (${coupon.id}, 'coupon_generated', ${JSON.stringify({ source_url: source_url ?? null })}::jsonb)
+    INSERT INTO marketing_pilot.coffee_coupon_events (coupon_id, campaign_id, event_type, metadata)
+    VALUES (${coupon.id}, (SELECT id FROM marketing_pilot.campaigns WHERE slug = 'dailycoffee'), 'coupon_generated', ${JSON.stringify({ source_url: source_url ?? null })}::jsonb)
   `;
 
   // Enviar WhatsApp al cliente — awaited para que Vercel no corte la función antes
