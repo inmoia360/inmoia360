@@ -40,9 +40,10 @@ const STATEMENTS: string[] = [
 ];
 
 export async function GET(req: Request) {
-  const secret = new URL(req.url).searchParams.get('secret');
-  if (!process.env.MIGRATE_SECRET || secret !== process.env.MIGRATE_SECRET) {
-    return NextResponse.json({ error: 'forbidden' }, { status: 403 });
+  const secret = (new URL(req.url).searchParams.get('secret') ?? '').trim();
+  const expected = (process.env.MIGRATE_SECRET ?? '').trim();
+  if (!expected || secret !== expected) {
+    return NextResponse.json({ error: 'forbidden', hasEnv: Boolean(expected), envLen: expected.length }, { status: 403 });
   }
   if (!process.env.DATABASE_URL) {
     return NextResponse.json({ error: 'DATABASE_URL no disponible' }, { status: 500 });
