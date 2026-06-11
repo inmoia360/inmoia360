@@ -12,11 +12,14 @@ export async function sendBarStaffNotification(
   code: string,
   count: number,
   limit: number,
+  opts: { productLabel?: string; emoji?: string } = {},
 ) {
   const token = process.env.WHATSAPP_TOKEN;
   const phoneId = process.env.WHATSAPP_PHONE_ID;
   if (!token || !phoneId || !staffPhone) return;
 
+  const product = opts.productLabel ?? 'café';
+  const emoji = opts.emoji ?? '☕';
   const to = normalizeSpanishPhone(staffPhone);
   await sendWA(phoneId, token, {
     messaging_product: 'whatsapp',
@@ -24,10 +27,10 @@ export async function sendBarStaffNotification(
     type: 'text',
     text: {
       body:
-        `☕ *DELAGALA Daily Coffee — nuevo código*\n\n` +
+        `${emoji} *DELAGALA — nuevo código (${product})*\n\n` +
         `Cliente: ${customerName}\n` +
         `Código: *${code}*\n` +
-        `Bar: ${barName}\n\n` +
+        `Local: ${barName}\n\n` +
         `📊 Servidos este mes: *${count} / ${limit}*`,
     },
   });
@@ -52,10 +55,17 @@ async function sendWA(phoneId: string, token: string, payload: object) {
   }
 }
 
-export async function sendCouponWhatsApp(phone: string, name: string, code: string) {
+export async function sendCouponWhatsApp(
+  phone: string,
+  name: string,
+  code: string,
+  opts: { templateName?: string; productLabel?: string; redeemText?: string } = {},
+) {
   const token = process.env.WHATSAPP_TOKEN;
   const phoneId = process.env.WHATSAPP_PHONE_ID;
-  const templateName = process.env.WHATSAPP_TEMPLATE_NAME ?? 'delagala_daily_coffee';
+  const templateName = opts.templateName ?? process.env.WHATSAPP_TEMPLATE_NAME ?? 'delagala_daily_coffee';
+  const product = opts.productLabel ?? 'café';
+  const redeemText = opts.redeemText ?? 'Muéstraselo al camarero en el bar y disfruta ☕';
 
   if (!token || !phoneId) return;
 
@@ -63,13 +73,13 @@ export async function sendCouponWhatsApp(phone: string, name: string, code: stri
   const isTest = templateName === 'hello_world';
 
   if (isTest) {
-    // Mensaje 1: código del café
+    // Mensaje 1: código del producto
     await sendWA(phoneId, token, {
       messaging_product: 'whatsapp',
       to,
       type: 'text',
       text: {
-        body: `Hola ${name} 👋\n\nSoy DELAGALA. ¡Gracias por registrarte!\n\nAquí tienes tu código para canjear tu café gratis:\n\n*${code}*\n\nMuéstraselo al camarero en el bar y disfruta ☕\n\n— DELAGALA Consultoría Inmobiliaria\nidelagala.com · 662 128 409`,
+        body: `Hola ${name} 👋\n\nSoy DELAGALA. ¡Gracias por registrarte!\n\nAquí tienes tu código para canjear tu ${product} gratis:\n\n*${code}*\n\n${redeemText}\n\n— DELAGALA Consultoría Inmobiliaria\nidelagala.com · 662 128 409`,
       },
     });
 
