@@ -1,7 +1,7 @@
 // Run: node scripts/migrate.js
 // Requires DATABASE_URL in environment (or .env.local)
 
-const { readFileSync } = require('fs');
+const { readFileSync, readdirSync } = require('fs');
 const { join } = require('path');
 const { Client } = require('pg');
 
@@ -21,15 +21,21 @@ if (!process.env.DATABASE_URL) {
   process.exit(1);
 }
 
-const sql = readFileSync(join(__dirname, '..', 'migrations', '001_marketing_pilot.sql'), 'utf8');
+const migrationsDir = join(__dirname, '..', 'migrations');
+const files = readdirSync(migrationsDir)
+  .filter(f => f.endsWith('.sql'))
+  .sort(); // 001..., 002..., 003..., 004...
 
 const client = new Client({ connectionString: process.env.DATABASE_URL });
 
 (async () => {
   await client.connect();
-  console.log('Running migration...');
-  await client.query(sql);
-  console.log('Migration completed successfully.');
+  for (const file of files) {
+    const sql = readFileSync(join(migrationsDir, file), 'utf8');
+    console.log(`Running migration: ${file} ...`);
+    await client.query(sql);
+  }
+  console.log(`All ${files.length} migration(s) completed successfully.`);
   await client.end();
 })().catch(err => {
   console.error('Migration failed:', err.message);
