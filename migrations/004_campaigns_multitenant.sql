@@ -68,7 +68,6 @@ INSERT INTO marketing_pilot.bars (slug, name, address, city, campaign_id, coupon
 SELECT v.slug, v.name, v.address, v.city,
        (SELECT id FROM marketing_pilot.campaigns WHERE slug = 'dailybread'), 50
 FROM (VALUES
-  ('pan-getxo-1',   'Panadería de ejemplo', NULL, 'Getxo'),
-  ('queso-getxo-1', 'Quesería de ejemplo',  NULL, 'Getxo')
+  ('pan-antonio', 'Panadería Antonio', NULL, 'Getxo')
 ) AS v(slug, name, address, city)
 ON CONFLICT (slug) DO NOTHING;
