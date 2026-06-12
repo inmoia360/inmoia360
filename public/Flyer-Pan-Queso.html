@@ -1,76 +1,65 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8">
-<title>Flyer Pan y Queso · DELAGALA</title>
+<title>Flyer Pan · DELAGALA</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
-:root{--navy:#21404F;--gold:#E0A52C;--gold2:#EFB23E;--grey:#5C6B72;--line:#D8DEE0}
+:root{--navy:#21404F;--gold:#E0A52C;--grey:#5C6B72;--line:#D8DEE0}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:#e9e9e9;font-family:'Montserrat',Arial,sans-serif;color:var(--navy)}
-.sheet{width:210mm;min-height:297mm;background:#fff;margin:18px auto;padding:0 18mm 16mm;position:relative}
-.heroimg{margin:0 -18mm 12px;display:block;border-bottom:4px solid var(--gold)}
-.heroimg img{width:100%;height:30mm;object-fit:cover;object-position:center 42%;display:block}
-.hr{height:2px;background:var(--navy);border:0;margin:0}
+.sheet{width:210mm;min-height:297mm;background:#fff;margin:18px auto;padding:0 16mm 14mm;position:relative}
+.hero{margin:0 -16mm 14px;display:block;border-bottom:5px solid var(--gold)}
+.hero img{width:100%;height:auto;display:block}
 /* header */
-.head{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:14px}
-.dmark{width:62px;height:62px;flex:0 0 auto}
+.head{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:6px}
+.dmark{width:52px;height:52px;flex:0 0 auto}
 .brand{text-align:left}
-.brand .w{font-weight:900;font-size:40px;letter-spacing:.14em;line-height:1;color:var(--navy)}
-.brand .t1{font-weight:600;font-size:11px;letter-spacing:.42em;color:var(--navy);margin-top:5px}
-.brand .t2{font-weight:600;font-size:8.5px;letter-spacing:.34em;color:var(--gold);margin-top:4px}
-/* invite */
-.invite{text-align:center;margin:16px 0 4px}
-.invite .k{font-weight:700;font-size:13px;letter-spacing:.5em;color:var(--navy)}
-.invite .bar{width:54px;height:3px;background:var(--gold);margin:12px auto 0}
-.headline{text-align:center;margin:14px 0 0;line-height:.98}
-.headline .l1{font-weight:800;font-size:52px;letter-spacing:.01em;color:var(--navy);display:inline-flex;align-items:center;gap:14px;justify-content:center}
-.headline .l2{font-weight:800;font-size:52px;letter-spacing:.01em;color:var(--gold);margin-top:2px}
-.foodicon{width:64px;height:54px;display:inline-block;vertical-align:middle}
-.lead{max-width:78%;margin:20px auto 0;text-align:center;font-size:15px;line-height:1.7;color:#33454e;font-weight:500}
-.lead b{color:var(--navy);font-weight:800}
-.lead .u{font-weight:800;color:var(--navy);box-shadow:inset 0 -7px 0 rgba(224,165,44,.45)}
+.brand .w{font-weight:900;font-size:33px;letter-spacing:.14em;line-height:1;color:var(--navy)}
+.brand .t1{font-weight:600;font-size:9.5px;letter-spacing:.4em;color:var(--navy);margin-top:4px}
+.brand .t2{font-weight:600;font-size:8px;letter-spacing:.32em;color:var(--gold);margin-top:3px}
+.subline{text-align:center;font-weight:700;font-size:17px;color:var(--navy);margin:10px 0 2px}
+.subline b{color:var(--gold)}
+.bar{width:54px;height:3px;background:var(--gold);margin:10px auto 0}
 /* middle: QR + steps */
-.mid{display:flex;gap:34px;align-items:center;margin:24px 0 8px;padding-left:6px}
+.mid{display:flex;gap:34px;align-items:center;margin:22px 0 6px;padding-left:6px}
 .qrwrap{position:relative;flex:0 0 auto;padding:6px}
 .qrwrap::before{content:"";position:absolute;left:-18px;top:8px;bottom:8px;width:7px;background:var(--gold)}
-.qrwrap img{display:block;width:230px;height:230px}
-.corner{position:absolute;width:26px;height:26px;border:5px solid var(--gold)}
-.c1{top:-2px;left:-2px;border-right:0;border-bottom:0}
-.c2{top:-2px;right:-2px;border-left:0;border-bottom:0}
-.c3{bottom:-2px;left:-2px;border-right:0;border-top:0}
-.c4{bottom:-2px;right:-2px;border-left:0;border-top:0}
+.qrwrap img{display:block;width:215px;height:215px}
+.corner{position:absolute;width:24px;height:24px;border:5px solid var(--gold)}
+.c1{top:-2px;left:-2px;border-right:0;border-bottom:0}.c2{top:-2px;right:-2px;border-left:0;border-bottom:0}
+.c3{bottom:-2px;left:-2px;border-right:0;border-top:0}.c4{bottom:-2px;right:-2px;border-left:0;border-top:0}
 .steps{flex:1}
-.steps .res{font-weight:700;font-size:12px;letter-spacing:.32em;color:var(--gold)}
+.steps .res{font-weight:700;font-size:12px;letter-spacing:.3em;color:var(--gold)}
 .steps .res::before{content:"";display:inline-block;width:22px;height:3px;background:var(--gold);vertical-align:middle;margin-right:10px}
-.steps .big{font-weight:800;font-size:26px;letter-spacing:.01em;color:var(--navy);margin:8px 0 16px}
+.steps .big{font-weight:800;font-size:25px;color:var(--navy);margin:8px 0 16px}
 .steps .big .gray{color:#9aa7ad}
 .srow{display:flex;align-items:flex-start;gap:12px;margin-bottom:11px;font-size:14px;color:#33454e}
 .snum{flex:0 0 auto;width:22px;height:22px;background:var(--gold);color:#fff;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center}
 .srow b{color:var(--navy)}
 /* features */
-.feat{display:flex;border-top:2px solid var(--navy);border-bottom:2px solid var(--navy);margin:26px 0 0}
-.feat .col{flex:1;text-align:center;padding:18px 8px;border-right:1px solid var(--line)}
+.feat{display:flex;border-top:2px solid var(--navy);border-bottom:2px solid var(--navy);margin:22px 0 0}
+.feat .col{flex:1;text-align:center;padding:16px 8px;border-right:1px solid var(--line)}
 .feat .col:last-child{border-right:0}
-.feat .ic{font-size:22px;margin-bottom:8px;display:block}
-.feat .lbl{font-weight:700;font-size:12px;letter-spacing:.16em;color:var(--navy)}
+.feat .ic{font-size:21px;margin-bottom:7px;display:block}
+.feat .lbl{font-weight:700;font-size:12px;letter-spacing:.14em;color:var(--navy)}
 .feat .lbl span{color:var(--gold)}
 /* footer */
-.foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:30px}
-.foot .fl .n{font-weight:800;font-size:14px;letter-spacing:.06em;color:var(--navy)}
-.foot .fl .a{font-size:11px;color:var(--grey);line-height:1.7;margin-top:8px}
-.foot .fr{font-weight:800;font-size:15px;letter-spacing:.12em;color:var(--navy)}
+.foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:24px}
+.foot .fl .n{font-weight:800;font-size:13px;letter-spacing:.06em;color:var(--navy)}
+.foot .fl .a{font-size:11px;color:var(--grey);line-height:1.7;margin-top:7px}
+.foot .fr{font-weight:800;font-size:14px;letter-spacing:.12em;color:var(--navy)}
 .foot .fr::before{content:"";display:inline-block;width:10px;height:14px;background:var(--gold);margin-right:8px;vertical-align:-1px}
-.social{display:flex;justify-content:space-between;align-items:center;margin-top:26px}
+.social{display:flex;justify-content:space-between;align-items:center;margin-top:20px}
 .social .s{font-weight:700;font-size:11px;letter-spacing:.3em;color:var(--grey)}
 .social .icons{display:flex;gap:12px}
-.social .icons .ci{width:34px;height:34px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center}
+.social .icons .ci{width:32px;height:32px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center}
 .printhint{position:fixed;top:8px;left:0;right:0;text-align:center;font:600 12px Montserrat,sans-serif;color:#888}
 @page{size:A4;margin:0}
-@media print{html,body{background:#fff}.sheet{margin:0;box-shadow:none;width:210mm;min-height:297mm}.printhint{display:none}}
+@media print{html,body{background:#fff}.sheet{margin:0;width:210mm;min-height:297mm}.printhint{display:none}}
 </style></head>
 <body>
 <div class="printhint">Pulsa Ctrl+P para imprimir &middot; (esta línea no se imprime)</div>
 <div class="sheet">
 
-  <div class="heroimg"><img src="banner-pan.png" alt="Pan artesano"></div>
+  <div class="hero"><img src="hero-pan.png" alt="Pan artesano recién hecho"></div>
 
   <div class="head">
     <svg class="dmark" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -83,38 +72,21 @@ html,body{background:#e9e9e9;font-family:'Montserrat',Arial,sans-serif;color:var
       <div class="t2">EDICIÓN MENSUAL &middot; LECTORES SELECTOS</div>
     </div>
   </div>
-  <hr class="hr">
 
-  <div class="invite">
-    <div class="k">TE INVITAMOS A</div>
-    <div class="bar"></div>
-  </div>
-
-  <div class="headline">
-    <div class="l1">UN PAN
-      <svg class="foodicon" viewBox="0 0 110 112" xmlns="http://www.w3.org/2000/svg" style="width:54px;overflow:visible">
-        <g stroke="#E0A52C" stroke-width="5" stroke-linecap="round" fill="none"><path d="M38 42 Q32 33 38 24 Q44 15 38 6"/><path d="M55 42 Q49 33 55 24 Q61 15 55 6"/><path d="M72 42 Q66 33 72 24 Q78 15 72 6"/></g>
-        <path d="M14 98 Q10 60 54 60 Q98 60 94 98 Q94 104 84 104 L24 104 Q14 104 14 98 Z" stroke="#21404F" stroke-width="5" fill="none" stroke-linejoin="round"/>
-        <g stroke="#E0A52C" stroke-width="4" stroke-linecap="round"><line x1="36" y1="80" x2="46" y2="72"/><line x1="50" y1="82" x2="60" y2="74"/><line x1="64" y1="80" x2="74" y2="72"/></g>
-        <line x1="6" y1="110" x2="102" y2="110" stroke="#21404F" stroke-width="5" stroke-linecap="round"/>
-      </svg>
-    </div>
-    <div class="l2">DE LA INMOBILIARIA</div>
-  </div>
-
-  <p class="lead">Por <b>cuenta de DELAGALA</b>. Pásate, escanea el código y disfruta de <b>un pan gratis</b> acompañado de nuestro <span class="u">periódico inmobiliario</span>, con análisis del mercado en Getxo y la Margen Derecha.</p>
+  <div class="subline">Te invitamos a <b>un pan gratis</b> de la inmobiliaria</div>
+  <div class="bar"></div>
 
   <div class="mid">
     <div class="qrwrap">
       <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=600x600&margin=12&color=21404F&bgcolor=FFFFFF&data=https%3A%2F%2Finmoia360.vercel.app%2Fdelagala%2Fdailybread%23registro" alt="QR Pan y Queso">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=600x600&margin=12&color=21404F&bgcolor=FFFFFF&data=https%3A%2F%2Finmoia360.vercel.app%2Fdelagala%2Fdailybread%23registro" alt="QR Pan">
     </div>
     <div class="steps">
       <div class="res">RESERVA TU INVITACIÓN</div>
       <div class="big">ESCANEA, REGÍSTRATE, <span class="gray">VEN.</span></div>
       <div class="srow"><span class="snum">1</span><span>Apunta la cámara al <b>código QR</b>.</span></div>
       <div class="srow"><span class="snum">2</span><span>Rellena el formulario en <b>30 segundos</b>.</span></div>
-      <div class="srow"><span class="snum">3</span><span>Recibirás tu <b>código</b> por WhatsApp.</span></div>
+      <div class="srow"><span class="snum">3</span><span>Recibirás tu <b>código del pan</b> por WhatsApp.</span></div>
     </div>
   </div>
 
@@ -135,9 +107,9 @@ html,body{background:#e9e9e9;font-family:'Montserrat',Arial,sans-serif;color:var
   <div class="social">
     <div class="s">SÍGUENOS @IDELAGALA</div>
     <div class="icons">
-      <span class="ci"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff" stroke="none"/></svg></span>
-      <span class="ci"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M21.6 7.2a2.7 2.7 0 0 0-1.9-1.9C18 4.8 12 4.8 12 4.8s-6 0-7.7.5A2.7 2.7 0 0 0 2.4 7.2 28 28 0 0 0 2 12a28 28 0 0 0 .4 4.8 2.7 2.7 0 0 0 1.9 1.9c1.7.5 7.7.5 7.7.5s6 0 7.7-.5a2.7 2.7 0 0 0 1.9-1.9A28 28 0 0 0 22 12a28 28 0 0 0-.4-4.8zM10 15V9l5 3z"/></svg></span>
-      <span class="ci"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9.2" stroke-width="1.6"/><path d="M7 9.5c3.5-1 7-.6 10 1"/><path d="M7.5 12.5c3-.8 6-.4 8.5 1.1"/><path d="M8 15.3c2.4-.6 4.8-.3 6.8.9"/></svg></span>
+      <span class="ci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff" stroke="none"/></svg></span>
+      <span class="ci"><svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M21.6 7.2a2.7 2.7 0 0 0-1.9-1.9C18 4.8 12 4.8 12 4.8s-6 0-7.7.5A2.7 2.7 0 0 0 2.4 7.2 28 28 0 0 0 2 12a28 28 0 0 0 .4 4.8 2.7 2.7 0 0 0 1.9 1.9c1.7.5 7.7.5 7.7.5s6 0 7.7-.5a2.7 2.7 0 0 0 1.9-1.9A28 28 0 0 0 22 12a28 28 0 0 0-.4-4.8zM10 15V9l5 3z"/></svg></span>
+      <span class="ci"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9.2" stroke-width="1.6"/><path d="M7 9.5c3.5-1 7-.6 10 1"/><path d="M7.5 12.5c3-.8 6-.4 8.5 1.1"/><path d="M8 15.3c2.4-.6 4.8-.3 6.8.9"/></svg></span>
     </div>
   </div>
 
