@@ -26,7 +26,7 @@ export default function DailyBreadLanding() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!consentPromo) { alert('Necesitamos que aceptes participar en la promoción para enviarte el pan o queso.'); return; }
+    if (!consentPromo) { alert('Necesitamos que aceptes participar en la promoción para enviarte el pan.'); return; }
     if (!nombre.trim() || !telefono.trim()) { alert('Rellena tu nombre y tu WhatsApp.'); return; }
     if (bars.length > 0 && !bar) { alert('Indica en qué tienda estás.'); return; }
     setState('loading');
@@ -338,7 +338,7 @@ export default function DailyBreadLanding() {
           {/* Headline */}
           <div className="form-hl">
             <div className="tag">★ Invitación personal</div>
-            <h1>Pan y queso,<br /><em>gratis.</em></h1>
+            <h1>Pan,<br /><em>gratis.</em></h1>
             <p>Solo tu nombre y WhatsApp. El código llega al instante.</p>
           </div>
 
@@ -346,7 +346,7 @@ export default function DailyBreadLanding() {
           <div className="form-card">
             {state !== 'success' ? (
               <form onSubmit={handleSubmit} noValidate>
-                <p className="sub">🥖 Pan o queso por cortesía de DELAGALA + el Delagala Daily por WhatsApp.</p>
+                <p className="sub">🥖 Pan por cortesía de DELAGALA + el Delagala Daily por WhatsApp.</p>
 
                 {state === 'error' && <div className="error-box">{errorMsg}</div>}
 
@@ -406,14 +406,14 @@ export default function DailyBreadLanding() {
                     <span>Enviando...</span>
                   ) : (
                     <>
-                      <span>Quiero mi pan o queso</span>
+                      <span>Quiero mi pan</span>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
                     </>
                   )}
                 </button>
 
                 <div className="privacy-box">
-                  Responsable: {RAZON_SOCIAL}, CIF {CIF}, {DIRECCION}. Finalidad: gestionar la promoción y enviar el código del pan o queso y el periódico digital. Base: consentimiento. Puedes ejercer tus derechos en <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+                  Responsable: {RAZON_SOCIAL}, CIF {CIF}, {DIRECCION}. Finalidad: gestionar la promoción y enviar el código del pan y el periódico digital. Base: consentimiento. Puedes ejercer tus derechos en <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
                 </div>
               </form>
             ) : (
@@ -422,7 +422,7 @@ export default function DailyBreadLanding() {
                 <h2>{result?.already_claimed ? 'Ya tienes tu código' : '¡Listo!'}</h2>
                 <p>{result?.already_claimed
                   ? <>Tu código sigue activo en WhatsApp. Próximo disponible el <strong>{result.next_available ? new Date(result.next_available).toLocaleDateString('es-ES') : ''}</strong>.</>
-                  : <>Tu código del pan o queso y el Delagala Daily están de camino a tu WhatsApp ahora mismo.</>
+                  : <>Tu código del pan y el Delagala Daily están de camino a tu WhatsApp ahora mismo.</>
                 }</p>
                 <div className="wa-box">
                   <span className="wa-emoji">📲</span>
@@ -463,7 +463,7 @@ export default function DailyBreadLanding() {
         <section className="hero">
           <span className="eyebrow">★ Invitación personal</span>
           <h2>
-            Pan y queso{' '}
+            Pan{' '}
             <span className="cup-icon" aria-hidden="true">
               <svg viewBox="0 0 132 115" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: 'auto', display: 'block', overflow: 'visible' }}>
                 {/* vapor de pan recién hecho */}
@@ -476,22 +476,19 @@ export default function DailyBreadLanding() {
                 <g stroke="#E5B520" strokeWidth="4" strokeLinecap="round">
                   <line x1="30" y1="80" x2="40" y2="72" /><line x1="44" y1="84" x2="54" y2="76" /><line x1="58" y1="84" x2="68" y2="76" />
                 </g>
-                {/* cuña de queso */}
-                <path d="M92 104 L126 104 L126 70 Z" stroke="#0A0A0A" strokeWidth="5" fill="none" strokeLinejoin="round" />
-                <circle cx="108" cy="94" r="3" stroke="#0A0A0A" strokeWidth="3" fill="none" /><circle cx="117" cy="88" r="2.5" stroke="#0A0A0A" strokeWidth="3" fill="none" />
-                <line x1="4" y1="110" x2="126" y2="110" stroke="#0A0A0A" strokeWidth="5" strokeLinecap="round" />
+                <line x1="4" y1="110" x2="92" y2="110" stroke="#0A0A0A" strokeWidth="5" strokeLinecap="round" />
               </svg>
             </span>
             <br /><span className="italic">de la inmobiliaria</span>
           </h2>
           <p className="lede">
-            Te invitamos a un <strong>pan o un queso por cortesía de DELAGALA</strong> y te enviamos el{' '}
+            Te invitamos a un <strong>pan por cortesía de DELAGALA</strong> y te enviamos el{' '}
             <strong>Delagala Daily por WhatsApp</strong>, con el análisis del mercado inmobiliario.
             Sin compromiso, sin reunión comercial. Solo información útil y producto de barrio.
           </p>
           <div className="hero-cta">
             <a href="#registro" className="btn btn-primary">
-              Reservar mi pan o queso
+              Reservar mi pan
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
             </a>
             <a href="#portada" className="btn btn-ghost">Ver qué contiene</a>
@@ -551,10 +548,10 @@ export default function DailyBreadLanding() {
           <div className="subscribe-grid" style={{ maxWidth: 760 }}>
             <div className="subscribe-copy">
               <div className="label">Reserva tu invitación</div>
-              <h3>El pan y el queso, por nuestra cuenta. <span className="italic">Y el Daily, en tu WhatsApp.</span></h3>
-              <p>Al registrarte recibirás un <strong style={{ color: 'var(--yellow)' }}>código único</strong> por WhatsApp. Muéstralo en la tienda y te invitamos al pan o al queso — y de paso te llega el <strong style={{ color: 'var(--yellow)' }}>Delagala Daily por WhatsApp</strong>, listo para leer cuando quieras.</p>
+              <h3>El pan, por nuestra cuenta. <span className="italic">Y el Daily, en tu WhatsApp.</span></h3>
+              <p>Al registrarte recibirás un <strong style={{ color: 'var(--yellow)' }}>código único</strong> por WhatsApp. Muéstralo en la tienda y te invitamos al pan — y de paso te llega el <strong style={{ color: 'var(--yellow)' }}>Delagala Daily por WhatsApp</strong>, listo para leer cuando quieras.</p>
               <ul className="checklist">
-                <li><span className="check">✓</span><span><strong>Pan o queso gratis</strong>, aquí mismo en la tienda.</span></li>
+                <li><span className="check">✓</span><span><strong>Pan gratis</strong>, aquí mismo en la tienda.</span></li>
                 <li><span className="check">✓</span><span><strong>El Delagala Daily por WhatsApp</strong>, con el análisis del mercado inmobiliario de Bizkaia.</span></li>
                 <li><span className="check">✓</span><span><strong>Sin compromiso comercial.</strong> No hay reunión obligatoria.</span></li>
                 <li><span className="check">✓</span><span><strong>30 segundos</strong> para registrarte. No hay letra pequeña.</span></li>
@@ -572,7 +569,7 @@ export default function DailyBreadLanding() {
           <div className="steps">
             <div className="step"><div className="num">01</div><h4>Te registras aquí</h4><p>Rellenas el formulario en menos de un minuto. Recibes por WhatsApp tu código y el Delagala Daily.</p></div>
             <div className="step"><div className="num">02</div><h4>Muestras el código</h4><p>Enseñas el código en la tienda. DELAGALA invita — sin pagar nada, sin cita previa.</p></div>
-            <div className="step"><div className="num">03</div><h4>Pan, queso y periódico</h4><p>Disfrutas tu pan o queso y recibes el Delagala Daily por WhatsApp, con el análisis del mercado inmobiliario.</p></div>
+            <div className="step"><div className="num">03</div><h4>Pan y periódico</h4><p>Disfrutas tu pan y recibes el Delagala Daily por WhatsApp, con el análisis del mercado inmobiliario.</p></div>
           </div>
         </section>
       </div>

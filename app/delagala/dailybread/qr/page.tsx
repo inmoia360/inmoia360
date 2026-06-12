@@ -36,7 +36,7 @@ export default function QRPage() {
             ★ Invitación
           </div>
 
-          {/* Pan y queso grande */}
+          {/* Pan grande */}
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 6 }}>
             <svg viewBox="0 0 132 115" width="140" height="122" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={{ overflow: 'visible' }}>
               <g stroke={YD} strokeWidth="5" strokeLinecap="round" fill="none">
@@ -46,15 +46,13 @@ export default function QRPage() {
               <g stroke={YD} strokeWidth="4" strokeLinecap="round">
                 <line x1="30" y1="80" x2="40" y2="72" /><line x1="44" y1="84" x2="54" y2="76" /><line x1="58" y1="84" x2="68" y2="76" />
               </g>
-              <path d="M92 104 L126 104 L126 70 Z" stroke={INK} strokeWidth="5" fill="none" strokeLinejoin="round" />
-              <circle cx="108" cy="94" r="3" stroke={INK} strokeWidth="3" fill="none" /><circle cx="117" cy="88" r="2.5" stroke={INK} strokeWidth="3" fill="none" />
-              <line x1="4" y1="110" x2="126" y2="110" stroke={INK} strokeWidth="5" strokeLinecap="round" />
+              <line x1="4" y1="110" x2="92" y2="110" stroke={INK} strokeWidth="5" strokeLinecap="round" />
             </svg>
           </div>
 
           {/* Headline */}
           <h1 style={{ fontFamily: "'Playfair Display',serif", fontWeight: 900, fontSize: 38, lineHeight: 1, letterSpacing: '-0.02em', marginBottom: 12 }}>
-            Pan y queso,<br /><span style={{ fontStyle: 'italic' }}>gratis.</span>
+            Pan,<br /><span style={{ fontStyle: 'italic' }}>gratis.</span>
           </h1>
           <p style={{ fontSize: 13, color: '#2A2A2A', lineHeight: 1.6, marginBottom: 24 }}>
             Escanea el código, regístrate en 30 segundos<br />
@@ -64,7 +62,7 @@ export default function QRPage() {
           {/* QR Code */}
           <div style={{ border: `4px solid ${INK}`, display: 'inline-block', padding: 4, marginBottom: 24, background: '#fff' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={QR_URL} alt="QR Pan y Queso DELAGALA" width={210} height={210} style={{ display: 'block' }} />
+            <img src={QR_URL} alt="QR Pan DELAGALA" width={210} height={210} style={{ display: 'block' }} />
           </div>
 
           {/* Steps */}
@@ -72,7 +70,7 @@ export default function QRPage() {
             {[
               { n: '1', t: 'Escanea', d: 'Con la cámara del móvil' },
               { n: '2', t: 'Regístrate', d: 'Nombre y WhatsApp' },
-              { n: '3', t: 'Disfruta', d: 'Pan o queso de cortesía' },
+              { n: '3', t: 'Disfruta', d: 'Pan de cortesía' },
             ].map((s, i) => (
               <div key={s.n} style={{ flex: 1, textAlign: 'center', borderRight: i < 2 ? `1px solid #E5E5E0` : 'none', padding: '0 8px' }}>
                 <div style={{ fontFamily: "'Playfair Display',serif", fontWeight: 900, fontSize: 30, lineHeight: 1, fontStyle: 'italic' }}>{s.n}</div>
