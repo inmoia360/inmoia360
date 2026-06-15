@@ -28,6 +28,10 @@ export default function UnifiedAdmin() {
   const [nWa, setNWa] = useState('');
   const [nLimit, setNLimit] = useState('50');
   const [adding, setAdding] = useState(false);
+  // Filtros
+  const [fLoc, setFLoc] = useState('');
+  const [fFrom, setFFrom] = useState('');
+  const [fTo, setFTo] = useState('');
 
   const load = useCallback(async (t: TabKey) => {
     setLoading(true);
@@ -38,7 +42,15 @@ export default function UnifiedAdmin() {
     setLoading(false);
   }, [router]);
 
-  useEffect(() => { load(tab); }, [tab, load]);
+  useEffect(() => { load(tab); setFLoc(''); setFFrom(''); setFTo(''); }, [tab, load]);
+
+  const filtered = coupons.filter(c => {
+    if (fLoc && (c.location_name ?? '') !== fLoc) return false;
+    const day = (c.created_at ?? '').slice(0, 10);
+    if (fFrom && day < fFrom) return false;
+    if (fTo && day > fTo) return false;
+    return true;
+  });
 
   async function del(id: number, name: string) {
     if (!confirm(`¿Borrar el registro de "${name}"?`)) return;
@@ -127,7 +139,24 @@ export default function UnifiedAdmin() {
             </div>
 
             <div style={{ ...card, padding: 0, overflow: 'hidden' }}>
-              <div style={{ padding: '.9rem 1.25rem', borderBottom: '1px solid #eee', fontWeight: 700 }}>Registros ({coupons.length})</div>
+              <div style={{ padding: '.9rem 1.25rem', borderBottom: '1px solid #eee', display: 'flex', flexWrap: 'wrap', gap: '.75rem', alignItems: 'end' }}>
+                <div style={{ fontWeight: 700, marginRight: 'auto' }}>Registros ({filtered.length}{filtered.length !== coupons.length ? ` de ${coupons.length}` : ''})</div>
+                <label style={{ fontSize: '.7rem', color: '#789' }}>Establecimiento<br />
+                  <select value={fLoc} onChange={e => setFLoc(e.target.value)} style={{ marginTop: 2, padding: '.4rem .5rem', border: '1.5px solid #d8dede', borderRadius: 6, fontSize: '.85rem' }}>
+                    <option value="">Todos</option>
+                    {locations.map(l => <option key={l.id} value={l.name}>{l.name}</option>)}
+                  </select>
+                </label>
+                <label style={{ fontSize: '.7rem', color: '#789' }}>Desde<br />
+                  <input type="date" value={fFrom} onChange={e => setFFrom(e.target.value)} style={{ marginTop: 2, padding: '.4rem .5rem', border: '1.5px solid #d8dede', borderRadius: 6, fontSize: '.85rem' }} />
+                </label>
+                <label style={{ fontSize: '.7rem', color: '#789' }}>Hasta<br />
+                  <input type="date" value={fTo} onChange={e => setFTo(e.target.value)} style={{ marginTop: 2, padding: '.4rem .5rem', border: '1.5px solid #d8dede', borderRadius: 6, fontSize: '.85rem' }} />
+                </label>
+                {(fLoc || fFrom || fTo) && (
+                  <button onClick={() => { setFLoc(''); setFFrom(''); setFTo(''); }} style={{ padding: '.45rem .8rem', border: '1px solid #d8dede', background: '#fff', borderRadius: 6, cursor: 'pointer', fontSize: '.8rem' }}>Limpiar</button>
+                )}
+              </div>
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '.85rem' }}>
                   <thead>
@@ -141,8 +170,8 @@ export default function UnifiedAdmin() {
                     </tr>
                   </thead>
                   <tbody>
-                    {coupons.length === 0 && <tr><td colSpan={6} style={{ padding: '1.5rem', textAlign: 'center', color: '#789' }}>Sin registros todavía</td></tr>}
-                    {coupons.map(c => (
+                    {filtered.length === 0 && <tr><td colSpan={6} style={{ padding: '1.5rem', textAlign: 'center', color: '#789' }}>Sin registros para este filtro</td></tr>}
+                    {filtered.map(c => (
                       <tr key={c.id} style={{ borderBottom: '1px solid #f0f0f0' }}>
                         <td style={{ padding: '.6rem 1rem', fontWeight: 600 }}>{c.lead_name}</td>
                         <td style={{ padding: '.6rem 1rem' }}>{c.lead_phone}</td>
