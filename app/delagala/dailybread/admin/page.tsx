@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 type Coupon = { id: number; lead_name: string; lead_phone: string; coupon_code: string; status: string; created_at: string; location_name: string | null };
 type Loc = { id: number; name: string; city: string | null; coupon_limit: number; is_active: boolean; used_this_month: number };
 type Stats = { total: number; this_month: number; this_week: number; today: number };
+type Msg = { id: number; wa_from: string; wa_name: string | null; direction: string; body: string; created_at: string };
 
 const GOLD = '#E0A52C';
 const INK = '#21404F';
@@ -13,6 +14,7 @@ const INK = '#21404F';
 const TABS = {
   pan: { label: '🥖 Pan', endpoint: '/api/admin/dailybread/data', landing: '/delagala/dailybread' },
   cafe: { label: '☕ Café', endpoint: '/api/admin/dailycoffee/data', landing: '/delagala/dailycoffee' },
+  mensajes: { label: '💬 Respuestas', endpoint: '/api/admin/messages/data', landing: '' },
 } as const;
 type TabKey = keyof typeof TABS;
 
@@ -22,6 +24,7 @@ export default function UnifiedAdmin() {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [locations, setLocations] = useState<Loc[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
+  const [messages, setMessages] = useState<Msg[]>([]);
   const [loading, setLoading] = useState(true);
   const [nName, setNName] = useState('');
   const [nCity, setNCity] = useState('');
@@ -38,7 +41,11 @@ export default function UnifiedAdmin() {
     const res = await fetch(TABS[t].endpoint);
     if (res.status === 401) { router.push('/delagala/dailybread/admin/login'); return; }
     const d = await res.json();
-    setCoupons(d.coupons ?? []); setLocations(d.locations ?? []); setStats(d.stats ?? null);
+    if (t === 'mensajes') {
+      setMessages(d.messages ?? []);
+    } else {
+      setCoupons(d.coupons ?? []); setLocations(d.locations ?? []); setStats(d.stats ?? null);
+    }
     setLoading(false);
   }, [router]);
 
@@ -111,7 +118,22 @@ export default function UnifiedAdmin() {
       </div>
 
       <div style={{ padding: '1.5rem', maxWidth: 1000, margin: '0 auto' }}>
-        {loading ? <p>Cargando…</p> : (
+        {loading ? <p>Cargando…</p> : tab === 'mensajes' ? (
+          <div style={{ ...card, padding: 0, overflow: 'hidden' }}>
+            <div style={{ padding: '.9rem 1.25rem', borderBottom: '1px solid #eee', fontWeight: 700 }}>Respuestas de leads ({messages.length})</div>
+            {messages.length === 0 && <div style={{ padding: '1.75rem', textAlign: 'center', color: '#789' }}>Sin mensajes todavía.<br /><span style={{ fontSize: '.85rem' }}>Cuando un lead responda por WhatsApp, aparecerá aquí.</span></div>}
+            {messages.map(m => (
+              <div key={m.id} style={{ padding: '.8rem 1.25rem', borderBottom: '1px solid #f0f0f0' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '.8rem', marginBottom: '.15rem' }}>
+                  <strong style={{ color: INK }}>{m.wa_name || m.wa_from}</strong>
+                  <span style={{ color: '#9aa7ad' }}>{new Date(m.created_at).toLocaleString('es-ES')}</span>
+                </div>
+                <div style={{ fontSize: '.72rem', color: '#9aa7ad', marginBottom: '.35rem' }}>📱 {m.wa_from}</div>
+                <div style={{ fontSize: '.92rem' }}>{m.body}</div>
+              </div>
+            ))}
+          </div>
+        ) : (
           <>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', marginBottom: '1.5rem' }}>
               {[['Total', stats?.total], ['Este mes', stats?.this_month], ['Esta semana', stats?.this_week], ['Hoy', stats?.today]].map(([l, v]) => (
