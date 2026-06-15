@@ -56,3 +56,20 @@ export async function DELETE(req: NextRequest) {
   `;
   return NextResponse.json({ ok: true, deleted: row?.id ?? null });
 }
+
+// Dar de alta un establecimiento (bar) del café
+export async function POST(req: NextRequest) {
+  if (!(await verifyRequestSession(req))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const { name, city, staff_whatsapp, coupon_limit } = await req.json().catch(() => ({}));
+  if (!name?.trim()) return NextResponse.json({ error: 'El nombre es obligatorio' }, { status: 400 });
+  const slug = (name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')) || `bar-${Date.now()}`;
+  const sql = getDb();
+  const [bar] = await sql`
+    INSERT INTO marketing_pilot.bars (slug, name, city, staff_whatsapp, coupon_limit, is_active, campaign_id)
+    VALUES (${slug}, ${name.trim()}, ${city?.trim() || null}, ${staff_whatsapp?.trim() || null}, ${coupon_limit || 50}, true,
+            (SELECT id FROM marketing_pilot.campaigns WHERE slug = 'dailycoffee'))
+    ON CONFLICT (slug) DO UPDATE SET name = EXCLUDED.name, city = EXCLUDED.city, staff_whatsapp = EXCLUDED.staff_whatsapp, coupon_limit = EXCLUDED.coupon_limit
+    RETURNING id, name
+  `;
+  return NextResponse.json({ ok: true, location: bar }, { status: 201 });
+}

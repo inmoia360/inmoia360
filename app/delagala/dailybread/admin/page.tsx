@@ -23,6 +23,11 @@ export default function UnifiedAdmin() {
   const [locations, setLocations] = useState<Loc[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [nName, setNName] = useState('');
+  const [nCity, setNCity] = useState('');
+  const [nWa, setNWa] = useState('');
+  const [nLimit, setNLimit] = useState('50');
+  const [adding, setAdding] = useState(false);
 
   const load = useCallback(async (t: TabKey) => {
     setLoading(true);
@@ -39,6 +44,19 @@ export default function UnifiedAdmin() {
     if (!confirm(`¿Borrar el registro de "${name}"?`)) return;
     await fetch(`${TABS[tab].endpoint}?id=${id}`, { method: 'DELETE' });
     load(tab);
+  }
+
+  async function addLocation() {
+    if (!nName.trim()) { alert('Pon el nombre del establecimiento.'); return; }
+    setAdding(true);
+    const res = await fetch(TABS[tab].endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: nName.trim(), city: nCity.trim(), staff_whatsapp: nWa.trim(), coupon_limit: Number(nLimit) || 50 }),
+    });
+    setAdding(false);
+    if (res.ok) { setNName(''); setNCity(''); setNWa(''); setNLimit('50'); load(tab); }
+    else { const d = await res.json(); alert(d.error ?? 'Error al dar de alta'); }
   }
 
   async function logout() {
@@ -93,6 +111,21 @@ export default function UnifiedAdmin() {
               </div>
             ))}
 
+            {/* Alta de establecimiento */}
+            <div style={{ ...card, marginBottom: '1.5rem' }}>
+              <div style={{ fontWeight: 700, marginBottom: '.75rem' }}>➕ Dar de alta un {tab === 'pan' ? 'establecimiento (panadería/quesería)' : 'bar'}</div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr .6fr auto', gap: '.6rem', alignItems: 'end' }}>
+                <Field label="Nombre *" value={nName} onChange={setNName} placeholder={tab === 'pan' ? 'Panadería X' : 'Bar X'} />
+                <Field label="Ciudad" value={nCity} onChange={setNCity} placeholder="Getxo" />
+                <Field label="WhatsApp del local (avisos)" value={nWa} onChange={setNWa} placeholder="34600000000" />
+                <Field label="Límite/mes" value={nLimit} onChange={setNLimit} placeholder="50" />
+                <button onClick={addLocation} disabled={adding} style={{ background: adding ? '#ccc' : GOLD, color: '#fff', border: 'none', borderRadius: 8, padding: '.6rem 1rem', fontWeight: 700, cursor: adding ? 'not-allowed' : 'pointer', whiteSpace: 'nowrap' }}>
+                  {adding ? 'Guardando…' : 'Dar de alta'}
+                </button>
+              </div>
+              <div style={{ fontSize: '.72rem', color: '#9aa7ad', marginTop: '.5rem' }}>El WhatsApp del local es opcional; si lo pones, recibirá un aviso por cada código generado.</div>
+            </div>
+
             <div style={{ ...card, padding: 0, overflow: 'hidden' }}>
               <div style={{ padding: '.9rem 1.25rem', borderBottom: '1px solid #eee', fontWeight: 700 }}>Registros ({coupons.length})</div>
               <div style={{ overflowX: 'auto' }}>
@@ -129,5 +162,15 @@ export default function UnifiedAdmin() {
         )}
       </div>
     </main>
+  );
+}
+
+function Field({ label, value, onChange, placeholder }: { label: string; value: string; onChange: (v: string) => void; placeholder?: string }) {
+  return (
+    <label style={{ display: 'block' }}>
+      <span style={{ display: 'block', fontSize: '.68rem', color: '#789', marginBottom: '.25rem', textTransform: 'uppercase', letterSpacing: '.5px' }}>{label}</span>
+      <input value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder}
+        style={{ width: '100%', border: '1.5px solid #d8dede', borderRadius: 8, padding: '.5rem .6rem', fontSize: '.9rem', boxSizing: 'border-box', outline: 'none' }} />
+    </label>
   );
 }

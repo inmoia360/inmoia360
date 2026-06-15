@@ -48,3 +48,19 @@ export async function DELETE(req: NextRequest) {
   const [row] = await sql`DELETE FROM pan.coupons WHERE id = ${id} RETURNING id`;
   return NextResponse.json({ ok: true, deleted: row?.id ?? null });
 }
+
+// Dar de alta un establecimiento del pan
+export async function POST(req: NextRequest) {
+  if (!(await verifyRequestSession(req))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const { name, city, staff_whatsapp, coupon_limit } = await req.json().catch(() => ({}));
+  if (!name?.trim()) return NextResponse.json({ error: 'El nombre es obligatorio' }, { status: 400 });
+  const slug = (name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')) || `local-${Date.now()}`;
+  const sql = getDb();
+  const [loc] = await sql`
+    INSERT INTO pan.locations (slug, name, city, staff_whatsapp, coupon_limit, is_active)
+    VALUES (${slug}, ${name.trim()}, ${city?.trim() || null}, ${staff_whatsapp?.trim() || null}, ${coupon_limit || 50}, true)
+    ON CONFLICT (slug) DO UPDATE SET name = EXCLUDED.name, city = EXCLUDED.city, staff_whatsapp = EXCLUDED.staff_whatsapp, coupon_limit = EXCLUDED.coupon_limit
+    RETURNING id, name
+  `;
+  return NextResponse.json({ ok: true, location: loc }, { status: 201 });
+}
