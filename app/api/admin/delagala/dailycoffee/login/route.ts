@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
   if (!adminPassword) {
     return NextResponse.json({ error: 'Server misconfigured: DAILYCOFFEE_ADMIN_PASSWORD not set' }, { status: 500 });
   }
-  if (!password || password !== adminPassword) {
+  if (!password || password.trim() !== adminPassword.trim()) {
     // Constant-time comparison not strictly needed since this isn't a hash, but adds clarity
     return NextResponse.json({ error: 'Contraseña incorrecta' }, { status: 401 });
   }

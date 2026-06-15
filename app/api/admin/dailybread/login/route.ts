@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
   if (!adminPassword) {
     return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 });
   }
-  if (!password || password !== adminPassword) {
+  if (!password || password.trim() !== adminPassword.trim()) {
     return NextResponse.json({ error: 'Contraseña incorrecta' }, { status: 401 });
   }
   const token = await createSessionToken('delagala', 'dailybread');
