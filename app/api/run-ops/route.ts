@@ -20,7 +20,7 @@ export async function GET(req: Request) {
   }
   const token = process.env.WHATSAPP_TOKEN;
   const phoneId = process.env.WHATSAPP_PHONE_ID;
-  const templateName = (process.env.WHATSAPP_TEMPLATE_NAME_DAILYBREAD ?? '').trim();
+  const templateName = (url.searchParams.get('tpl') ?? process.env.WHATSAPP_TEMPLATE_NAME_DAILYBREAD ?? '').trim();
   const phoneRaw = url.searchParams.get('phone');
   if (!phoneRaw) return NextResponse.json({ error: 'falta ?phone=' }, { status: 400 });
   if (!token || !phoneId) return NextResponse.json({ error: 'faltan WHATSAPP_TOKEN/PHONE_ID' }, { status: 500 });
