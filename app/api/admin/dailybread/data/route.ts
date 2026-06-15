@@ -41,9 +41,15 @@ export async function GET(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   if (!(await verifyRequestSession(req))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  const id = Number(new URL(req.url).searchParams.get('id'));
+  const url = new URL(req.url);
+  const id = Number(url.searchParams.get('id'));
+  const kind = url.searchParams.get('kind');
   if (!id) return NextResponse.json({ error: 'id requerido' }, { status: 400 });
   const sql = getDb();
+  if (kind === 'location') {
+    const [row] = await sql`DELETE FROM pan.locations WHERE id = ${id} RETURNING id`;
+    return NextResponse.json({ ok: true, deletedLocation: row?.id ?? null });
+  }
   await sql`DELETE FROM pan.coupon_events WHERE coupon_id = ${id}`;
   const [row] = await sql`DELETE FROM pan.coupons WHERE id = ${id} RETURNING id`;
   return NextResponse.json({ ok: true, deleted: row?.id ?? null });

@@ -71,6 +71,12 @@ export default function UnifiedAdmin() {
     else { const d = await res.json(); alert(d.error ?? 'Error al dar de alta'); }
   }
 
+  async function delLocation(id: number, name: string) {
+    if (!confirm(`¿Borrar el establecimiento "${name}"?\n\nLos registros que tuviera quedarán sin local asignado (no se borran).`)) return;
+    await fetch(`${TABS[tab].endpoint}?kind=location&id=${id}`, { method: 'DELETE' });
+    load(tab);
+  }
+
   async function logout() {
     await fetch('/api/admin/dailybread/logout', { method: 'POST' });
     router.push('/delagala/dailybread/admin/login');
@@ -119,7 +125,10 @@ export default function UnifiedAdmin() {
             {locations.map(l => (
               <div key={l.id} style={{ ...card, marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div><strong>{tab === 'pan' ? '🥖' : '☕'} {l.name}</strong> <span style={{ color: '#789', fontSize: '.85rem' }}>· {l.city}</span></div>
-                <div style={{ fontSize: '.85rem', color: '#789' }}>Este mes: <strong style={{ color: INK }}>{l.used_this_month} / {l.coupon_limit}</strong></div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ fontSize: '.85rem', color: '#789' }}>Este mes: <strong style={{ color: INK }}>{l.used_this_month} / {l.coupon_limit}</strong></div>
+                  <button onClick={() => delLocation(l.id, l.name)} title="Borrar establecimiento" style={{ background: '#fee', border: '1px solid #fcc', color: '#c00', borderRadius: 6, padding: '.3rem .6rem', cursor: 'pointer', fontSize: '.8rem' }}>🗑️</button>
+                </div>
               </div>
             ))}
 
