@@ -10,27 +10,35 @@ type Stats = { total: number; this_month: number; this_week: number; today: numb
 const GOLD = '#E0A52C';
 const INK = '#21404F';
 
-export default function BreadAdmin() {
+const TABS = {
+  pan: { label: '🥖 Pan', endpoint: '/api/admin/dailybread/data', landing: '/delagala/dailybread' },
+  cafe: { label: '☕ Café', endpoint: '/api/admin/dailycoffee/data', landing: '/delagala/dailycoffee' },
+} as const;
+type TabKey = keyof typeof TABS;
+
+export default function UnifiedAdmin() {
   const router = useRouter();
+  const [tab, setTab] = useState<TabKey>('pan');
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [locations, setLocations] = useState<Loc[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const load = useCallback(async () => {
-    const res = await fetch('/api/admin/dailybread/data');
+  const load = useCallback(async (t: TabKey) => {
+    setLoading(true);
+    const res = await fetch(TABS[t].endpoint);
     if (res.status === 401) { router.push('/delagala/dailybread/admin/login'); return; }
     const d = await res.json();
     setCoupons(d.coupons ?? []); setLocations(d.locations ?? []); setStats(d.stats ?? null);
     setLoading(false);
   }, [router]);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => { load(tab); }, [tab, load]);
 
   async function del(id: number, name: string) {
     if (!confirm(`¿Borrar el registro de "${name}"?`)) return;
-    await fetch(`/api/admin/dailybread/data?id=${id}`, { method: 'DELETE' });
-    load();
+    await fetch(`${TABS[tab].endpoint}?id=${id}`, { method: 'DELETE' });
+    load(tab);
   }
 
   async function logout() {
@@ -46,18 +54,29 @@ export default function BreadAdmin() {
       <header style={{ background: INK, color: '#fff', padding: '1rem 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
           <div style={{ fontWeight: 800, letterSpacing: 3 }}>DELAGALA</div>
-          <div style={{ fontSize: '.7rem', color: GOLD, letterSpacing: 2 }}>PAN · ADMIN (Zapore)</div>
+          <div style={{ fontSize: '.7rem', color: GOLD, letterSpacing: 2 }}>PANEL · ADMIN</div>
         </div>
         <div style={{ display: 'flex', gap: '.75rem' }}>
-          <a href="/delagala/dailybread" target="_blank" style={{ color: GOLD, fontSize: '.8rem', alignSelf: 'center', textDecoration: 'none' }}>🔗 Ver landing</a>
+          <a href={TABS[tab].landing} target="_blank" style={{ color: GOLD, fontSize: '.8rem', alignSelf: 'center', textDecoration: 'none' }}>🔗 Ver landing</a>
           <button onClick={logout} style={{ background: 'transparent', border: '1px solid #ffffff55', color: '#fff', borderRadius: 6, padding: '.4rem .8rem', cursor: 'pointer', fontSize: '.8rem' }}>Cerrar sesión</button>
         </div>
       </header>
 
+      {/* Tabs */}
+      <div style={{ background: '#fff', borderBottom: '1px solid #e5e7e7', padding: '0 1.5rem', display: 'flex', gap: '.5rem' }}>
+        {(Object.keys(TABS) as TabKey[]).map(k => (
+          <button key={k} onClick={() => setTab(k)} style={{
+            padding: '.9rem 1.2rem', border: 'none', background: 'transparent', cursor: 'pointer',
+            fontSize: '.95rem', fontWeight: 700,
+            color: tab === k ? INK : '#9aa7ad',
+            borderBottom: tab === k ? `3px solid ${GOLD}` : '3px solid transparent',
+          }}>{TABS[k].label}</button>
+        ))}
+      </div>
+
       <div style={{ padding: '1.5rem', maxWidth: 1000, margin: '0 auto' }}>
         {loading ? <p>Cargando…</p> : (
           <>
-            {/* Stats */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', marginBottom: '1.5rem' }}>
               {[['Total', stats?.total], ['Este mes', stats?.this_month], ['Esta semana', stats?.this_week], ['Hoy', stats?.today]].map(([l, v]) => (
                 <div key={l as string} style={card}>
@@ -67,15 +86,13 @@ export default function BreadAdmin() {
               ))}
             </div>
 
-            {/* Locations */}
             {locations.map(l => (
               <div key={l.id} style={{ ...card, marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div><strong>🥖 {l.name}</strong> <span style={{ color: '#789', fontSize: '.85rem' }}>· {l.city}</span></div>
+                <div><strong>{tab === 'pan' ? '🥖' : '☕'} {l.name}</strong> <span style={{ color: '#789', fontSize: '.85rem' }}>· {l.city}</span></div>
                 <div style={{ fontSize: '.85rem', color: '#789' }}>Este mes: <strong style={{ color: INK }}>{l.used_this_month} / {l.coupon_limit}</strong></div>
               </div>
             ))}
 
-            {/* Coupons table */}
             <div style={{ ...card, padding: 0, overflow: 'hidden' }}>
               <div style={{ padding: '.9rem 1.25rem', borderBottom: '1px solid #eee', fontWeight: 700 }}>Registros ({coupons.length})</div>
               <div style={{ overflowX: 'auto' }}>
@@ -85,17 +102,19 @@ export default function BreadAdmin() {
                       <th style={{ padding: '.6rem 1rem' }}>Nombre</th>
                       <th style={{ padding: '.6rem 1rem' }}>WhatsApp</th>
                       <th style={{ padding: '.6rem 1rem' }}>Código</th>
+                      <th style={{ padding: '.6rem 1rem' }}>Local</th>
                       <th style={{ padding: '.6rem 1rem' }}>Fecha</th>
                       <th style={{ padding: '.6rem 1rem' }}></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {coupons.length === 0 && <tr><td colSpan={5} style={{ padding: '1.5rem', textAlign: 'center', color: '#789' }}>Sin registros todavía</td></tr>}
+                    {coupons.length === 0 && <tr><td colSpan={6} style={{ padding: '1.5rem', textAlign: 'center', color: '#789' }}>Sin registros todavía</td></tr>}
                     {coupons.map(c => (
                       <tr key={c.id} style={{ borderBottom: '1px solid #f0f0f0' }}>
                         <td style={{ padding: '.6rem 1rem', fontWeight: 600 }}>{c.lead_name}</td>
                         <td style={{ padding: '.6rem 1rem' }}>{c.lead_phone}</td>
                         <td style={{ padding: '.6rem 1rem', fontFamily: 'monospace' }}>{c.coupon_code}</td>
+                        <td style={{ padding: '.6rem 1rem', color: '#789' }}>{c.location_name ?? '—'}</td>
                         <td style={{ padding: '.6rem 1rem', color: '#789' }}>{fmt(c.created_at)}</td>
                         <td style={{ padding: '.6rem 1rem', textAlign: 'right' }}>
                           <button onClick={() => del(c.id, c.lead_name)} style={{ background: '#fee', border: '1px solid #fcc', color: '#c00', borderRadius: 6, padding: '.3rem .6rem', cursor: 'pointer', fontSize: '.8rem' }}>🗑️ Borrar</button>
