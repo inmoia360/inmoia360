@@ -118,7 +118,7 @@ export async function POST(
 
   const wa = campaignWa(slug);
   // plantilla WhatsApp por campaña: WHATSAPP_TEMPLATE_NAME_<SLUG>; el café usa su env clásica
-  const tplEnv = process.env[`WHATSAPP_TEMPLATE_NAME_${slug.toUpperCase()}`];
+  const tplEnv = process.env[`WHATSAPP_TEMPLATE_NAME_${slug.toUpperCase()}`]?.trim();
   const templateName = tplEnv ?? (slug === 'dailycoffee' ? undefined : 'hello_world');
 
   await sendCouponWhatsApp(phone, lead_name.trim(), coupon_code, {
