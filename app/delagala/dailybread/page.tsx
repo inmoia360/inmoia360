@@ -453,7 +453,7 @@ export default function DailyBreadLanding() {
         </header>
         <div className="issue-bar">
           <span>Vol. I <span className="sep">·</span> Nº 04 <span className="sep">·</span> Edición Trimestral</span>
-          <span>Mayo 2026</span>
+          <span>Junio 2026</span>
           <span>Getxo · Bilbao · Las Arenas · Algorta</span>
         </div>
       </div>
