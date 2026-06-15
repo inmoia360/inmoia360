@@ -27,9 +27,11 @@ export async function GET(req: Request) {
     return NextResponse.json(d, { status: r.ok ? 200 : 400 });
   }
 
-  const name = url.searchParams.get('name') ?? 'delagala_pan_v2';
+  const name = url.searchParams.get('name') ?? 'delagala_pan_v3';
   const category = url.searchParams.get('category') ?? 'MARKETING';
 
+  // Clon de la plantilla del cafe aprobada (delagala_cafe_v7): texto corto,
+  // sin tildes ni emojis, con *{{2}}* en negrita y boton al periodico.
   const template = {
     name,
     category,
@@ -37,8 +39,14 @@ export async function GET(req: Request) {
     components: [
       {
         type: 'BODY',
-        text: 'Hola {{1}} 👋\n\nSoy DELAGALA. ¡Gracias por registrarte!\n\nAquí tienes tu código para canjear tu pan gratis:\n\n{{2}}\n\nMuéstralo en la panadería y disfruta 🥖\n\n— DELAGALA Consultoría Inmobiliaria\nidelagala.com · 662 128 409',
-        example: { body_text: [['María', 'DLG-ABC12345']] },
+        text: 'Hola {{1}}, aqui tienes tu codigo de pan gratis en DELAGALA: *{{2}}*. Muestralo en la panaderia y disfruta.',
+        example: { body_text: [['Carlos', 'DLG-AB12CD']] },
+      },
+      {
+        type: 'BUTTONS',
+        buttons: [
+          { type: 'URL', text: 'Leer el Delagala Daily', url: 'https://inmoia360.vercel.app/delagala-daily.pdf' },
+        ],
       },
     ],
   };
