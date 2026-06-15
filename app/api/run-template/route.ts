@@ -16,6 +16,17 @@ export async function GET(req: Request) {
   if (!token) return NextResponse.json({ error: 'No WHATSAPP_TOKEN' }, { status: 500 });
 
   const url = new URL(req.url);
+
+  // Modo inspección: lista plantillas con su estado y motivo de rechazo
+  if (url.searchParams.get('action') === 'list') {
+    const r = await fetch(
+      `https://graph.facebook.com/v20.0/${WABA_ID}/message_templates?fields=name,status,category,rejected_reason,language,components&limit=50`,
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+    const d = await r.json();
+    return NextResponse.json(d, { status: r.ok ? 200 : 400 });
+  }
+
   const name = url.searchParams.get('name') ?? 'delagala_pan_v2';
   const category = url.searchParams.get('category') ?? 'MARKETING';
 
