@@ -43,6 +43,11 @@ const STATEMENTS: string[] = [
   `INSERT INTO pan.locations (slug, name, city, coupon_limit)
    VALUES ('zapore', 'Zapore', 'Getxo', 50)
    ON CONFLICT (slug) DO NOTHING`,
+  // Limpieza: quitar los datos viejos del pan que estaban en las tablas del cafe
+  `DELETE FROM marketing_pilot.coffee_coupon_events WHERE campaign_id = (SELECT id FROM marketing_pilot.campaigns WHERE slug = 'dailybread')`,
+  `DELETE FROM marketing_pilot.coffee_coupons WHERE campaign_id = (SELECT id FROM marketing_pilot.campaigns WHERE slug = 'dailybread')`,
+  `DELETE FROM marketing_pilot.bars WHERE campaign_id = (SELECT id FROM marketing_pilot.campaigns WHERE slug = 'dailybread')`,
+  `DELETE FROM marketing_pilot.campaigns WHERE slug = 'dailybread'`,
 ];
 
 export async function GET(req: Request) {
