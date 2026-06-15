@@ -13,7 +13,7 @@ export default function DailyBreadLanding() {
   const [bars, setBars] = useState<{ id: number; name: string }[]>([]);
 
   useEffect(() => {
-    fetch('/api/campaign/dailybread/locations')
+    fetch('/api/pan/locations')
       .then(r => r.json())
       .then(data => { if (Array.isArray(data)) setBars(data); })
       .catch(() => {});
@@ -32,7 +32,7 @@ export default function DailyBreadLanding() {
     setState('loading');
     setErrorMsg('');
     try {
-      const res = await fetch('/api/campaign/dailybread/claim', {
+      const res = await fetch('/api/pan/claim', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ lead_name: nombre.trim(), lead_phone: telefono.trim(), source_url: window.location.href, bar_name: bar }),
