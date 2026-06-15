@@ -11,18 +11,23 @@ function getSecret(): Uint8Array {
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const isAdminPage = pathname.startsWith('/delagala/dailycoffee/admin') &&
+  const isCoffeeAdmin = pathname.startsWith('/delagala/dailycoffee/admin') &&
     !pathname.startsWith('/delagala/dailycoffee/admin/login');
+  const isBreadAdmin = pathname.startsWith('/delagala/dailybread/admin') &&
+    !pathname.startsWith('/delagala/dailybread/admin/login');
+  const isAdminPage = isCoffeeAdmin || isBreadAdmin;
   const isAdminApi = pathname.startsWith('/api/admin/') &&
     !pathname.endsWith('/login') &&
     !pathname.endsWith('/logout');
 
   if (!isAdminPage && !isAdminApi) return NextResponse.next();
 
+  const loginPath = isBreadAdmin ? '/delagala/dailybread/admin/login' : '/delagala/dailycoffee/admin/login';
+
   const token = request.cookies.get(SESSION_COOKIE)?.value;
   if (!token) {
     if (isAdminApi) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    const loginUrl = new URL('/delagala/dailycoffee/admin/login', request.url);
+    const loginUrl = new URL(loginPath, request.url);
     loginUrl.searchParams.set('from', pathname);
     return NextResponse.redirect(loginUrl);
   }
@@ -32,7 +37,7 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   } catch {
     if (isAdminApi) return NextResponse.json({ error: 'Session expired' }, { status: 401 });
-    const loginUrl = new URL('/delagala/dailycoffee/admin/login', request.url);
+    const loginUrl = new URL(loginPath, request.url);
     return NextResponse.redirect(loginUrl);
   }
 }
@@ -40,6 +45,7 @@ export async function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     '/delagala/dailycoffee/admin/:path*',
+    '/delagala/dailybread/admin/:path*',
     '/api/admin/:path*',
   ],
 };
