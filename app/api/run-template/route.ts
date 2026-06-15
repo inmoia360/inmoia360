@@ -15,9 +15,13 @@ export async function GET(req: Request) {
   const token = process.env.WHATSAPP_TOKEN;
   if (!token) return NextResponse.json({ error: 'No WHATSAPP_TOKEN' }, { status: 500 });
 
+  const url = new URL(req.url);
+  const name = url.searchParams.get('name') ?? 'delagala_pan_v2';
+  const category = url.searchParams.get('category') ?? 'MARKETING';
+
   const template = {
-    name: 'delagala_pan_cliente',
-    category: 'UTILITY',
+    name,
+    category,
     language: 'es_ES',
     components: [
       {
