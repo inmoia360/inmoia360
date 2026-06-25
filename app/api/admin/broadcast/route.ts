@@ -22,6 +22,19 @@ export async function POST(req: NextRequest) {
   const templateName = (process.env.WHATSAPP_TEMPLATE_NEWS ?? '').trim() || 'delagala_daily_news';
   if (!token || !phoneId) return NextResponse.json({ error: 'WhatsApp no configurado' }, { status: 500 });
 
+  // Modo PRUEBA: envía el newsletter solo a un número (no a todos)
+  const test = url.searchParams.get('test');
+  if (test) {
+    const to = normalizeSpanishPhone(test);
+    const r = await fetch(`https://graph.facebook.com/v20.0/${phoneId}/messages`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messaging_product: 'whatsapp', to, type: 'template', template: { name: templateName, language: { code: 'es_ES' }, components: [{ type: 'body', parameters: [{ type: 'text', text: 'Prueba' }] }] } }),
+    });
+    const data = await r.json();
+    return NextResponse.json({ ok: r.ok, test: to, data }, { status: r.ok ? 200 : 400 });
+  }
+
   const sql = getDb();
   const leads = campaign === 'cafe'
     ? await sql`
