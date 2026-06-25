@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { generateCouponCode, COUPON_EXPIRES_DAYS } from '@/lib/coupon';
 import { sendCouponWhatsApp, sendBarStaffNotification, normalizeSpanishPhone } from '@/lib/whatsapp';
+import { ensureConsentColumns } from '@/lib/ensure-consent';
 
 export const runtime = 'nodejs';
 
@@ -13,6 +14,7 @@ function isValidPhone(phone: string): boolean {
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => ({}));
   const { lead_name, lead_phone, source_url, bar_name } = body;
+  const consentMarketing = body.consent_marketing === true;
 
   if (!lead_name?.trim()) return NextResponse.json({ error: 'El nombre es obligatorio' }, { status: 400 });
   if (!lead_phone?.trim() || !isValidPhone(lead_phone)) return NextResponse.json({ error: 'WhatsApp inválido' }, { status: 400 });
@@ -20,6 +22,7 @@ export async function POST(request: NextRequest) {
   const phone = normalizeSpanishPhone(lead_phone.trim());
   const derived_email = `${phone}@wa.delagala`;
   const sql = getDb();
+  await ensureConsentColumns();
 
   // Un solo cupón por número cada 30 días (solo tabla del pan)
   const existing = await sql`
@@ -78,9 +81,9 @@ export async function POST(request: NextRequest) {
 
   const [coupon] = await sql`
     INSERT INTO pan.coupons
-      (coupon_code, lead_name, lead_email, lead_phone, source_url, location_id, status, claimed_at, expires_at)
+      (coupon_code, lead_name, lead_email, lead_phone, source_url, location_id, consent_marketing, status, claimed_at, expires_at)
     VALUES
-      (${coupon_code}, ${lead_name.trim()}, ${derived_email}, ${phone}, ${source_url ?? null}, ${locId}, 'generated', NOW(), ${expires_at})
+      (${coupon_code}, ${lead_name.trim()}, ${derived_email}, ${phone}, ${source_url ?? null}, ${locId}, ${consentMarketing}, 'generated', NOW(), ${expires_at})
     RETURNING id, coupon_code, expires_at
   `;
 
@@ -89,7 +92,12 @@ export async function POST(request: NextRequest) {
     VALUES (${coupon.id}, 'coupon_generated', ${JSON.stringify({ source_url: source_url ?? null })}::jsonb)
   `;
 
-  const templateName = (process.env.WHATSAPP_TEMPLATE_NAME_DAILYBREAD ?? '').trim() || 'hello_world';
+  // FIX urgente: la plantilla del pan (DAILYBREAD) no entrega. Usamos la del
+  // café (WHATSAPP_TEMPLATE_NAME), que está aprobada y funciona, como respaldo.
+  const templateName =
+    (process.env.WHATSAPP_TEMPLATE_NAME ?? '').trim() ||
+    (process.env.WHATSAPP_TEMPLATE_NAME_DAILYBREAD ?? '').trim() ||
+    'hello_world';
   await sendCouponWhatsApp(phone, lead_name.trim(), coupon_code, {
     templateName,
     productLabel: 'pan',

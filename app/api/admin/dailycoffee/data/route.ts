@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { verifyRequestSession } from '@/lib/auth';
+import { ensureConsentColumns } from '@/lib/ensure-consent';
 
 export const runtime = 'nodejs';
 
@@ -9,10 +10,12 @@ export const runtime = 'nodejs';
 export async function GET(req: NextRequest) {
   if (!(await verifyRequestSession(req))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const sql = getDb();
+  await ensureConsentColumns();
 
   const [coupons, locations, statsRows] = await Promise.all([
     sql`
       SELECT c.id, c.lead_name, c.lead_phone, c.coupon_code, c.status, c.created_at,
+             c.consent_marketing, c.unsubscribed,
              b.name AS location_name
       FROM marketing_pilot.coffee_coupons c
       LEFT JOIN marketing_pilot.bars b ON b.id = c.bar_id

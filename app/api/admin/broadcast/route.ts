@@ -17,6 +17,11 @@ export async function POST(req: NextRequest) {
   const campaign = url.searchParams.get('campaign') === 'cafe' ? 'cafe' : 'pan';
   const offset = Math.max(0, Number(url.searchParams.get('offset')) || 0);
 
+  // Envío selectivo: si llega { phones: [...] } en el body, solo se manda a esos.
+  const reqBody = await req.json().catch(() => ({}));
+  const phonesRaw: string[] = Array.isArray(reqBody?.phones) ? reqBody.phones : [];
+  const selectedSet = new Set(phonesRaw.map((p) => normalizeSpanishPhone(String(p))));
+
   const token = process.env.WHATSAPP_TOKEN;
   const phoneId = process.env.WHATSAPP_PHONE_ID;
   const templateName = (process.env.WHATSAPP_TEMPLATE_NEWS ?? '').trim() || 'delagala_daily_news';
@@ -36,16 +41,23 @@ export async function POST(req: NextRequest) {
   }
 
   const sql = getDb();
-  const leads = campaign === 'cafe'
+  const allLeads = campaign === 'cafe'
     ? await sql`
         SELECT DISTINCT ON (lead_phone) lead_phone, lead_name FROM marketing_pilot.coffee_coupons
         WHERE lead_phone IS NOT NULL
+          AND unsubscribed IS NOT TRUE
           AND campaign_id = (SELECT id FROM marketing_pilot.campaigns WHERE slug = 'dailycoffee')
         ORDER BY lead_phone, created_at DESC`
     : await sql`
         SELECT DISTINCT ON (lead_phone) lead_phone, lead_name FROM pan.coupons
         WHERE lead_phone IS NOT NULL
+          AND unsubscribed IS NOT TRUE
         ORDER BY lead_phone, created_at DESC`;
+
+  // Si hay selección, solo esos números (siempre excluyendo a los dados de baja).
+  const leads = selectedSet.size > 0
+    ? (allLeads as { lead_phone: string; lead_name: string }[]).filter((l) => selectedSet.has(normalizeSpanishPhone(l.lead_phone)))
+    : allLeads;
 
   const total = leads.length;
   const slice = leads.slice(offset, offset + BATCH);

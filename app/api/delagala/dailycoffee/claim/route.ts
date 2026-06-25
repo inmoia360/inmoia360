@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { generateCouponCode, COUPON_EXPIRES_DAYS } from '@/lib/coupon';
 import { sendCouponWhatsApp, sendBarStaffNotification, normalizeSpanishPhone } from '@/lib/whatsapp';
+import { ensureConsentColumns } from '@/lib/ensure-consent';
 
 export const runtime = 'nodejs';
 
@@ -12,6 +13,7 @@ function isValidPhone(phone: string): boolean {
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => ({}));
   const { lead_name, lead_phone, source_url, bar_name } = body;
+  const consentMarketing = body.consent_marketing === true;
 
   if (!lead_name?.trim()) return NextResponse.json({ error: 'El nombre es obligatorio' }, { status: 400 });
   if (!lead_phone?.trim() || !isValidPhone(lead_phone)) return NextResponse.json({ error: 'WhatsApp inválido' }, { status: 400 });
@@ -21,6 +23,7 @@ export async function POST(request: NextRequest) {
   const derived_email = `${phone}@wa.delagala`;
 
   const sql = getDb();
+  await ensureConsentColumns();
 
   // Un solo cupón válido por número cada 30 días
   const existing = await sql`
@@ -88,10 +91,10 @@ export async function POST(request: NextRequest) {
 
   const [coupon] = await sql`
     INSERT INTO marketing_pilot.coffee_coupons
-      (coupon_code, lead_name, lead_email, lead_phone, source_url, bar_id, campaign_id, status, claimed_at, expires_at)
+      (coupon_code, lead_name, lead_email, lead_phone, source_url, bar_id, consent_marketing, campaign_id, status, claimed_at, expires_at)
     VALUES
       (${coupon_code}, ${lead_name.trim()}, ${derived_email},
-       ${phone}, ${source_url ?? null}, ${resolvedBarId},
+       ${phone}, ${source_url ?? null}, ${resolvedBarId}, ${consentMarketing},
        (SELECT id FROM marketing_pilot.campaigns WHERE slug = 'dailycoffee'), 'generated',
        NOW(), ${expires_at})
     RETURNING id, coupon_code, expires_at

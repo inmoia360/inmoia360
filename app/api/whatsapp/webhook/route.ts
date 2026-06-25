@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { ensureInbox } from '@/lib/wa-inbox';
+import { setUnsubscribed } from '@/lib/ensure-consent';
+import { sendTextMessage } from '@/lib/whatsapp';
+
+// Palabras que un lead puede escribir para darse de baja
+const BAJA_WORDS = ['BAJA', 'STOP', 'UNSUBSCRIBE', 'CANCELAR', 'NO QUIERO', 'DARME DE BAJA'];
 
 export const runtime = 'nodejs';
 
@@ -42,6 +47,26 @@ export async function POST(req: NextRequest) {
             VALUES (${m.id ?? null}, ${m.from ?? null}, ${contacts[m.from] ?? null}, 'in', ${m.type ?? null}, ${text})
             ON CONFLICT (wam_id) DO NOTHING
           `;
+
+          // Auto-baja: si el lead escribe "BAJA" (o similar), se da de baja solo.
+          const norm = String(text).trim().toUpperCase();
+          if (m.from && BAJA_WORDS.includes(norm)) {
+            try {
+              await setUnsubscribed(m.from, true);
+              await sendTextMessage(m.from, 'Hecho. Te hemos dado de baja y no recibiras mas mensajes. Si fue un error, escribe ALTA. Gracias. - DELAGALA');
+              await sql`
+                INSERT INTO wa.messages (wam_id, wa_from, wa_name, direction, msg_type, body)
+                VALUES (${(m.id ?? '') + '-baja'}, ${m.from}, ${contacts[m.from] ?? null}, 'out', 'text', '[Baja automatica] Lead dado de baja por escribir BAJA')
+                ON CONFLICT (wam_id) DO NOTHING`;
+            } catch (e) { console.error('[WA webhook] baja error', e); }
+          }
+          // Reactivación: si escribe "ALTA", se vuelve a suscribir.
+          if (m.from && norm === 'ALTA') {
+            try {
+              await setUnsubscribed(m.from, false);
+              await sendTextMessage(m.from, 'Listo, te hemos reactivado. Volveras a recibir el Delagala Daily. - DELAGALA');
+            } catch (e) { console.error('[WA webhook] alta error', e); }
+          }
         }
       }
     }

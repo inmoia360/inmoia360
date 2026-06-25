@@ -35,7 +35,7 @@ export default function DailyBreadLanding() {
       const res = await fetch('/api/pan/claim', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lead_name: nombre.trim(), lead_phone: telefono.trim(), source_url: window.location.href, bar_name: bar }),
+        body: JSON.stringify({ lead_name: nombre.trim(), lead_phone: telefono.trim(), source_url: window.location.href, bar_name: bar, consent_marketing: consentMarketing }),
       });
       const data = await res.json();
       if (!res.ok) { setErrorMsg(data.error ?? 'Error al procesar'); setState('error'); return; }

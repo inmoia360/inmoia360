@@ -36,6 +36,20 @@ export async function sendBarStaffNotification(
   });
 }
 
+// Envía un mensaje de texto libre (solo válido dentro de la ventana de 24h:
+// requiere que el destinatario nos haya escrito en las últimas 24h).
+export async function sendTextMessage(phone: string, body: string) {
+  const token = process.env.WHATSAPP_TOKEN;
+  const phoneId = process.env.WHATSAPP_PHONE_ID;
+  if (!token || !phoneId) return;
+  await sendWA(phoneId, token, {
+    messaging_product: 'whatsapp',
+    to: normalizeSpanishPhone(phone),
+    type: 'text',
+    text: { body },
+  });
+}
+
 export function normalizeSpanishPhone(phone: string): string {
   let d = phone.replace(/[^0-9]/g, '');
   if (d.startsWith('0034')) d = d.slice(4);

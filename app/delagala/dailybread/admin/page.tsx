@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
-type Coupon = { id: number; lead_name: string; lead_phone: string; coupon_code: string; status: string; created_at: string; location_name: string | null; consent_marketing?: boolean };
+type Coupon = { id: number; lead_name: string; lead_phone: string; coupon_code: string; status: string; created_at: string; location_name: string | null; consent_marketing?: boolean; unsubscribed?: boolean };
 type Loc = { id: number; name: string; city: string | null; coupon_limit: number; is_active: boolean; used_this_month: number };
 type Stats = { total: number; this_month: number; this_week: number; today: number };
 type Msg = { id: number; wa_from: string; wa_name: string | null; direction: string; body: string; created_at: string };
@@ -38,6 +38,7 @@ export default function UnifiedAdmin() {
   const [fFrom, setFFrom] = useState('');
   const [fTo, setFTo] = useState('');
   const [fSeg, setFSeg] = useState<'' | 'b' | 'a'>(''); // '' todos · 'b' acepta marketing · 'a' solo promo
+  const [selected, setSelected] = useState<Set<number>>(new Set()); // ids elegidos para envío selectivo
 
   const load = useCallback(async (t: TabKey) => {
     setLoading(true);
@@ -52,7 +53,7 @@ export default function UnifiedAdmin() {
     setLoading(false);
   }, [router]);
 
-  useEffect(() => { load(tab); setFLoc(''); setFFrom(''); setFTo(''); setFSeg(''); }, [tab, load]);
+  useEffect(() => { load(tab); setFLoc(''); setFFrom(''); setFTo(''); setFSeg(''); setSelected(new Set()); }, [tab, load]);
 
   const filtered = coupons.filter(c => {
     if (fLoc && (c.location_name ?? '') !== fLoc) return false;
@@ -114,23 +115,61 @@ export default function UnifiedAdmin() {
     return false;
   }
 
-  async function broadcastDaily() {
-    const quien = tab === 'pan' ? 'Pan (Zapore)' : 'Café';
-    if (!confirm(`Vas a ENVIAR el Delagala Daily por WhatsApp a TODOS los registrados de ${quien}.\n\nSe manda a todos (aceptaron el Daily al registrarse). ¿Continuar?`)) return;
+  async function runBroadcast(phones?: string[]) {
     setCasting(true); setCastMsg('Enviando…');
     let offset = 0, sent = 0, failed = 0, total = 0;
+    const useBody = !!(phones && phones.length);
     try {
       // bucle por tandas hasta terminar
-      for (let i = 0; i < 100; i++) {
-        const res = await fetch(`/api/admin/broadcast?campaign=${tab}&offset=${offset}`, { method: 'POST' });
+      for (let i = 0; i < 200; i++) {
+        const res = await fetch(`/api/admin/broadcast?campaign=${tab}&offset=${offset}`, {
+          method: 'POST',
+          headers: useBody ? { 'Content-Type': 'application/json' } : undefined,
+          body: useBody ? JSON.stringify({ phones }) : undefined,
+        });
         if (!res.ok) { const e = await res.json().catch(() => ({})); alert(e.error ?? 'Error al enviar'); break; }
         const d = await res.json();
         sent += d.sent; failed += d.failed; total = d.total; offset = d.nextOffset;
         setCastMsg(`Enviando… ${Math.min(offset, total)}/${total}`);
         if (d.done || d.processed === 0) break;
       }
-      alert(`Envío terminado 📰\n\nEnviados: ${sent}\nFallidos: ${failed}\nTotal registrados: ${total}`);
+      alert(`Envío terminado 📰\n\nEnviados: ${sent}\nFallidos: ${failed}\nDestinatarios: ${total}`);
+      load(tab);
     } finally { setCasting(false); setCastMsg(''); }
+  }
+
+  async function broadcastDaily() {
+    const quien = tab === 'pan' ? 'Pan (Zapore)' : 'Café';
+    if (!confirm(`Vas a ENVIAR el Delagala Daily por WhatsApp a TODOS los registrados de ${quien} (excepto los dados de baja).\n\n¿Continuar?`)) return;
+    await runBroadcast();
+  }
+
+  async function broadcastSelected() {
+    const phones = filtered.filter(c => selected.has(c.id) && !c.unsubscribed).map(c => c.lead_phone);
+    const uniq = Array.from(new Set(phones));
+    if (uniq.length === 0) { alert('No has seleccionado ningún registro válido (revisa que no estén dados de baja).'); return; }
+    if (!confirm(`Vas a ENVIAR el Delagala Daily a ${uniq.length} número(s) seleccionado(s).\n\n¿Continuar?`)) return;
+    await runBroadcast(uniq);
+  }
+
+  async function baja(c: Coupon) {
+    const isBaja = !!c.unsubscribed;
+    const verb = isBaja ? 'volver a dar de ALTA' : 'dar de BAJA';
+    if (!confirm(`¿Seguro que quieres ${verb} a "${c.lead_name}" (${c.lead_phone})?\n\n${isBaja ? 'Volverá a recibir envíos.' : 'No recibirá más envíos (ni de pan ni de café).'}`)) return;
+    const res = await fetch('/api/admin/unsubscribe', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone: c.lead_phone, action: isBaja ? 'alta' : 'baja' }),
+    });
+    if (res.ok) load(tab); else { const d = await res.json().catch(() => ({})); alert(d.error ?? 'Error'); }
+  }
+
+  function toggleSelect(id: number) {
+    setSelected(prev => { const n = new Set(prev); if (n.has(id)) n.delete(id); else n.add(id); return n; });
+  }
+  function toggleSelectAll() {
+    const ids = filtered.filter(c => !c.unsubscribed).map(c => c.id);
+    const allSel = ids.length > 0 && ids.every(id => selected.has(id));
+    setSelected(allSel ? new Set() : new Set(ids));
   }
 
   async function logout() {
@@ -248,10 +287,24 @@ export default function UnifiedAdmin() {
                   <button onClick={() => { setFLoc(''); setFFrom(''); setFTo(''); setFSeg(''); }} style={{ padding: '.45rem .8rem', border: '1px solid #d8dede', background: '#fff', borderRadius: 6, cursor: 'pointer', fontSize: '.8rem' }}>Limpiar</button>
                 )}
               </div>
+              {selected.size > 0 && (
+                <div style={{ padding: '.7rem 1.25rem', background: '#fffbeb', borderBottom: '1px solid #fde68a', display: 'flex', alignItems: 'center', gap: '.75rem', flexWrap: 'wrap' }}>
+                  <strong style={{ fontSize: '.9rem' }}>☑️ {Array.from(new Set(filtered.filter(c => selected.has(c.id) && !c.unsubscribed).map(c => c.lead_phone))).length} seleccionados</strong>
+                  <button onClick={broadcastSelected} disabled={casting} style={{ background: casting ? '#ccc' : INK, color: '#fff', border: 'none', borderRadius: 8, padding: '.5rem 1rem', fontWeight: 700, cursor: casting ? 'not-allowed' : 'pointer' }}>
+                    {casting ? (castMsg || 'Enviando…') : '📤 Enviar el Daily a los seleccionados'}
+                  </button>
+                  <button onClick={() => setSelected(new Set())} style={{ background: '#fff', border: '1px solid #d8dede', borderRadius: 8, padding: '.5rem .8rem', cursor: 'pointer', fontSize: '.85rem' }}>Quitar selección</button>
+                </div>
+              )}
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '.85rem' }}>
                   <thead>
                     <tr style={{ background: '#fafafa', textAlign: 'left', color: '#789' }}>
+                      <th style={{ padding: '.6rem .4rem .6rem 1rem', width: 28 }}>
+                        <input type="checkbox" title="Seleccionar todos los filtrados"
+                          checked={filtered.some(c => !c.unsubscribed) && filtered.filter(c => !c.unsubscribed).every(c => selected.has(c.id))}
+                          onChange={toggleSelectAll} />
+                      </th>
                       <th style={{ padding: '.6rem 1rem' }}>Nombre</th>
                       <th style={{ padding: '.6rem 1rem' }}>WhatsApp</th>
                       <th style={{ padding: '.6rem 1rem' }}>Código</th>
@@ -262,10 +315,18 @@ export default function UnifiedAdmin() {
                     </tr>
                   </thead>
                   <tbody>
-                    {filtered.length === 0 && <tr><td colSpan={7} style={{ padding: '1.5rem', textAlign: 'center', color: '#789' }}>Sin registros para este filtro</td></tr>}
+                    {filtered.length === 0 && <tr><td colSpan={8} style={{ padding: '1.5rem', textAlign: 'center', color: '#789' }}>Sin registros para este filtro</td></tr>}
                     {filtered.map(c => (
-                      <tr key={c.id} style={{ borderBottom: '1px solid #f0f0f0' }}>
-                        <td style={{ padding: '.6rem 1rem', fontWeight: 600 }}>{c.lead_name}</td>
+                      <tr key={c.id} style={{ borderBottom: '1px solid #f0f0f0', background: c.unsubscribed ? '#fafafa' : undefined, opacity: c.unsubscribed ? 0.65 : 1 }}>
+                        <td style={{ padding: '.6rem .4rem .6rem 1rem' }}>
+                          <input type="checkbox" checked={selected.has(c.id)} disabled={c.unsubscribed}
+                            title={c.unsubscribed ? 'Dado de baja: no se le envía' : 'Seleccionar para envío'}
+                            onChange={() => toggleSelect(c.id)} />
+                        </td>
+                        <td style={{ padding: '.6rem 1rem', fontWeight: 600 }}>
+                          {c.lead_name}
+                          {c.unsubscribed && <span style={{ marginLeft: '.4rem', background: '#fee2e2', color: '#b91c1c', borderRadius: 20, padding: '.1rem .5rem', fontSize: '.68rem', fontWeight: 700, whiteSpace: 'nowrap' }}>🚫 Baja</span>}
+                        </td>
                         <td style={{ padding: '.6rem 1rem' }}>{c.lead_phone}</td>
                         <td style={{ padding: '.6rem 1rem', fontFamily: 'monospace' }}>{c.coupon_code}</td>
                         <td style={{ padding: '.6rem 1rem' }}>
@@ -275,8 +336,9 @@ export default function UnifiedAdmin() {
                         </td>
                         <td style={{ padding: '.6rem 1rem', color: '#789' }}>{c.location_name ?? '—'}</td>
                         <td style={{ padding: '.6rem 1rem', color: '#789' }}>{fmt(c.created_at)}</td>
-                        <td style={{ padding: '.6rem 1rem', textAlign: 'right' }}>
-                          <button onClick={() => del(c.id, c.lead_name)} style={{ background: '#fee', border: '1px solid #fcc', color: '#c00', borderRadius: 6, padding: '.3rem .6rem', cursor: 'pointer', fontSize: '.8rem' }}>🗑️ Borrar</button>
+                        <td style={{ padding: '.6rem 1rem', textAlign: 'right', whiteSpace: 'nowrap' }}>
+                          <button onClick={() => baja(c)} title={c.unsubscribed ? 'Volver a dar de alta' : 'Dar de baja (no recibirá envíos)'} style={{ background: c.unsubscribed ? '#dcfce7' : '#fff7ed', border: '1px solid ' + (c.unsubscribed ? '#86efac' : '#fed7aa'), color: c.unsubscribed ? '#15803d' : '#c2410c', borderRadius: 6, padding: '.3rem .6rem', cursor: 'pointer', fontSize: '.8rem', marginRight: '.4rem' }}>{c.unsubscribed ? '↩️ Alta' : '🚫 Baja'}</button>
+                          <button onClick={() => del(c.id, c.lead_name)} style={{ background: '#fee', border: '1px solid #fcc', color: '#c00', borderRadius: 6, padding: '.3rem .6rem', cursor: 'pointer', fontSize: '.8rem' }}>🗑️</button>
                         </td>
                       </tr>
                     ))}
