@@ -31,22 +31,41 @@ const SERVICES = [
   },
 ];
 
-const MARKET = [
-  {
-    tag: 'Euríbor',
-    title: 'El Euríbor se estabiliza en el entorno del 2,8%',
-    text: 'Tras el ciclo de bajadas, las cuotas de las hipotecas variables se moderan y las mixtas ganan atractivo como cobertura.',
-  },
-  {
-    tag: 'Normativa · LCCI',
-    title: 'La Ley 5/2019 protege al hipotecado',
-    text: 'Transparencia, reparto de gastos y derecho a amortizar sin penalizaciones abusivas. Conocer tus derechos es dinero.',
-  },
-  {
-    tag: 'Mercado',
-    title: 'La banca compite por las mejores firmas',
-    text: 'Con buen perfil, hoy es posible negociar diferenciales y eliminar productos vinculados. La clave: presentar bien el caso.',
-  },
+// Datos oficiales reales. Fuentes: INE (Estadística de Hipotecas, abril 2026,
+// datos provisionales) y Banco de España (Euríbor, junio 2026).
+// Para actualizar: cambia estos valores y la etiqueta DATA_UPDATED.
+const DATA_UPDATED = 'Junio 2026';
+
+const INE_HIPOTECAS = 'https://www.ine.es/dyngs/INEbase/operacion.htm?c=Estadistica_C&cid=1254736170236&menu=ultiDatos&idp=1254735576757';
+const BDE_HIPOTECAS = 'https://clientebancario.bde.es/pcb/es/menu-horizontal/productosservici/financiacion/hipotecas/';
+const BDE_SIMULADORES = 'https://clientebancario.bde.es/pcb/es/menu-horizontal/podemosayudarte/simuladores/';
+
+type Stat = {
+  key: string; label: string; value: string; delta?: string; deltaUp?: boolean;
+  source: string; href: string;
+} & (
+  | { kind: 'rate'; rate: number }
+  | { kind: 'bars'; prev: number; curr: number; prevLabel: string; currLabel: string }
+);
+
+const STATS: Stat[] = [
+  { key: 'euribor', label: 'Euríbor a 12 meses', value: '2,80%', delta: 'Media junio 2026',
+    kind: 'rate', rate: 2.8, source: 'Banco de España', href: BDE_HIPOTECAS },
+  { key: 'tipo', label: 'Tipo medio nuevas hipotecas', value: '2,90%', delta: 'Abril 2026',
+    kind: 'rate', rate: 2.9, source: 'INE', href: INE_HIPOTECAS },
+  { key: 'num', label: 'Hipotecas sobre vivienda', value: '40.010', delta: '+2,3% interanual', deltaUp: true,
+    kind: 'bars', prev: 39110, curr: 40010, prevLabel: 'Abr 25', currLabel: 'Abr 26', source: 'INE · Abril 2026', href: INE_HIPOTECAS },
+  { key: 'importe', label: 'Importe medio', value: '173.331 €', delta: '+11,1% interanual', deltaUp: true,
+    kind: 'bars', prev: 156013, curr: 173331, prevLabel: 'Abr 25', currLabel: 'Abr 26', source: 'INE · Abril 2026', href: INE_HIPOTECAS },
+];
+
+const SOURCES = [
+  { tag: 'Banco de España', title: 'Guía oficial de hipotecas', cta: 'Ver la guía del BdE', href: BDE_HIPOTECAS,
+    text: 'Todo lo que conviene saber antes de firmar, explicado por el Banco de España: tipos, gastos, derechos y la Ley 5/2019.' },
+  { tag: 'INE', title: 'Estadística de Hipotecas', cta: 'Ver los datos del INE', href: INE_HIPOTECAS,
+    text: 'Las cifras oficiales del mercado hipotecario español, actualizadas cada mes por el Instituto Nacional de Estadística.' },
+  { tag: 'Banco de España', title: 'Simuladores oficiales', cta: 'Abrir los simuladores', href: BDE_SIMULADORES,
+    text: 'Contrasta tu estudio con los simuladores del Banco de España: cuota, TAE y coste real de tu hipoteca.' },
 ];
 
 const STEPS = [
@@ -244,6 +263,29 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
         .mtg-news h4{font-size:19px;font-weight:800;margin-bottom:8px;}
         .mtg-news p{font-size:14px;color:var(--ink-soft);}
 
+        /* ACTUALIDAD · DATOS OFICIALES */
+        .mtg-updated{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:700;color:var(--accent-deep);background:var(--accent-soft);padding:6px 15px;border-radius:999px;}
+        .mtg-updated::before{content:"";width:8px;height:8px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 3px color-mix(in srgb,#22C55E 25%,transparent);}
+        .mtg-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:0 0 22px;}
+        .mtg-stat{display:block;text-decoration:none;color:inherit;background:var(--bg);border:1px solid color-mix(in srgb,var(--ink) 11%,transparent);border-radius:16px;padding:20px 20px 14px;transition:transform .15s,box-shadow .15s,border-color .15s;}
+        .mtg-stat:hover{transform:translateY(-3px);box-shadow:0 18px 40px -22px color-mix(in srgb,var(--ink) 45%,transparent);border-color:var(--accent);}
+        .mtg-stat-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+        .mtg-stat-value{font-family:var(--font-display);font-weight:800;font-size:26px;color:var(--ink);letter-spacing:-.02em;}
+        .mtg-stat-delta{font-size:11px;font-weight:700;color:var(--ink-mute);white-space:nowrap;}
+        .mtg-stat-delta.up{color:#15803D;background:#DCFCE7;padding:2px 7px;border-radius:6px;}
+        .mtg-stat-label{font-size:13px;color:var(--ink-soft);margin-top:4px;font-weight:600;}
+        .mtg-stat-chart{margin:12px 0 8px;}
+        .mtg-stat-src{font-size:11px;color:var(--ink-mute);display:flex;align-items:center;justify-content:space-between;border-top:1px solid color-mix(in srgb,var(--ink) 8%,transparent);padding-top:10px;}
+        .mtg-stat-link{color:var(--accent-deep);font-weight:700;}
+        .mtg-sources{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+        .mtg-src-card{display:flex;flex-direction:column;background:var(--bg-soft);border:1px solid color-mix(in srgb,var(--ink) 8%,transparent);border-radius:16px;padding:24px 22px;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s;}
+        .mtg-src-card:hover{transform:translateY(-3px);box-shadow:0 16px 36px -20px color-mix(in srgb,var(--ink) 40%,transparent);}
+        .mtg-src-card .tag{align-self:flex-start;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-deep);background:var(--accent-soft);padding:4px 10px;border-radius:999px;margin-bottom:14px;}
+        .mtg-src-card h4{font-size:18px;font-weight:800;margin-bottom:8px;}
+        .mtg-src-card p{font-size:14px;color:var(--ink-soft);flex:1;}
+        .mtg-src-card .go{margin-top:16px;font-weight:700;font-size:13px;color:var(--accent-deep);display:inline-flex;align-items:center;gap:7px;}
+        .mtg-disclaim{margin-top:20px;font-size:11px;color:var(--ink-mute);text-align:center;line-height:1.6;}
+
         /* CONTACT */
         .mtg-contact{background:var(--ink);color:var(--bg);}
         .mtg-contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
@@ -287,6 +329,8 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
           .mtg-hero .wrap,.mtg-contact .wrap{grid-template-columns:1fr;gap:36px;}
           .mtg-news,.mtg-steps{grid-template-columns:1fr;}
           .mtg-grid{grid-template-columns:1fr;}
+          .mtg-stats{grid-template-columns:repeat(2,1fr);}
+          .mtg-sources{grid-template-columns:1fr;}
         }
         @media(max-width:560px){
           .mtg .wrap{padding:0 16px;}
@@ -296,6 +340,7 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
           .mtg-nav a.cta{display:none;}
           .mtg-logo .kk-side{display:none;}
           .mtg-logo-img{height:26px;}
+          .mtg-stats{grid-template-columns:1fr;}
         }
       `}</style>
 
@@ -458,23 +503,47 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
         </div>
       </section>
 
-      {/* MERCADO / NOTICIAS */}
+      {/* ACTUALIDAD · DATOS OFICIALES */}
       <section className="mtg-sec">
         <div className="wrap">
           <div className="mtg-head">
-            <span className="kick">Actualidad del mercado</span>
-            <h2>Lo que mueve tu hipoteca hoy</h2>
-            <p>Seguimos el Euríbor, la normativa y la oferta de la banca para negociar en el mejor momento.</p>
+            <span className="mtg-updated">Actualizado · {DATA_UPDATED}</span>
+            <h2>La actualidad hipotecaria, con datos que puedes verificar</h2>
+            <p>No te contamos cuentos: seguimos las cifras oficiales del INE y el Banco de España para asesorarte con información real. Pincha cualquier dato y vas a la fuente.</p>
           </div>
-          <div className="mtg-news">
-            {MARKET.map(m => (
-              <article key={m.title}>
-                <span className="tag">{m.tag}</span>
-                <h4>{m.title}</h4>
-                <p>{m.text}</p>
-              </article>
+
+          <div className="mtg-stats">
+            {STATS.map(s => (
+              <a className="mtg-stat" key={s.key} href={s.href} target="_blank" rel="noopener noreferrer">
+                <div className="mtg-stat-top">
+                  <span className="mtg-stat-value">{s.value}</span>
+                  {s.delta && <span className={`mtg-stat-delta${s.deltaUp ? ' up' : ''}`}>{s.delta}</span>}
+                </div>
+                <div className="mtg-stat-label">{s.label}</div>
+                <div className="mtg-stat-chart">
+                  {s.kind === 'bars'
+                    ? <TwoBars prev={s.prev} curr={s.curr} prevLabel={s.prevLabel} currLabel={s.currLabel} />
+                    : <RateMeter rate={s.rate} />}
+                </div>
+                <div className="mtg-stat-src"><span>Fuente: {s.source}</span><span className="mtg-stat-link">Ver ↗</span></div>
+              </a>
             ))}
           </div>
+
+          <div className="mtg-sources">
+            {SOURCES.map(s => (
+              <a className="mtg-src-card" key={s.title} href={s.href} target="_blank" rel="noopener noreferrer">
+                <span className="tag">{s.tag}</span>
+                <h4>{s.title}</h4>
+                <p>{s.text}</p>
+                <span className="go">{s.cta}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17L17 7M17 7H8M17 7v9" /></svg>
+                </span>
+              </a>
+            ))}
+          </div>
+
+          <p className="mtg-disclaim">Fuentes: Instituto Nacional de Estadística (Estadística de Hipotecas, abril 2026, datos provisionales) y Banco de España (Euríbor, junio 2026). Información con fines orientativos.</p>
         </div>
       </section>
 
@@ -565,5 +634,34 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
         </div>
       </footer>
     </div>
+  );
+}
+
+// Comparativa de dos barras (año anterior vs actual). Colores de marca.
+function TwoBars({ prev, curr, prevLabel, currLabel }: { prev: number; curr: number; prevLabel: string; currLabel: string }) {
+  const max = Math.max(prev, curr) * 1.12;
+  const h = (v: number) => Math.max(4, (v / max) * 40);
+  return (
+    <svg viewBox="0 0 140 58" width="100%" height="56" aria-hidden="true">
+      <rect x="26" y={48 - h(prev)} width="34" height={h(prev)} rx="3" style={{ fill: 'var(--accent-soft)' }} />
+      <rect x="80" y={48 - h(curr)} width="34" height={h(curr)} rx="3" style={{ fill: 'var(--accent-deep)' }} />
+      <text x="43" y="56" textAnchor="middle" fontSize="8" style={{ fill: 'var(--ink-mute)' }}>{prevLabel}</text>
+      <text x="97" y="56" textAnchor="middle" fontSize="8" style={{ fill: 'var(--ink-mute)' }}>{currLabel}</text>
+    </svg>
+  );
+}
+
+// Medidor de un tipo de interés sobre una escala 0–5%.
+function RateMeter({ rate, max = 5 }: { rate: number; max?: number }) {
+  const pct = Math.min(100, (rate / max) * 100);
+  const x = 8 + (124 * pct) / 100;
+  return (
+    <svg viewBox="0 0 140 46" width="100%" height="46" aria-hidden="true">
+      <text x="8" y="12" fontSize="8" style={{ fill: 'var(--ink-mute)' }}>0%</text>
+      <text x="132" y="12" fontSize="8" textAnchor="end" style={{ fill: 'var(--ink-mute)' }}>{max}%</text>
+      <rect x="8" y="22" width="124" height="8" rx="4" style={{ fill: 'var(--accent-soft)' }} />
+      <rect x="8" y="22" width={(124 * pct) / 100} height="8" rx="4" style={{ fill: 'var(--accent-deep)' }} />
+      <circle cx={x} cy="26" r="7" style={{ fill: 'var(--accent)', stroke: 'var(--bg)', strokeWidth: 3 }} />
+    </svg>
   );
 }
