@@ -61,11 +61,14 @@ const STATS: Stat[] = [
 
 const SOURCES = [
   { tag: 'Banco de España', title: 'Guía oficial de hipotecas', cta: 'Ver la guía del BdE', href: BDE_HIPOTECAS,
-    text: 'Todo lo que conviene saber antes de firmar, explicado por el Banco de España: tipos, gastos, derechos y la Ley 5/2019.' },
+    text: 'Todo lo que conviene saber antes de firmar, explicado por el propio Banco de España.',
+    points: ['Qué es la TAE y cómo comparar ofertas', 'Gastos que paga el banco por ley', 'Tus derechos con la Ley 5/2019 (LCCI)'] },
   { tag: 'INE', title: 'Estadística de Hipotecas', cta: 'Ver los datos del INE', href: INE_HIPOTECAS,
-    text: 'Las cifras oficiales del mercado hipotecario español, actualizadas cada mes por el Instituto Nacional de Estadística.' },
+    text: 'Las cifras oficiales del mercado hipotecario español, actualizadas cada mes por el Instituto Nacional de Estadística.',
+    points: ['Nº de hipotecas firmadas cada mes', 'Importe medio y tipos de interés', 'Evolución interanual del mercado'] },
   { tag: 'Banco de España', title: 'Simuladores oficiales', cta: 'Abrir los simuladores', href: BDE_SIMULADORES,
-    text: 'Contrasta tu estudio con los simuladores del Banco de España: cuota, TAE y coste real de tu hipoteca.' },
+    text: 'Contrasta tu estudio con las herramientas oficiales del Banco de España.',
+    points: ['Simulador de cuota mensual', 'Cálculo de la TAE y del coste real', 'Comparador de préstamos hipotecarios'] },
 ];
 
 const STEPS = [
@@ -284,6 +287,12 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
         .mtg-src-card h4{font-size:18px;font-weight:800;margin-bottom:8px;}
         .mtg-src-card p{font-size:14px;color:var(--ink-soft);flex:1;}
         .mtg-src-card .go{margin-top:16px;font-weight:700;font-size:13px;color:var(--accent-deep);display:inline-flex;align-items:center;gap:7px;}
+        .mtg-src-list{list-style:none;margin:14px 0 4px;padding:0;flex:1;}
+        .mtg-src-list li{position:relative;padding:6px 0 6px 22px;font-size:13.5px;color:var(--ink-soft);border-top:1px solid color-mix(in srgb,var(--ink) 7%,transparent);}
+        .mtg-src-list li:first-child{border-top:none;}
+        .mtg-src-list li::before{content:"";position:absolute;left:2px;top:12px;width:8px;height:8px;border-radius:50%;background:var(--accent);}
+        .mtg-sources-head{font-weight:800;font-size:13px;letter-spacing:.02em;color:var(--ink);margin:8px 0 16px;display:flex;align-items:center;gap:10px;}
+        .mtg-sources-head::after{content:"";flex:1;height:1px;background:color-mix(in srgb,var(--ink) 12%,transparent);}
         .mtg-disclaim{margin-top:20px;font-size:11px;color:var(--ink-mute);text-align:center;line-height:1.6;}
 
         /* CONTACT */
@@ -464,6 +473,54 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
         </div>
       </header>
 
+      {/* ACTUALIDAD · DATOS OFICIALES — arriba, para dar credibilidad desde el inicio */}
+      <section className="mtg-sec alt">
+        <div className="wrap">
+          <div className="mtg-head">
+            <span className="mtg-updated">Datos oficiales · Actualizado {DATA_UPDATED}</span>
+            <h2>Asesoramiento con datos que puedes verificar</h2>
+            <p>No te contamos cuentos: trabajamos con las cifras oficiales del <strong>INE</strong> y el <strong>Banco de España</strong>. Pincha cualquier dato o recurso y vas directo a la fuente.</p>
+          </div>
+
+          <div className="mtg-stats">
+            {STATS.map(s => (
+              <a className="mtg-stat" key={s.key} href={s.href} target="_blank" rel="noopener noreferrer">
+                <div className="mtg-stat-top">
+                  <span className="mtg-stat-value">{s.value}</span>
+                  {s.delta && <span className={`mtg-stat-delta${s.deltaUp ? ' up' : ''}`}>{s.delta}</span>}
+                </div>
+                <div className="mtg-stat-label">{s.label}</div>
+                <div className="mtg-stat-chart">
+                  {s.kind === 'bars'
+                    ? <TwoBars prev={s.prev} curr={s.curr} prevLabel={s.prevLabel} currLabel={s.currLabel} />
+                    : <RateMeter rate={s.rate} />}
+                </div>
+                <div className="mtg-stat-src"><span>Fuente: {s.source}</span><span className="mtg-stat-link">Ver ↗</span></div>
+              </a>
+            ))}
+          </div>
+
+          <div className="mtg-sources-head">Consulta las fuentes oficiales</div>
+          <div className="mtg-sources">
+            {SOURCES.map(s => (
+              <a className="mtg-src-card" key={s.title} href={s.href} target="_blank" rel="noopener noreferrer">
+                <span className="tag">{s.tag}</span>
+                <h4>{s.title}</h4>
+                <p>{s.text}</p>
+                <ul className="mtg-src-list">
+                  {s.points.map(p => <li key={p}>{p}</li>)}
+                </ul>
+                <span className="go">{s.cta}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17L17 7M17 7H8M17 7v9" /></svg>
+                </span>
+              </a>
+            ))}
+          </div>
+
+          <p className="mtg-disclaim">Fuentes: Instituto Nacional de Estadística (Estadística de Hipotecas, abril 2026, datos provisionales) y Banco de España (Euríbor, junio 2026). Información con fines orientativos.</p>
+        </div>
+      </section>
+
       {/* SERVICIOS */}
       <section className="mtg-sec">
         <div className="wrap">
@@ -500,50 +557,6 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ACTUALIDAD · DATOS OFICIALES */}
-      <section className="mtg-sec">
-        <div className="wrap">
-          <div className="mtg-head">
-            <span className="mtg-updated">Actualizado · {DATA_UPDATED}</span>
-            <h2>La actualidad hipotecaria, con datos que puedes verificar</h2>
-            <p>No te contamos cuentos: seguimos las cifras oficiales del INE y el Banco de España para asesorarte con información real. Pincha cualquier dato y vas a la fuente.</p>
-          </div>
-
-          <div className="mtg-stats">
-            {STATS.map(s => (
-              <a className="mtg-stat" key={s.key} href={s.href} target="_blank" rel="noopener noreferrer">
-                <div className="mtg-stat-top">
-                  <span className="mtg-stat-value">{s.value}</span>
-                  {s.delta && <span className={`mtg-stat-delta${s.deltaUp ? ' up' : ''}`}>{s.delta}</span>}
-                </div>
-                <div className="mtg-stat-label">{s.label}</div>
-                <div className="mtg-stat-chart">
-                  {s.kind === 'bars'
-                    ? <TwoBars prev={s.prev} curr={s.curr} prevLabel={s.prevLabel} currLabel={s.currLabel} />
-                    : <RateMeter rate={s.rate} />}
-                </div>
-                <div className="mtg-stat-src"><span>Fuente: {s.source}</span><span className="mtg-stat-link">Ver ↗</span></div>
-              </a>
-            ))}
-          </div>
-
-          <div className="mtg-sources">
-            {SOURCES.map(s => (
-              <a className="mtg-src-card" key={s.title} href={s.href} target="_blank" rel="noopener noreferrer">
-                <span className="tag">{s.tag}</span>
-                <h4>{s.title}</h4>
-                <p>{s.text}</p>
-                <span className="go">{s.cta}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17L17 7M17 7H8M17 7v9" /></svg>
-                </span>
-              </a>
-            ))}
-          </div>
-
-          <p className="mtg-disclaim">Fuentes: Instituto Nacional de Estadística (Estadística de Hipotecas, abril 2026, datos provisionales) y Banco de España (Euríbor, junio 2026). Información con fines orientativos.</p>
         </div>
       </section>
 
