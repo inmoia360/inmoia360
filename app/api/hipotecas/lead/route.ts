@@ -11,7 +11,7 @@ function isValidPhone(phone: string): boolean {
 
 const BRANDS_LABEL: Record<string, string> = {
   delagala: 'DELAGALA',
-  blanca: 'Crédito Claro',
+  blanca: 'Hipoteca Justa',
 };
 
 export async function POST(request: NextRequest) {

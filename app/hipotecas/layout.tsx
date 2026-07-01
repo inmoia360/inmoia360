@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Crédito Claro · Intermediación hipotecaria sin coste',
+  title: 'Hipoteca Justa · La hipoteca que mereces',
   description:
     'Comparamos y negociamos tu hipoteca con más de 20 entidades. Estudio gratis y sin compromiso. Calcula tu cuota al instante.',
 };

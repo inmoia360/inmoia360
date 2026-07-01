@@ -39,7 +39,7 @@ const STATUS: Record<string, { label: string; bg: string; fg: string }> = {
   lost:      { label: 'Perdido',    bg: '#FEE2E2', fg: '#B91C1C' },
 };
 
-const BRAND_LABEL: Record<string, string> = { delagala: 'DELAGALA', blanca: 'Crédito Claro' };
+const BRAND_LABEL: Record<string, string> = { delagala: 'DELAGALA', blanca: 'Hipoteca Justa' };
 
 function calcSummary(c: Calc): string {
   if (!c) return '—';
@@ -162,7 +162,7 @@ export default function HipotecasAdminPage() {
           {([
             { k: 'all', label: `Todas (${stats?.total ?? 0})` },
             { k: 'delagala', label: `DELAGALA (${stats?.delagala ?? 0})` },
-            { k: 'blanca', label: `Crédito Claro (${stats?.blanca ?? 0})` },
+            { k: 'blanca', label: `Hipoteca Justa (${stats?.blanca ?? 0})` },
           ] as const).map(f => (
             <button key={f.k} onClick={() => setFilter(f.k)}
               style={{ padding: '8px 16px', borderRadius: 999, border: `1.5px solid ${filter === f.k ? ACCENT : '#CBD5E1'}`, background: filter === f.k ? ACCENT : '#fff', color: filter === f.k ? '#fff' : '#475569', fontWeight: 600, fontSize: 13, cursor: 'pointer', fontFamily: 'inherit' }}>

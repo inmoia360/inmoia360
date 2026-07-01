@@ -78,8 +78,8 @@ export const BRANDS: Record<BrandKey, BrandConfig> = {
   // ── Marca blanca: identidad financiera neutra ─────────────
   blanca: {
     key: 'blanca',
-    name: 'Crédito Claro',
-    kicker: 'Intermediación Hipotecaria',
+    name: 'Hipoteca Justa',
+    kicker: 'La hipoteca que mereces',
     heroTitle: 'Encuentra la hipoteca',
     heroTitleEm: 'que de verdad te conviene.',
     heroLede:
@@ -87,9 +87,9 @@ export const BRANDS: Record<BrandKey, BrandConfig> = {
     legalName: 'ICA HOME S.L.',
     cif: 'B10641546',
     address: 'Calle Las Mercedes 17, 48930 Getxo',
-    email: 'hola@creditoclaro.es',
+    email: 'hola@hipotecajusta.es',
     phone: '662 128 409',
-    website: 'creditoclaro.es',
+    website: 'hipotecajusta.es',
     colors: {
       ink: '#0F172A',
       inkSoft: '#334155',
