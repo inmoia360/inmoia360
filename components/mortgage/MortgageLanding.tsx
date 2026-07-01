@@ -165,6 +165,8 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
         .mtg-logo .mark{width:34px;height:34px;border-radius:9px;background:var(--accent);color:var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:18px;}
         .mtg-logo .nm{font-family:var(--font-display);font-weight:800;font-size:18px;letter-spacing:.02em;}
         .mtg-logo .kk{display:block;font-family:var(--font-body);font-weight:500;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);}
+        .mtg-logo-img{height:30px;width:auto;display:block;}
+        .mtg-logo .kk-side{padding-left:12px;margin-left:4px;border-left:1px solid color-mix(in srgb,var(--ink) 18%,transparent);}
         .mtg-nav a.cta{background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;}
 
         /* HERO */
@@ -292,6 +294,8 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
           .mtg-sec{padding:52px 0;}
           .mtg-two{grid-template-columns:1fr;}
           .mtg-nav a.cta{display:none;}
+          .mtg-logo .kk-side{display:none;}
+          .mtg-logo-img{height:26px;}
         }
       `}</style>
 
@@ -299,11 +303,21 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
       <nav className="mtg-nav">
         <div className="wrap">
           <div className="mtg-logo">
-            <span className="mark">{brand.name.charAt(0)}</span>
-            <span>
-              <span className="nm">{brand.name}</span>
-              <span className="kk">{brand.kicker}</span>
-            </span>
+            {brand.logoSrc ? (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={brand.logoSrc} alt={`${brand.name} Consultoría Inmobiliaria`} className="mtg-logo-img" />
+                <span className="kk kk-side">{brand.kicker}</span>
+              </>
+            ) : (
+              <>
+                <span className="mark">{brand.name.charAt(0)}</span>
+                <span>
+                  <span className="nm">{brand.name}</span>
+                  <span className="kk">{brand.kicker}</span>
+                </span>
+              </>
+            )}
           </div>
           <a href="#contacto" className="cta">Solicitar estudio gratis</a>
         </div>

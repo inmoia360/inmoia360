@@ -12,6 +12,8 @@ export interface BrandConfig {
   name: string;
   /** Segunda línea del logo / claim corto */
   kicker: string;
+  /** Ruta a la imagen del logo (en /public). Si no hay, se usa la inicial en un recuadro. */
+  logoSrc?: string;
   /** Titular grande del hero (se admite <em> como salto+acento) */
   heroTitle: string;
   heroTitleEm: string;
@@ -47,6 +49,7 @@ export const BRANDS: Record<BrandKey, BrandConfig> = {
     key: 'delagala',
     name: 'DELAGALA',
     kicker: 'Consultoría Inmobiliaria',
+    logoSrc: '/delagala-logo.png',
     heroTitle: 'Tu hipoteca,',
     heroTitleEm: 'negociada por expertos.',
     heroLede:
