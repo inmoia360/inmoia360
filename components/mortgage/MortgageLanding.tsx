@@ -157,6 +157,28 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
     }
   }
 
+  // Descarga la página como un .html autónomo: pasa las rutas de imágenes y
+  // hojas de estilo a absolutas (para que se vea bien donde lo suban) y quita
+  // los scripts y los botones flotantes para dejar un archivo estático limpio.
+  function downloadHtml() {
+    if (typeof document === 'undefined') return;
+    const origin = window.location.origin;
+    const clone = document.documentElement.cloneNode(true) as HTMLElement;
+    clone.querySelectorAll('img[src^="/"]').forEach(el => el.setAttribute('src', origin + el.getAttribute('src')!));
+    clone.querySelectorAll('link[href^="/"]').forEach(el => el.setAttribute('href', origin + el.getAttribute('href')!));
+    clone.querySelectorAll('script, .mtg-fab, .mtg-print-btn').forEach(el => el.remove());
+    const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${brand.name.replace(/\s+/g, '-')}-hipotecas.html`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
   const rootStyle = {
     '--ink': c.ink,
     '--ink-soft': c.inkSoft,
@@ -429,10 +451,10 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
         </div>
       </nav>
 
-      {/* Botón flotante — imprimir / guardar PDF desde cualquier punto */}
-      <button type="button" className="mtg-fab" onClick={() => { if (typeof window !== 'undefined') window.print(); }} aria-label="Imprimir o guardar en PDF">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z" /></svg>
-        <span className="lbl">Guardar PDF</span>
+      {/* Botón flotante — descargar la página como HTML autónomo */}
+      <button type="button" className="mtg-fab" onClick={downloadHtml} aria-label="Descargar la página en HTML">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
+        <span className="lbl">Descargar HTML</span>
       </button>
 
       {/* HERO + CALCULADORA */}
