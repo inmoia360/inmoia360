@@ -332,6 +332,8 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
         .mtg-foot .b{font-family:var(--font-display);font-weight:800;font-size:20px;}
         .mtg-foot .lg{font-size:12px;color:var(--ink-mute);text-align:right;line-height:1.7;}
         .mtg-foot .lg a{color:var(--accent-deep);text-decoration:none;}
+        .mtg-print-btn{margin-top:12px;display:inline-flex;align-items:center;gap:8px;background:transparent;border:1.5px solid color-mix(in srgb,var(--ink) 20%,transparent);color:var(--ink-soft);border-radius:10px;padding:10px 18px;font-family:var(--font-body);font-weight:600;font-size:13px;cursor:pointer;transition:background .15s,color .15s,border-color .15s;}
+        .mtg-print-btn:hover{background:var(--ink);color:var(--bg);border-color:var(--ink);}
 
         /* RESPONSIVE */
         @media(max-width:900px){
@@ -350,6 +352,51 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
           .mtg-logo .kk-side{display:none;}
           .mtg-logo-img{height:26px;}
           .mtg-stats{grid-template-columns:1fr;}
+        }
+
+        /* ── IMPRESIÓN / PDF ── */
+        @media print{
+          @page{size:A4;margin:14mm;}
+          .mtg{font-size:12px;color:#111;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+          .mtg *{box-shadow:none !important;text-shadow:none !important;}
+          .mtg .wrap{max-width:none;padding:0;}
+          /* Nav estático, sin CTA ni blur */
+          .mtg-nav{position:static;background:#fff;backdrop-filter:none;border-bottom:1.5px solid var(--accent);}
+          .mtg-nav .wrap{height:auto;padding:8px 0;}
+          .mtg-nav a.cta{display:none !important;}
+          /* Hero: solo el mensaje, sin calculadora ni fondo decorativo */
+          .mtg-hero{padding:14px 0 6px;}
+          .mtg-hero::before{display:none;}
+          .mtg-hero .wrap{display:block;}
+          .mtg-hero h1{font-size:26px;}
+          .mtg-hero .lede{font-size:13px;max-width:none;margin-top:8px;}
+          .mtg-hero-cta,.mtg-trust,.mtg-calc{display:none !important;}
+          /* Secciones compactas y en blanco */
+          .mtg-sec{padding:16px 0 !important;background:#fff !important;break-inside:avoid-page;}
+          .mtg-head{margin:0 auto 14px;max-width:none;}
+          .mtg-head h2{font-size:19px;}
+          .mtg-head p{font-size:12px;}
+          .mtg-updated{border:1px solid var(--accent-deep);}
+          /* Rejillas ajustadas al A4 */
+          .mtg-stats{grid-template-columns:repeat(2,1fr);gap:10px;}
+          .mtg-stat-value{font-size:19px;}
+          .mtg-grid,.mtg-steps{grid-template-columns:1fr 1fr;gap:10px;}
+          .mtg-sources{grid-template-columns:1fr;gap:10px;}
+          /* Nada se parte por la mitad */
+          .mtg-card,.mtg-step,.mtg-stat,.mtg-src-card,.mtg-result{break-inside:avoid;}
+          .mtg-stat,.mtg-src-card{border:1px solid #ccc;background:#fff;}
+          /* Enlaces oficiales: imprime la URL para poder verificarla */
+          .mtg-src-card::after{content:attr(href);display:block;margin-top:8px;font-size:9px;color:#555;word-break:break-all;}
+          .mtg-src-card .go svg{display:none;}
+          /* Contacto: fondo claro y formulario como ficha rellenable a mano */
+          .mtg-contact{background:#fff !important;color:#111 !important;}
+          .mtg-contact h2,.mtg-contact h2 em{color:#111 !important;}
+          .mtg-contact .lede,.mtg-ul li{color:#333 !important;}
+          .mtg-contact .wrap{display:block;}
+          .mtg-form{border:1px solid #ccc;padding:16px;margin-top:14px;}
+          .mtg-form input,.mtg-form select,.mtg-form textarea{background:#fff !important;border:1px solid #999 !important;}
+          .mtg-submit,.mtg-check,.mtg-print-btn{display:none !important;}
+          .mtg-foot{padding:14px 0;}
         }
       `}</style>
 
@@ -638,7 +685,13 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
       {/* FOOTER */}
       <footer className="mtg-foot">
         <div className="wrap">
-          <div className="b">{brand.name}</div>
+          <div>
+            <div className="b">{brand.name}</div>
+            <button type="button" className="mtg-print-btn" onClick={() => { if (typeof window !== 'undefined') window.print(); }}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z" /></svg>
+              Imprimir / Guardar PDF
+            </button>
+          </div>
           <div className="lg">
             © {new Date().getFullYear()} {brand.legalName}{brand.website ? <> · <a href={`https://www.${brand.website}`}>{brand.website}</a></> : null}<br />
             {brand.address} · {brand.phone} · {brand.email}<br />
