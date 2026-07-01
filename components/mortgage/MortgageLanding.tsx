@@ -71,6 +71,16 @@ const SOURCES = [
     points: ['Simulador de cuota mensual', 'Cálculo de la TAE y del coste real', 'Comparador de préstamos hipotecarios'] },
 ];
 
+// Versión ligera (marca blanca): noticias sencillas, sin datos ni gráficos.
+const NEWS = [
+  { tag: 'Hipotecas', title: 'Las cuotas se están moderando',
+    text: 'La evolución del Euríbor en los últimos meses está dejando cuotas más asequibles. Buen momento para revisar tu hipoteca o dar el paso.' },
+  { tag: 'Mercado', title: 'La banca vuelve a competir',
+    text: 'Las entidades pelean por captar buenas hipotecas. Con tu caso bien presentado, hoy es posible mejorar el tipo y las condiciones.' },
+  { tag: 'Tu derecho', title: 'Compara antes de firmar',
+    text: 'No aceptes la primera oferta. Comparar varias entidades puede ahorrarte miles de euros a lo largo de tu hipoteca. Nosotros lo hacemos por ti.' },
+];
+
 const STEPS = [
   { n: '01', title: 'Cuéntanos tu caso', text: 'Rellenas el formulario en un minuto. Sin coste y sin compromiso.' },
   { n: '02', title: 'Estudiamos y negociamos', text: 'Analizamos tu perfil y ponemos a la banca a competir por ti.' },
@@ -553,7 +563,8 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
         </div>
       </header>
 
-      {/* ACTUALIDAD · DATOS OFICIALES — arriba, para dar credibilidad desde el inicio */}
+      {/* ACTUALIDAD — élite (DELAGALA): datos oficiales + gráficos; marca blanca: solo noticias */}
+      {brand.key === 'delagala' ? (
       <section className="mtg-sec alt">
         <div className="wrap">
           <div className="mtg-head">
@@ -600,6 +611,26 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
           <p className="mtg-disclaim">Fuentes: Instituto Nacional de Estadística (Estadística de Hipotecas, abril 2026, datos provisionales) y Banco de España (Euríbor, junio 2026). Información con fines orientativos.</p>
         </div>
       </section>
+      ) : (
+      <section className="mtg-sec alt">
+        <div className="wrap">
+          <div className="mtg-head">
+            <span className="kick">Actualidad</span>
+            <h2>Noticias que te interesan como hipotecado</h2>
+            <p>Lo esencial del mercado hipotecario, sin tecnicismos ni letra pequeña.</p>
+          </div>
+          <div className="mtg-news">
+            {NEWS.map(n => (
+              <article key={n.title}>
+                <span className="tag">{n.tag}</span>
+                <h4>{n.title}</h4>
+                <p>{n.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+      )}
 
       {/* SERVICIOS */}
       <section className="mtg-sec">
