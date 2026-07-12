@@ -395,8 +395,8 @@ export default function DailyBreadLanding() {
                   <label className="check-row" style={{ marginBottom: 0 }}>
                     <input type="checkbox" checked={consentMarketing} onChange={e => setConsentMarketing(e.target.checked)} />
                     <span className="check-text">
-                      <strong>Quiero recibir información inmobiliaria</strong> de DELAGALA por WhatsApp.
-                      <span className="opt-tag">Opcional</span>
+                      <strong>Quiero saber cuánto vale mi casa</strong> y recibir consejos para venderla mejor, de DELAGALA por WhatsApp.
+                      <span className="opt-tag">Gratis · Opcional</span>
                     </span>
                   </label>
                 </div>
