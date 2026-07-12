@@ -58,7 +58,7 @@ export const BRANDS: Record<BrandKey, BrandConfig> = {
     cif: 'B10641546',
     address: 'Calle Las Mercedes 17, 48930 Getxo',
     email: 'info@idelagala.com',
-    phone: '603 507 168',
+    phone: '662 128 409',
     website: 'idelagala.com',
     colors: {
       ink: '#0A0A0A',
