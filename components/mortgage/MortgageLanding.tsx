@@ -167,28 +167,6 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
     }
   }
 
-  // Descarga la página como un .html autónomo: pasa las rutas de imágenes y
-  // hojas de estilo a absolutas (para que se vea bien donde lo suban) y quita
-  // los scripts y los botones flotantes para dejar un archivo estático limpio.
-  function downloadHtml() {
-    if (typeof document === 'undefined') return;
-    const origin = window.location.origin;
-    const clone = document.documentElement.cloneNode(true) as HTMLElement;
-    clone.querySelectorAll('img[src^="/"]').forEach(el => el.setAttribute('src', origin + el.getAttribute('src')!));
-    clone.querySelectorAll('link[href^="/"]').forEach(el => el.setAttribute('href', origin + el.getAttribute('href')!));
-    clone.querySelectorAll('script, .mtg-fab, .mtg-print-btn').forEach(el => el.remove());
-    const html = '<!DOCTYPE html>\n' + clone.outerHTML;
-    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${brand.name.replace(/\s+/g, '-')}-hipotecas.html`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }
-
   const rootStyle = {
     '--ink': c.ink,
     '--ink-soft': c.inkSoft,
@@ -364,11 +342,6 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
         .mtg-foot .b{font-family:var(--font-display);font-weight:800;font-size:20px;}
         .mtg-foot .lg{font-size:12px;color:var(--ink-mute);text-align:right;line-height:1.7;}
         .mtg-foot .lg a{color:var(--accent-deep);text-decoration:none;}
-        .mtg-print-btn{margin-top:12px;display:inline-flex;align-items:center;gap:8px;background:transparent;border:1.5px solid color-mix(in srgb,var(--ink) 20%,transparent);color:var(--ink-soft);border-radius:10px;padding:10px 18px;font-family:var(--font-body);font-weight:600;font-size:13px;cursor:pointer;transition:background .15s,color .15s,border-color .15s;}
-        .mtg-print-btn:hover{background:var(--ink);color:var(--bg);border-color:var(--ink);}
-        .mtg-fab{position:fixed;bottom:22px;right:22px;z-index:60;display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:var(--bg);border:none;border-radius:999px;padding:13px 20px;font-family:var(--font-body);font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 12px 30px -8px color-mix(in srgb,var(--ink) 60%,transparent);transition:transform .15s,background .15s;}
-        .mtg-fab:hover{transform:translateY(-2px);background:var(--accent-deep);color:#fff;}
-        .mtg-fab svg{width:17px;height:17px;flex-shrink:0;}
 
         /* RESPONSIVE */
         @media(max-width:900px){
@@ -387,8 +360,6 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
           .mtg-logo .kk-side{display:none;}
           .mtg-logo-img{height:26px;}
           .mtg-stats{grid-template-columns:1fr;}
-          .mtg-fab{padding:13px;bottom:16px;right:16px;}
-          .mtg-fab .lbl{display:none;}
         }
 
         /* ── IMPRESIÓN / PDF ── */
@@ -432,7 +403,7 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
           .mtg-contact .wrap{display:block;}
           .mtg-form{border:1px solid #ccc;padding:16px;margin-top:14px;}
           .mtg-form input,.mtg-form select,.mtg-form textarea{background:#fff !important;border:1px solid #999 !important;}
-          .mtg-submit,.mtg-check,.mtg-print-btn,.mtg-fab{display:none !important;}
+          .mtg-submit,.mtg-check{display:none !important;}
           .mtg-foot{padding:14px 0;}
         }
       `}</style>
@@ -460,12 +431,6 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
           <a href="#contacto" className="cta">Solicitar estudio gratis</a>
         </div>
       </nav>
-
-      {/* Botón flotante — descargar la página como HTML autónomo */}
-      <button type="button" className="mtg-fab" onClick={downloadHtml} aria-label="Descargar la página en HTML">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
-        <span className="lbl">Descargar HTML</span>
-      </button>
 
       {/* HERO + CALCULADORA */}
       <header className="mtg-hero">
@@ -749,13 +714,7 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
       {/* FOOTER */}
       <footer className="mtg-foot">
         <div className="wrap">
-          <div>
-            <div className="b">{brand.name}</div>
-            <button type="button" className="mtg-print-btn" onClick={() => { if (typeof window !== 'undefined') window.print(); }}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z" /></svg>
-              Imprimir / Guardar PDF
-            </button>
-          </div>
+          <div className="b">{brand.name}</div>
           <div className="lg">
             © {new Date().getFullYear()} {brand.legalName}{brand.website ? <> · <a href={`https://www.${brand.website}`}>{brand.website}</a></> : null}<br />
             {brand.address} · {brand.phone} · {brand.email}<br />

@@ -65,10 +65,11 @@ export async function POST(request: NextRequest) {
     referrer: source_url ?? undefined,
   });
 
-  // Aviso por WhatsApp al equipo (solo si hay número configurado).
-  // NOTA: texto libre requiere ventana de 24h; para avisos internos basta
-  // con que el número receptor haya escrito al de DELAGALA en las últimas 24h.
-  const notify = process.env.MORTGAGE_NOTIFY_PHONE;
+  // Aviso por WhatsApp al equipo. Número por defecto 603507168 (Álvaro);
+  // se puede sobrescribir con el env MORTGAGE_NOTIFY_PHONE.
+  // NOTA: es texto libre, así que WhatsApp solo lo entrega si el receptor ha
+  // escrito al número de DELAGALA (663 305 791) en las últimas 24h.
+  const notify = process.env.MORTGAGE_NOTIFY_PHONE || '603507168';
   if (notify) {
     const calcLine =
       calc?.mode === 'cuota'
