@@ -44,11 +44,11 @@ export interface BrandConfig {
 }
 
 export const BRANDS: Record<BrandKey, BrandConfig> = {
-  // ── Marca élite: DELAGALA ─────────────────────────────────
+  // ── Web premium: Nexo Hipotecario (oro, tipografía serif) ─
   delagala: {
     key: 'delagala',
-    name: 'Hipoteca Justa',
-    kicker: 'La hipoteca que mereces',
+    name: 'Nexo Hipotecario',
+    kicker: 'Intermediación hipotecaria',
     heroTitle: 'Tu hipoteca,',
     heroTitleEm: 'negociada por expertos.',
     heroLede:
@@ -56,24 +56,24 @@ export const BRANDS: Record<BrandKey, BrandConfig> = {
     legalName: 'ICA HOME S.L.',
     cif: 'B10641546',
     address: 'Calle Las Mercedes 17, 48930 Getxo',
-    email: 'hola@hipotecajusta.es',
+    email: 'info@nexohipotecario.es',
     phone: '662 128 409',
-    website: 'hipotecajusta.es',
+    website: 'nexohipotecario.es',
     colors: {
-      ink: '#0F172A',
-      inkSoft: '#334155',
-      inkMute: '#64748B',
+      ink: '#0A0A0A',
+      inkSoft: '#2A2A2A',
+      inkMute: '#6B6B6B',
       bg: '#FFFFFF',
-      bgSoft: '#F1F5F9',
-      accent: '#2563EB',
-      accentDeep: '#1D4ED8',
-      accentSoft: '#DBEAFE',
+      bgSoft: '#FAF7ED',
+      accent: '#F5C842',
+      accentDeep: '#E5B520',
+      accentSoft: '#FFF4C2',
     },
     fonts: {
-      display: "'Sora', sans-serif",
-      body: "'Inter', sans-serif",
+      display: "'Playfair Display', serif",
+      body: "'Montserrat', sans-serif",
       googleHref:
-        'https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Montserrat:wght@400;500;600;700;800&display=swap',
     },
   },
 
