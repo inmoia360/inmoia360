@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Está tu piso listo para vender? · De La Gala</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Nunito+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+    --gold:#C9A84C;--gold-dark:#A8893A;--gold-pale:#FDF6E3;
+    --blue:#4A6FA5;--blue-pale:#EEF3FA;--blue-dark:#3A5A8A;
+    --black:#2C2C2C;--gray-700:#555;--gray-500:#888;--gray-200:#D9D9D9;--gray-100:#EDEDED;
+    --bg:#F4F4F0;--white:#FFFFFF;--green:#5BA87A;--red:#D4654A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito Sans',sans-serif;color:var(--black);background:var(--bg);font-weight:300;line-height:1.7;min-height:100vh;}
+
+.wrap{max-width:600px;margin:0 auto;padding:20px;min-height:100vh;display:flex;flex-direction:column;}
+.brand{text-align:center;padding:20px 0 10px;}
+.brand-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;letter-spacing:3px;}
+.brand-logo span{display:block;font-size:.6rem;letter-spacing:4px;color:var(--gold);text-transform:uppercase;font-weight:400;margin-top:2px;}
+
+.card{background:var(--white);border-radius:16px;padding:36px 30px;box-shadow:0 4px 24px rgba(0,0,0,.05);flex:1;display:flex;flex-direction:column;justify-content:center;}
+
+/* PROGRESS */
+.progress{height:6px;background:var(--gray-100);border-radius:3px;margin-bottom:28px;overflow:hidden;}
+.progress-bar{height:100%;background:var(--gold);border-radius:3px;transition:width .4s ease;width:0;}
+
+/* WELCOME */
+.welcome{text-align:center;}
+.welcome h1{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;line-height:1.2;margin-bottom:14px;}
+.welcome p{color:var(--gray-700);font-size:1.05rem;margin-bottom:8px;}
+.welcome .note{font-size:.85rem;color:var(--gray-500);margin-bottom:28px;}
+
+/* QUESTION */
+.q-num{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px;}
+.q-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;line-height:1.25;margin-bottom:20px;}
+.options{display:flex;flex-direction:column;gap:10px;}
+.opt{padding:16px 20px;border:1.5px solid var(--gray-200);border-radius:12px;background:var(--white);cursor:pointer;font-size:1rem;color:var(--gray-700);transition:all .2s;text-align:left;font-family:inherit;font-weight:400;}
+.opt:hover{border-color:var(--gold);background:var(--gold-pale);}
+.opt.selected{border-color:var(--gold);background:var(--gold);color:var(--white);}
+.multi-hint{font-size:.8rem;color:var(--gray-500);margin-bottom:12px;font-style:italic;}
+
+/* BUTTON */
+.btn{background:var(--gold);color:var(--white);border:none;border-radius:12px;padding:16px 32px;font-size:1.05rem;font-weight:600;font-family:inherit;cursor:pointer;transition:background .2s;width:100%;}
+.btn:hover{background:var(--gold-dark);}
+.btn:disabled{background:var(--gray-200);cursor:not-allowed;}
+.btn-next{margin-top:20px;}
+
+/* RESULT */
+.result{text-align:center;}
+.gauge{width:180px;height:180px;margin:0 auto 20px;position:relative;}
+.gauge svg{transform:rotate(-90deg);}
+.gauge-track{fill:none;stroke:var(--gray-100);stroke-width:14;}
+.gauge-fill{fill:none;stroke:var(--gold);stroke-width:14;stroke-linecap:round;transition:stroke-dashoffset 1.2s ease;}
+.gauge-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+.gauge-score{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:var(--gold-dark);line-height:1;}
+.gauge-max{font-size:.85rem;color:var(--gray-500);}
+.result h2{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;margin-bottom:8px;line-height:1.2;}
+.result-sub{color:var(--gray-700);font-size:1rem;margin-bottom:24px;}
+
+/* TIPS */
+.tips{text-align:left;margin-bottom:26px;}
+.tips-title{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:12px;}
+.tip{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--gray-100);}
+.tip:last-child{border-bottom:none;}
+.tip-icon{color:var(--gold);font-size:1.1rem;flex-shrink:0;}
+.tip-text{font-size:.92rem;color:var(--gray-700);}
+
+/* CAPTURE */
+.capture{background:linear-gradient(135deg,var(--blue-pale),var(--gold-pale));border-radius:14px;padding:24px 22px;text-align:left;}
+.capture h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;margin-bottom:6px;}
+.capture p{font-size:.9rem;color:var(--gray-700);margin-bottom:16px;}
+.field{margin-bottom:12px;}
+.field input{width:100%;padding:14px 16px;border:1.5px solid var(--gray-200);border-radius:10px;font-size:1rem;font-family:inherit;}
+.field input:focus{outline:none;border-color:var(--gold);}
+.rgpd{display:flex;gap:8px;align-items:flex-start;margin:14px 0;font-size:.78rem;color:var(--gray-500);}
+.rgpd input{margin-top:3px;flex-shrink:0;}
+
+/* THANKS */
+.thanks{text-align:center;padding:20px 0;}
+.thanks-icon{width:64px;height:64px;border-radius:50%;background:var(--green);color:white;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 16px;}
+.thanks h2{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;margin-bottom:8px;}
+.thanks p{color:var(--gray-700);}
+
+.footer{text-align:center;padding:16px 0;font-size:.75rem;color:var(--gray-500);}
+
+.hidden{display:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+    <div class="brand">
+        <div class="brand-logo">DE LA GALA<span>Homes · Residencial</span></div>
+    </div>
+
+    <div class="card">
+        <!-- PROGRESS (hidden on welcome) -->
+        <div class="progress hidden" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+
+        <!-- WELCOME -->
+        <div class="welcome" id="welcome">
+            <h1>¿Está tu piso listo para vender?</h1>
+            <p>Descúbrelo en 1 minuto.</p>
+            <p class="note">7 preguntas · Gratis y sin compromiso · Resultado inmediato</p>
+            <button class="btn" onclick="start()">Empezar diagnóstico</button>
+        </div>
+
+        <!-- QUESTION -->
+        <div class="hidden" id="question">
+            <div class="q-num" id="qNum"></div>
+            <div class="q-title" id="qTitle"></div>
+            <div class="multi-hint hidden" id="multiHint">Puedes elegir varias opciones</div>
+            <div class="options" id="options"></div>
+            <button class="btn btn-next hidden" id="nextBtn" onclick="nextQuestion()">Siguiente</button>
+        </div>
+
+        <!-- RESULT -->
+        <div class="result hidden" id="result">
+            <div class="gauge">
+                <svg width="180" height="180" viewBox="0 0 180 180">
+                    <circle class="gauge-track" cx="90" cy="90" r="78"></circle>
+                    <circle class="gauge-fill" id="gaugeFill" cx="90" cy="90" r="78"></circle>
+                </svg>
+                <div class="gauge-num"><div class="gauge-score" id="scoreNum">0</div><div class="gauge-max">/ 100</div></div>
+            </div>
+            <h2 id="resultTitle"></h2>
+            <div class="result-sub" id="resultSub"></div>
+            <div class="tips">
+                <div class="tips-title">Lo que hemos detectado</div>
+                <div id="tipsList"></div>
+            </div>
+            <div class="capture" id="capture">
+                <h3>Recibe tu informe completo</h3>
+                <p>Todos los consejos personalizados + una valoración orientativa de tu zona.</p>
+                <div class="field"><input type="text" id="leadName" placeholder="Tu nombre"></div>
+                <div class="field"><input type="text" id="leadContact" placeholder="Teléfono o email"></div>
+                <label class="rgpd"><input type="checkbox" id="rgpd"> Acepto que De La Gala contacte conmigo sobre mi consulta, según su política de privacidad.</label>
+                <button class="btn" onclick="submitLead()">Recibir mi informe</button>
+            </div>
+        </div>
+
+        <!-- THANKS -->
+        <div class="thanks hidden" id="thanks">
+            <div class="thanks-icon">✓</div>
+            <h2>¡Gracias!</h2>
+            <p>Isabel o un miembro del equipo te contactará en menos de 24 horas con tu informe completo.</p>
+            <p style="margin-top:16px;font-size:.85rem;color:var(--gray-500)">De La Gala · Getxo</p>
+        </div>
+    </div>
+
+    <div class="footer">idelagala.com · ICA HOME S.L.</div>
+</div>
+
+<script>
+// ===== DEFINICIÓN DE PREGUNTAS =====
+const questions = [
+    {
+        title: "¿En qué zona está tu piso?",
+        multi: false,
+        options: [
+            {label:"Algorta", pts:20}, {label:"Las Arenas", pts:20}, {label:"Neguri", pts:20},
+            {label:"Romo", pts:15}, {label:"Leioa / Erandio", pts:15}, {label:"Otra zona de Bizkaia", pts:10}
+        ]
+    },
+    {
+        title: "¿Cuántos metros cuadrados tiene?",
+        multi: false,
+        options: [
+            {label:"Menos de 60 m²", pts:6}, {label:"60-90 m²", pts:10},
+            {label:"90-120 m²", pts:10}, {label:"Más de 120 m²", pts:8}
+        ]
+    },
+    {
+        title: "¿En qué estado está?",
+        multi: false,
+        options: [
+            {label:"Reformado / a estrenar", pts:20}, {label:"Buen estado, entrar a vivir", pts:15},
+            {label:"Necesita actualización", pts:8}, {label:"Para reformar", pts:4}
+        ]
+    },
+    {
+        title: "¿Tiene alguno de estos?",
+        multi: true,
+        options: [
+            {label:"Terraza o balcón", pts:5}, {label:"Ascensor", pts:5},
+            {label:"Garaje", pts:5}, {label:"Ninguno", pts:0, exclusive:true}
+        ],
+        cap: 15
+    },
+    {
+        title: "¿Tienes el certificado energético?",
+        multi: false,
+        options: [
+            {label:"Sí, vigente", pts:10}, {label:"No, o está caducado", pts:3}, {label:"No sé qué es", pts:3}
+        ]
+    },
+    {
+        title: "¿Cómo son las fotos que usarías para anunciarlo?",
+        multi: false,
+        options: [
+            {label:"Fotos profesionales", pts:15}, {label:"Fotos buenas con el móvil", pts:8}, {label:"No tengo fotos aún", pts:5}
+        ]
+    },
+    {
+        title: "¿Para cuándo querrías vender?",
+        multi: false,
+        urgency: true,
+        options: [
+            {label:"Lo antes posible", pts:10, urg:"CALIENTE"}, {label:"En los próximos 6 meses", pts:8, urg:"CALIENTE"},
+            {label:"Este año", pts:6, urg:"TEMPLADO"}, {label:"Solo estoy explorando", pts:4, urg:"FRÍO"}
+        ]
+    }
+];
+
+// ===== ESTADO =====
+let current = 0;
+let answers = [];
+let currentSelection = null;
+let currentMulti = [];
+
+function start(){
+    document.getElementById('welcome').classList.add('hidden');
+    document.getElementById('question').classList.remove('hidden');
+    document.getElementById('progressWrap').classList.remove('hidden');
+    renderQuestion();
+}
+
+function renderQuestion(){
+    const q = questions[current];
+    currentSelection = null;
+    currentMulti = [];
+    document.getElementById('qNum').textContent = `Pregunta ${current+1} de ${questions.length}`;
+    document.getElementById('qTitle').textContent = q.title;
+    document.getElementById('progressBar').style.width = ((current)/questions.length*100)+'%';
+    document.getElementById('multiHint').classList.toggle('hidden', !q.multi);
+    const nextBtn = document.getElementById('nextBtn');
+    nextBtn.classList.toggle('hidden', !q.multi); // solo multi necesita botón; single avanza solo
+    nextBtn.disabled = true;
+
+    const optionsEl = document.getElementById('options');
+    optionsEl.innerHTML = '';
+    q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'opt';
+        btn.textContent = opt.label;
+        btn.onclick = () => selectOption(i, btn);
+        optionsEl.appendChild(btn);
+    });
+}
+
+function selectOption(i, btn){
+    const q = questions[current];
+    if(q.multi){
+        const opt = q.options[i];
+        if(opt.exclusive){
+            currentMulti = [i];
+            document.querySelectorAll('.opt').forEach(b=>b.classList.remove('selected'));
+            btn.classList.add('selected');
+        } else {
+            // quitar exclusiva si estaba
+            const exIdx = q.options.findIndex(o=>o.exclusive);
+            if(exIdx>=0 && currentMulti.includes(exIdx)){
+                currentMulti = currentMulti.filter(x=>x!==exIdx);
+                document.querySelectorAll('.opt')[exIdx].classList.remove('selected');
+            }
+            if(currentMulti.includes(i)){
+                currentMulti = currentMulti.filter(x=>x!==i);
+                btn.classList.remove('selected');
+            } else {
+                currentMulti.push(i);
+                btn.classList.add('selected');
+            }
+        }
+        document.getElementById('nextBtn').disabled = currentMulti.length===0;
+    } else {
+        currentSelection = i;
+        document.querySelectorAll('.opt').forEach(b=>b.classList.remove('selected'));
+        btn.classList.add('selected');
+        setTimeout(nextQuestion, 300); // avanza solo
+    }
+}
+
+function nextQuestion(){
+    const q = questions[current];
+    if(q.multi){
+        answers.push({q:current, multi:currentMulti.map(i=>q.options[i])});
+    } else {
+        answers.push({q:current, opt:q.options[currentSelection]});
+    }
+    current++;
+    if(current < questions.length){
+        renderQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function calcScore(){
+    let total = 0;
+    let urgency = "FRÍO";
+    answers.forEach(a => {
+        const q = questions[a.q];
+        if(a.multi){
+            let sub = a.multi.reduce((s,o)=>s+o.pts,0);
+            if(q.cap) sub = Math.min(sub, q.cap);
+            total += sub;
+        } else {
+            total += a.opt.pts;
+            if(a.opt.urg) urgency = a.opt.urg;
+        }
+    });
+    return {total, urgency};
+}
+
+function generateTips(){
+    const tips = [];
+    answers.forEach(a => {
+        if(a.multi) {
+            const hasTerraza = a.multi.some(o=>o.label.includes("Terraza"));
+            if(hasTerraza) tips.push({icon:"✦", text:"Tu terraza es un gran activo: los pisos con terraza en tu zona se venden más rápido."});
+        } else {
+            const l = a.opt.label;
+            if(l.includes("No sé qué es") || l.includes("caducado")) tips.push({icon:"!", text:"Necesitarás el certificado energético para vender (es obligatorio). Te ayudamos a gestionarlo."});
+            if(l.includes("móvil")) tips.push({icon:"!", text:"Las fotos profesionales pueden acelerar la venta hasta un 40%. Es la inversión más rentable antes de vender."});
+            if(l.includes("No tengo fotos")) tips.push({icon:"!", text:"Sin buenas fotos, tu piso pasará desapercibido. La imagen es lo primero que ve el comprador."});
+            if(l.includes("Necesita actualización")) tips.push({icon:"✦", text:"Pequeñas mejoras (pintura, home staging) pueden aumentar el valor percibido sin gran inversión."});
+            if(l.includes("Para reformar")) tips.push({icon:"✦", text:"Tu piso es ideal para inversores. Podemos posicionarlo en ese mercado sin que reformes."});
+            if(l==="Algorta"||l==="Las Arenas"||l==="Neguri") tips.push({icon:"✦", text:"Tu zona tiene alta demanda. Es un buen momento para vender."});
+        }
+    });
+    // Asegurar al menos 2, máximo 3
+    if(tips.length===0) tips.push({icon:"✦", text:"Tu piso tiene una buena base. Con la estrategia correcta, destacará en el mercado."});
+    return tips.slice(0,3);
+}
+
+function showResult(){
+    document.getElementById('progressBar').style.width = '100%';
+    document.getElementById('question').classList.add('hidden');
+    document.getElementById('result').classList.remove('hidden');
+
+    const {total, urgency} = calcScore();
+
+    // Guardar lead data internamente (para cuando se conecte a CRM)
+    window.leadData = {answers: answers.map(a=>a.multi?a.multi.map(o=>o.label).join(", "):a.opt.label), score: total, urgency};
+
+    // Animar gauge
+    const circumference = 2 * Math.PI * 78;
+    const fill = document.getElementById('gaugeFill');
+    fill.style.strokeDasharray = circumference;
+    fill.style.strokeDashoffset = circumference;
+    setTimeout(()=>{ fill.style.strokeDashoffset = circumference * (1 - total/100); }, 100);
+
+    // Contador animado
+    let n = 0;
+    const interval = setInterval(()=>{ n++; document.getElementById('scoreNum').textContent = n; if(n>=total) clearInterval(interval); }, 1000/total);
+
+    // Titular por tramo
+    let title, sub;
+    if(total>=80){ title="Tu piso está muy bien posicionado para vender"; sub="Con la estrategia correcta, podrías vender rápido y al mejor precio."; }
+    else if(total>=60){ title="Tu piso está casi listo para vender"; sub="Tienes una buena base. Con unos ajustes, maximizarías el resultado."; }
+    else if(total>=40){ title="Tu piso tiene potencial, pero necesita preparación"; sub="Hay margen de mejora que puede marcar la diferencia en precio y tiempo."; }
+    else { title="Tu piso necesita algo de trabajo antes de salir al mercado"; sub="No te preocupes: te decimos exactamente qué mejorar para no perder valor."; }
+    document.getElementById('resultTitle').textContent = title;
+    document.getElementById('resultSub').textContent = sub;
+
+    // Tips
+    const tips = generateTips();
+    const tipsList = document.getElementById('tipsList');
+    tipsList.innerHTML = '';
+    tips.forEach(t=>{
+        const div = document.createElement('div');
+        div.className = 'tip';
+        div.innerHTML = `<span class="tip-icon">${t.icon}</span><span class="tip-text">${t.text}</span>`;
+        tipsList.appendChild(div);
+    });
+}
+
+async function submitLead(){
+    const name = document.getElementById('leadName').value.trim();
+    const contact = document.getElementById('leadContact').value.trim();
+    const rgpd = document.getElementById('rgpd').checked;
+    if(!name || !contact){ alert("Por favor, completa tu nombre y tu contacto."); return; }
+    if(!rgpd){ alert("Necesitamos tu consentimiento para poder contactarte."); return; }
+
+    window.leadData.name = name;
+    window.leadData.contact = contact;
+
+    // Enviar el lead al sistema (Neon + DELAgala OS). El botón se bloquea
+    // mientras envía para evitar dobles clics.
+    const btn = document.querySelector('#capture .btn');
+    btn.disabled = true; btn.textContent = "Enviando…";
+    try {
+        const res = await fetch('/api/diagnostico/lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                lead_name: name,
+                lead_contact: contact,
+                answers: window.leadData.answers,
+                score: window.leadData.score,
+                urgency: window.leadData.urgency,
+                consent_privacy: true,
+                source_url: window.location.href
+            })
+        });
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        document.getElementById('result').classList.add('hidden');
+        document.getElementById('thanks').classList.remove('hidden');
+    } catch(e) {
+        console.error('Error enviando lead', e);
+        btn.disabled = false; btn.textContent = "Recibir mi informe";
+        alert("No hemos podido enviar tus datos. Inténtalo de nuevo o llámanos: 662 128 409.");
+    }
+}
+</script>
+</body>
+</html>

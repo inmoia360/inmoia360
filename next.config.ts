@@ -11,6 +11,15 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        // Diagnóstico "¿Está tu piso listo para vender?" (HTML autocontenido)
+        source: '/delagala/diagnostico',
+        destination: '/diagnostico.html',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

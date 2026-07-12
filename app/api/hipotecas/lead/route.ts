@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { ensureMortgageLeads } from '@/lib/ensure-mortgage';
+import { forwardLeadToOs } from '@/lib/os-bridge';
 import { sendTextMessage, normalizeSpanishPhone } from '@/lib/whatsapp';
 
 export const runtime = 'nodejs';
@@ -49,6 +50,20 @@ export async function POST(request: NextRequest) {
        ${source_url ?? null}, ${consentPrivacy}, ${consentMarketing})
     RETURNING id, created_at
   `;
+
+  // Reenvío al DELAgala OS (best-effort: si el OS no está accesible,
+  // el lead ya quedó guardado arriba y no se pierde nada).
+  await forwardLeadToOs({
+    ownerIntent: `HIPOTECA${service ? ` · ${service}` : ''}`,
+    address: 'Sin dirección (lead de hipotecas)',
+    name: lead_name.trim(),
+    phone,
+    email: lead_email?.trim() || undefined,
+    landing_path: brand === 'blanca' ? '/hipotecas' : '/delagala/hipotecas',
+    utm_source: 'landing-hipotecas',
+    angle: `hipotecas-${brand}`,
+    referrer: source_url ?? undefined,
+  });
 
   // Aviso por WhatsApp al equipo (solo si hay número configurado).
   // NOTA: texto libre requiere ventana de 24h; para avisos internos basta
