@@ -11,7 +11,7 @@ function isValidPhone(phone: string): boolean {
 }
 
 const BRANDS_LABEL: Record<string, string> = {
-  delagala: 'Nexo Hipotecario (premium)',
+  delagala: 'Tu Partner Hipotecario (premium)',
   blanca: 'Hipoteca Justa',
 };
 

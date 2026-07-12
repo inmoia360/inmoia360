@@ -87,6 +87,13 @@ const STEPS = [
   { n: '03', title: 'Eliges y firmamos', text: 'Te presentamos las mejores ofertas y te acompañamos hasta la firma.' },
 ];
 
+const PILLARS = [
+  { icon: '🤝', title: '100% independientes', text: 'Trabajamos para ti, no para el banco. Nuestra recomendación es la que más te conviene a ti, no a la entidad.' },
+  { icon: '💸', title: 'Sin coste inicial', text: 'El estudio es gratis y sin compromiso. Solo ganamos cuando tú consigues tu hipoteca.' },
+  { icon: '🏦', title: 'Más de 20 entidades', text: 'Ponemos a la banca a competir por ti y negociamos tipo, plazo y vinculaciones.' },
+  { icon: '✅', title: 'Datos oficiales', text: 'Te asesoramos con cifras verificables del INE y el Banco de España. Sin humo, con la fuente delante.' },
+];
+
 type CalcMode = 'cuota' | 'capacidad';
 type FormState = 'idle' | 'loading' | 'success' | 'error';
 
@@ -262,6 +269,13 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
         .mtg-card h4{font-size:20px;font-weight:800;margin-bottom:8px;}
         .mtg-card p{font-size:15px;color:var(--ink-soft);}
 
+        /* POR QUÉ ELEGIRNOS */
+        .mtg-pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+        .mtg-pillar{padding:24px 20px;border-radius:16px;background:var(--bg-soft);border:1px solid color-mix(in srgb,var(--ink) 8%,transparent);border-top:3px solid var(--accent);}
+        .mtg-pillar .ic{font-size:30px;margin-bottom:12px;}
+        .mtg-pillar h4{font-size:17px;font-weight:800;margin-bottom:8px;}
+        .mtg-pillar p{font-size:14px;color:var(--ink-soft);line-height:1.55;}
+
         /* STEPS */
         .mtg-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
         .mtg-step{position:relative;padding:28px 24px;background:var(--bg);border-radius:16px;border:1px solid color-mix(in srgb,var(--ink) 10%,transparent);}
@@ -350,12 +364,14 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
           .mtg-grid{grid-template-columns:1fr;}
           .mtg-stats{grid-template-columns:repeat(2,1fr);}
           .mtg-sources{grid-template-columns:1fr;}
+          .mtg-pillars{grid-template-columns:repeat(2,1fr);}
         }
         @media(max-width:560px){
           .mtg .wrap{padding:0 16px;}
           .mtg-hero{padding:44px 0 28px;}
           .mtg-sec{padding:52px 0;}
           .mtg-two{grid-template-columns:1fr;}
+          .mtg-pillars{grid-template-columns:1fr;}
           .mtg-nav a.cta{display:none;}
           .mtg-logo .kk-side{display:none;}
           .mtg-logo-img{height:26px;}
@@ -611,6 +627,26 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
                 <div className="ic">{s.icon}</div>
                 <h4>{s.title}</h4>
                 <p>{s.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* POR QUÉ ELEGIRNOS */}
+      <section className="mtg-sec">
+        <div className="wrap">
+          <div className="mtg-head">
+            <span className="kick">Por qué elegirnos</span>
+            <h2>La diferencia está en de qué lado estamos</h2>
+            <p>Otros te comparan hipotecas. Nosotros negociamos por ti y te lo demostramos con datos oficiales, no con promesas.</p>
+          </div>
+          <div className="mtg-pillars">
+            {PILLARS.map(p => (
+              <div className="mtg-pillar" key={p.title}>
+                <div className="ic">{p.icon}</div>
+                <h4>{p.title}</h4>
+                <p>{p.text}</p>
               </div>
             ))}
           </div>

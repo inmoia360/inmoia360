@@ -44,11 +44,11 @@ export interface BrandConfig {
 }
 
 export const BRANDS: Record<BrandKey, BrandConfig> = {
-  // ── Web premium: Nexo Hipotecario (oro, tipografía serif) ─
+  // ── Web premium: Tu Partner Hipotecario (oro, tipografía serif) ─
   delagala: {
     key: 'delagala',
-    name: 'Nexo Hipotecario',
-    kicker: 'Intermediación hipotecaria',
+    name: 'Tu Partner Hipotecario',
+    kicker: 'Tu aliado frente a la banca',
     heroTitle: 'Tu hipoteca,',
     heroTitleEm: 'negociada por expertos.',
     heroLede:
@@ -56,9 +56,9 @@ export const BRANDS: Record<BrandKey, BrandConfig> = {
     legalName: 'ICA HOME S.L.',
     cif: 'B10641546',
     address: 'Calle Las Mercedes 17, 48930 Getxo',
-    email: 'info@nexohipotecario.es',
+    email: 'info@tupartnerhipotecario.es',
     phone: '662 128 409',
-    website: 'nexohipotecario.es',
+    website: 'tupartnerhipotecario.es',
     colors: {
       ink: '#0A0A0A',
       inkSoft: '#2A2A2A',
