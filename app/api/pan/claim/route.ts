@@ -3,6 +3,7 @@ import { getDb } from '@/lib/db';
 import { generateCouponCode, COUPON_EXPIRES_DAYS } from '@/lib/coupon';
 import { sendCouponWhatsApp, sendBarStaffNotification, normalizeSpanishPhone } from '@/lib/whatsapp';
 import { ensureConsentColumns } from '@/lib/ensure-consent';
+import { forwardLeadToOs } from '@/lib/os-bridge';
 
 export const runtime = 'nodejs';
 
@@ -91,6 +92,21 @@ export async function POST(request: NextRequest) {
     INSERT INTO pan.coupon_events (coupon_id, event_type, metadata)
     VALUES (${coupon.id}, 'coupon_generated', ${JSON.stringify({ source_url: source_url ?? null })}::jsonb)
   `;
+
+  // Al DELAgala OS solo si marcó la casilla de info inmobiliaria (segmento B).
+  // Best-effort: el cupón ya está guardado; si el OS no responde no pasa nada.
+  if (consentMarketing) {
+    await forwardLeadToOs({
+      ownerIntent: 'INTERES INMOBILIARIO (consintió info en campaña pan)',
+      address: 'Sin dirección (campaña pan)',
+      name: lead_name.trim(),
+      phone,
+      landing_path: '/delagala/dailybread',
+      utm_source: 'dailybread',
+      angle: 'cupon-pan-consent',
+      referrer: source_url ?? undefined,
+    });
+  }
 
   // FIX urgente: la plantilla del pan (DAILYBREAD) no entrega. Usamos la del
   // café (WHATSAPP_TEMPLATE_NAME), que está aprobada y funciona, como respaldo.

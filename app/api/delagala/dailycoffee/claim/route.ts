@@ -3,6 +3,7 @@ import { getDb } from '@/lib/db';
 import { generateCouponCode, COUPON_EXPIRES_DAYS } from '@/lib/coupon';
 import { sendCouponWhatsApp, sendBarStaffNotification, normalizeSpanishPhone } from '@/lib/whatsapp';
 import { ensureConsentColumns } from '@/lib/ensure-consent';
+import { forwardLeadToOs } from '@/lib/os-bridge';
 
 export const runtime = 'nodejs';
 
@@ -104,6 +105,21 @@ export async function POST(request: NextRequest) {
     INSERT INTO marketing_pilot.coffee_coupon_events (coupon_id, campaign_id, event_type, metadata)
     VALUES (${coupon.id}, (SELECT id FROM marketing_pilot.campaigns WHERE slug = 'dailycoffee'), 'coupon_generated', ${JSON.stringify({ source_url: source_url ?? null })}::jsonb)
   `;
+
+  // Al DELAgala OS solo si marcó la casilla de info inmobiliaria (segmento B).
+  // Best-effort: el cupón ya está guardado; si el OS no responde no pasa nada.
+  if (consentMarketing) {
+    await forwardLeadToOs({
+      ownerIntent: 'INTERES INMOBILIARIO (consintió info en campaña café)',
+      address: 'Sin dirección (campaña café)',
+      name: lead_name.trim(),
+      phone,
+      landing_path: '/delagala/dailycoffee',
+      utm_source: 'dailycoffee',
+      angle: 'cupon-cafe-consent',
+      referrer: source_url ?? undefined,
+    });
+  }
 
   // Enviar WhatsApp al cliente — awaited para que Vercel no corte la función antes
   await sendCouponWhatsApp(phone, lead_name.trim(), coupon_code).catch(e =>
