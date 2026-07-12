@@ -94,16 +94,17 @@ const PILLARS = [
   { icon: '✅', title: 'Datos oficiales', text: 'Te asesoramos con cifras verificables del INE y el Banco de España. Sin humo, con la fuente delante.' },
 ];
 
-// ⚠️ CIFRAS Y TESTIMONIOS DE EJEMPLO — sustituir por datos REALES antes de
-// promocionar. Publicar cifras/testimonios falsos en un servicio financiero
-// es publicidad engañosa (riesgo legal, LCCI). Cambiar aquí:
+// Métricas REALES (facilitadas por Álvaro 2026-07): 3 M€ gestionados y
+// 20 familias asesoradas; +20 entidades y 0 € coste son ciertas por el modelo.
 const METRICS = [
-  { value: '+2.500', label: 'familias asesoradas' },   // EJEMPLO
-  { value: '98%', label: 'nos recomiendan' },           // EJEMPLO
-  { value: '+20', label: 'entidades bancarias' },       // real (modelo de intermediación)
-  { value: '12 años', label: 'de experiencia' },        // EJEMPLO
+  { value: '+3 M€', label: 'gestionados en hipotecas' },
+  { value: '20', label: 'familias asesoradas' },
+  { value: '+20', label: 'entidades bancarias' },
+  { value: '0 €', label: 'de coste inicial' },
 ];
 
+// ⚠️ TESTIMONIOS DE EJEMPLO — sustituir por reales antes de promocionar
+// (publicar testimonios falsos en un servicio financiero es engañoso / LCCI).
 const TESTIMONIALS = [
   { text: 'Nos bajaron la cuota casi 180 € al mes. Hicieron todo el papeleo con el banco y nosotros solo firmamos.', name: 'María G. · Getxo' },      // EJEMPLO
   { text: 'Comprábamos nuestra primera casa sin saber por dónde empezar. Nos guiaron paso a paso y sin coste.', name: 'Jon A. · Bilbao' },              // EJEMPLO
