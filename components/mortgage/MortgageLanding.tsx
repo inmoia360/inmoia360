@@ -94,6 +94,22 @@ const PILLARS = [
   { icon: '✅', title: 'Datos oficiales', text: 'Te asesoramos con cifras verificables del INE y el Banco de España. Sin humo, con la fuente delante.' },
 ];
 
+// ⚠️ CIFRAS Y TESTIMONIOS DE EJEMPLO — sustituir por datos REALES antes de
+// promocionar. Publicar cifras/testimonios falsos en un servicio financiero
+// es publicidad engañosa (riesgo legal, LCCI). Cambiar aquí:
+const METRICS = [
+  { value: '+2.500', label: 'familias asesoradas' },   // EJEMPLO
+  { value: '98%', label: 'nos recomiendan' },           // EJEMPLO
+  { value: '+20', label: 'entidades bancarias' },       // real (modelo de intermediación)
+  { value: '12 años', label: 'de experiencia' },        // EJEMPLO
+];
+
+const TESTIMONIALS = [
+  { text: 'Nos bajaron la cuota casi 180 € al mes. Hicieron todo el papeleo con el banco y nosotros solo firmamos.', name: 'María G. · Getxo' },      // EJEMPLO
+  { text: 'Comprábamos nuestra primera casa sin saber por dónde empezar. Nos guiaron paso a paso y sin coste.', name: 'Jon A. · Bilbao' },              // EJEMPLO
+  { text: 'Comparé por mi cuenta y no me acercaba. Ellos consiguieron un tipo mucho mejor en una semana.', name: 'Laura P. · Leioa' },                  // EJEMPLO
+];
+
 type CalcMode = 'cuota' | 'capacidad';
 type FormState = 'idle' | 'loading' | 'success' | 'error';
 
@@ -276,6 +292,19 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
         .mtg-pillar h4{font-size:17px;font-weight:800;margin-bottom:8px;}
         .mtg-pillar p{font-size:14px;color:var(--ink-soft);line-height:1.55;}
 
+        /* MÉTRICAS */
+        .mtg-metrics-band{background:var(--ink);padding:40px 0;}
+        .mtg-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;}
+        .mtg-metric .num{display:block;font-family:var(--font-display);font-weight:800;font-size:clamp(30px,4vw,42px);color:var(--accent);line-height:1;}
+        .mtg-metric .lbl{display:block;margin-top:8px;font-size:13px;letter-spacing:.04em;color:color-mix(in srgb,var(--bg) 72%,transparent);}
+
+        /* TESTIMONIOS */
+        .mtg-testis{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+        .mtg-testi{background:var(--bg);border:1px solid color-mix(in srgb,var(--ink) 10%,transparent);border-radius:16px;padding:26px 24px;margin:0;}
+        .mtg-testi .stars{color:var(--accent-deep);letter-spacing:2px;font-size:15px;margin-bottom:12px;}
+        .mtg-testi blockquote{margin:0 0 14px;font-size:15px;line-height:1.6;color:var(--ink-soft);font-style:italic;}
+        .mtg-testi figcaption{font-weight:700;font-size:13px;color:var(--ink);}
+
         /* STEPS */
         .mtg-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
         .mtg-step{position:relative;padding:28px 24px;background:var(--bg);border-radius:16px;border:1px solid color-mix(in srgb,var(--ink) 10%,transparent);}
@@ -365,6 +394,8 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
           .mtg-stats{grid-template-columns:repeat(2,1fr);}
           .mtg-sources{grid-template-columns:1fr;}
           .mtg-pillars{grid-template-columns:repeat(2,1fr);}
+          .mtg-metrics{grid-template-columns:repeat(2,1fr);gap:28px;}
+          .mtg-testis{grid-template-columns:1fr;}
         }
         @media(max-width:560px){
           .mtg .wrap{padding:0 16px;}
@@ -648,6 +679,39 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
                 <h4>{p.title}</h4>
                 <p>{p.text}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* MÉTRICAS (ejemplo — sustituir por reales) */}
+      <section className="mtg-metrics-band">
+        <div className="wrap">
+          <div className="mtg-metrics">
+            {METRICS.map(m => (
+              <div className="mtg-metric" key={m.label}>
+                <span className="num">{m.value}</span>
+                <span className="lbl">{m.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIOS (ejemplo — sustituir por reales) */}
+      <section className="mtg-sec alt">
+        <div className="wrap">
+          <div className="mtg-head">
+            <span className="kick">Lo que dicen</span>
+            <h2>Clientes que ya tienen su hipoteca</h2>
+          </div>
+          <div className="mtg-testis">
+            {TESTIMONIALS.map(t => (
+              <figure className="mtg-testi" key={t.name}>
+                <div className="stars">★★★★★</div>
+                <blockquote>{t.text}</blockquote>
+                <figcaption>{t.name}</figcaption>
+              </figure>
             ))}
           </div>
         </div>
