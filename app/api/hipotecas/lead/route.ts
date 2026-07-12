@@ -65,11 +65,12 @@ export async function POST(request: NextRequest) {
     referrer: source_url ?? undefined,
   });
 
-  // Aviso por WhatsApp al equipo. Número por defecto 603507168 (Álvaro);
-  // se puede sobrescribir con el env MORTGAGE_NOTIFY_PHONE.
+  // Aviso por WhatsApp, al número asociado a cada landing:
+  //   DELAGALA (élite) → 662128409 · Hipoteca Justa (blanca) → 603507168
+  // Se puede sobrescribir con el env MORTGAGE_NOTIFY_PHONE (mismo para ambas).
   // NOTA: es texto libre, así que WhatsApp solo lo entrega si el receptor ha
   // escrito al número de DELAGALA (663 305 791) en las últimas 24h.
-  const notify = process.env.MORTGAGE_NOTIFY_PHONE || '603507168';
+  const notify = process.env.MORTGAGE_NOTIFY_PHONE || (brand === 'delagala' ? '662128409' : '603507168');
   if (notify) {
     const calcLine =
       calc?.mode === 'cuota'
