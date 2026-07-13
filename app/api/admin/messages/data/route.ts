@@ -16,5 +16,13 @@ export async function GET(req: NextRequest) {
     ORDER BY created_at DESC
     LIMIT 500
   `;
-  return NextResponse.json({ messages });
+  // Estadísticas de la campaña (Delagala Daily): enviados / entregados / leídos
+  const [stats] = await sql`
+    SELECT
+      COUNT(*) FILTER (WHERE direction = 'out' AND body LIKE '[Newsletter]%')::int AS sent,
+      COUNT(*) FILTER (WHERE direction = 'out' AND body LIKE '[Newsletter]%' AND status IN ('delivered','read'))::int AS delivered,
+      COUNT(*) FILTER (WHERE direction = 'out' AND body LIKE '[Newsletter]%' AND status = 'read')::int AS read
+    FROM wa.messages
+  `;
+  return NextResponse.json({ messages, broadcastStats: stats });
 }

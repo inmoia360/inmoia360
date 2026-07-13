@@ -68,6 +68,18 @@ export async function POST(req: NextRequest) {
             } catch (e) { console.error('[WA webhook] alta error', e); }
           }
         }
+
+        // Estados de entrega/lectura de NUESTROS salientes (sent/delivered/read/failed).
+        // Solo "sube" el estado (no baja de leido a entregado).
+        for (const s of value.statuses ?? []) {
+          if (!s.id || !s.status) continue;
+          const rank = s.status === 'read' ? 3 : s.status === 'delivered' ? 2 : s.status === 'sent' ? 1 : 0;
+          await sql`
+            UPDATE wa.messages SET status = ${s.status}, status_at = NOW()
+            WHERE wam_id = ${s.id}
+              AND ${rank} > CASE status WHEN 'read' THEN 3 WHEN 'delivered' THEN 2 WHEN 'sent' THEN 1 ELSE 0 END
+          `;
+        }
       }
     }
   } catch (e) {

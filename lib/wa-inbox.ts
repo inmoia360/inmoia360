@@ -17,4 +17,7 @@ export async function ensureInbox() {
     )
   `;
   await sql`CREATE INDEX IF NOT EXISTS idx_wa_from ON wa.messages(wa_from)`;
+  // Estado de entrega/lectura de los mensajes salientes (sent/delivered/read/failed)
+  await sql`ALTER TABLE wa.messages ADD COLUMN IF NOT EXISTS status TEXT`;
+  await sql`ALTER TABLE wa.messages ADD COLUMN IF NOT EXISTS status_at TIMESTAMPTZ`;
 }

@@ -19,6 +19,24 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--prefix", "C:\\Users\\alvaro.PARTNERS\\citaia", "--", "--port", "3110"],
       "port": 3110
+    },
+    {
+      "name": "cerebro360",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "web", "--prefix", "C:\\Users\\alvaro.PARTNERS\\cerebro360"],
+      "port": 3360
+    },
+    {
+      "name": "delagala-os-backend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start:dev", "--prefix", "C:\\Users\\alvaro.PARTNERS\\delagala-os\\backend"],
+      "port": 3101
+    },
+    {
+      "name": "delagala-os-frontend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "C:\\Users\\alvaro.PARTNERS\\delagala-os\\frontend", "--", "--port", "3100"],
+      "port": 3100
     }
   ]
 }

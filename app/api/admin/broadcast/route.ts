@@ -9,6 +9,29 @@ export const maxDuration = 60;
 
 const BATCH = 25;
 
+// Elige la plantilla del newsletter: prefiere la "cercana + baja" (delagala_daily_cercano,
+// con la opción de baja escrita) EN CUANTO Meta la aprueba; mientras siga pendiente,
+// usa la actual (delagala_daily_news), que ya está aprobada. Así se activa sola.
+async function pickNewsTemplate(token: string): Promise<string> {
+  // Forzamos la plantilla nueva (con el texto cercano + baja). No usamos la env var
+  // WHATSAPP_TEMPLATE_NEWS porque apunta a la plantilla vieja.
+  const preferred = 'delagala_daily_hoy2';
+  const fallback = 'delagala_daily_hoy';
+  const waba = process.env.WHATSAPP_WABA_ID || process.env.WABA_ID || '3556657921150855';
+  try {
+    const r = await fetch(`https://graph.facebook.com/v20.0/${waba}/message_templates?fields=name,status&limit=200`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const d = await r.json();
+    const approved = Array.isArray(d?.data) && d.data.some(
+      (t: { name?: string; status?: string }) => t.name === preferred && t.status === 'APPROVED',
+    );
+    return approved ? preferred : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
 // Envía el newsletter (Delagala Daily) por tandas a los leads registrados.
 // El Daily lo aceptaron todos al registrarse (va a 🟢 y 🟡).
 export async function POST(req: NextRequest) {
@@ -24,17 +47,19 @@ export async function POST(req: NextRequest) {
 
   const token = process.env.WHATSAPP_TOKEN;
   const phoneId = process.env.WHATSAPP_PHONE_ID;
-  const templateName = (process.env.WHATSAPP_TEMPLATE_NEWS ?? '').trim() || 'delagala_daily_news';
   if (!token || !phoneId) return NextResponse.json({ error: 'WhatsApp no configurado' }, { status: 500 });
+  // Plantilla: la "cercana + baja" en cuanto Meta la apruebe; si no, la actual.
+  const templateName = await pickNewsTemplate(token);
 
   // Modo PRUEBA: envía el newsletter solo a un número (no a todos)
   const test = url.searchParams.get('test');
   if (test) {
     const to = normalizeSpanishPhone(test);
+    const testName = (url.searchParams.get('name') || 'Prueba').trim();
     const r = await fetch(`https://graph.facebook.com/v20.0/${phoneId}/messages`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messaging_product: 'whatsapp', to, type: 'template', template: { name: templateName, language: { code: 'es_ES' }, components: [{ type: 'body', parameters: [{ type: 'text', text: 'Prueba' }] }] } }),
+      body: JSON.stringify({ messaging_product: 'whatsapp', to, type: 'template', template: { name: templateName, language: { code: 'es_ES' }, components: [{ type: 'body', parameters: [{ type: 'text', text: testName }] }] } }),
     });
     const data = await r.json();
     return NextResponse.json({ ok: r.ok, test: to, data }, { status: r.ok ? 200 : 400 });

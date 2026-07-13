@@ -25,6 +25,7 @@ export default function UnifiedAdmin() {
   const [locations, setLocations] = useState<Loc[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
   const [messages, setMessages] = useState<Msg[]>([]);
+  const [bStats, setBStats] = useState<{ sent: number; delivered: number; read: number } | null>(null);
   const [loading, setLoading] = useState(true);
   const [nName, setNName] = useState('');
   const [nCity, setNCity] = useState('');
@@ -47,6 +48,7 @@ export default function UnifiedAdmin() {
     const d = await res.json();
     if (t === 'mensajes') {
       setMessages(d.messages ?? []);
+      setBStats(d.broadcastStats ?? null);
     } else {
       setCoupons(d.coupons ?? []); setLocations(d.locations ?? []); setStats(d.stats ?? null);
     }
@@ -208,6 +210,23 @@ export default function UnifiedAdmin() {
       <div style={{ padding: '1.5rem', maxWidth: 1000, margin: '0 auto' }}>
         {loading ? <p>Cargando…</p> : tab === 'mensajes' ? (
           <div>
+            {bStats && bStats.sent > 0 && (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginBottom: '1.25rem' }}>
+                {[
+                  ['📤 Enviados', bStats.sent, INK],
+                  ['✅ Entregados', bStats.delivered, '#0e7490'],
+                  ['🔵 Leídos', bStats.read, '#15803d'],
+                ].map(([l, v, c]) => (
+                  <div key={l as string} style={{ ...card, borderLeft: `4px solid ${c as string}` }}>
+                    <div style={{ fontSize: '1.8rem', fontWeight: 800, color: c as string }}>{v as number}</div>
+                    <div style={{ fontSize: '.75rem', textTransform: 'uppercase', letterSpacing: 1, color: '#789' }}>{l as string}</div>
+                    {(l as string).includes('Leídos') && bStats.sent > 0 && (
+                      <div style={{ fontSize: '.72rem', color: '#9aa7ad', marginTop: 2 }}>{Math.round((bStats.read / bStats.sent) * 100)}% de apertura</div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
             <div style={{ marginBottom: '.75rem', fontWeight: 700 }}>💬 Conversaciones ({convos.length})</div>
             {convos.length === 0 && <div style={{ ...card, padding: '1.75rem', textAlign: 'center', color: '#789' }}>Sin mensajes todavía.<br /><span style={{ fontSize: '.85rem' }}>Cuando un lead responda por WhatsApp, aparecerá aquí y podrás contestarle.</span></div>}
             {convos.map(cv => <Conversation key={cv.from} from={cv.from} name={cv.name} msgs={cv.msgs} onReply={sendReply} />)}
