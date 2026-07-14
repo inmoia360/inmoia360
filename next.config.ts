@@ -18,6 +18,17 @@ const nextConfig: NextConfig = {
         source: '/delagala/diagnostico',
         destination: '/diagnostico.html',
       },
+      {
+        // Dominio propio de hipotecas: tupartnerhipotecario.es → landing DELAGALA
+        source: '/',
+        destination: '/delagala/hipotecas',
+        has: [{ type: 'host', value: '(www\\.)?tupartnerhipotecario\\.es' }],
+      },
+      {
+        source: '/:path*',
+        destination: '/delagala/hipotecas',
+        has: [{ type: 'host', value: '(www\\.)?tupartnerhipotecario\\.es' }],
+      },
     ];
   },
 };
