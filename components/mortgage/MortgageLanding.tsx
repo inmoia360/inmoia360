@@ -576,6 +576,25 @@ export default function MortgageLanding({ brand }: { brand: BrandConfig }) {
         </div>
       </header>
 
+      {/* SPOT — vídeo corporativo (solo DELAGALA) */}
+      {brand.key === 'delagala' && (
+        <section className="mtg-sec" style={{ paddingTop: 8, paddingBottom: 8 }}>
+          <div className="wrap">
+            <video
+              src="https://d8j0ntlcm91z4.cloudfront.net/user_3GPbj5AOCgPQOixIdHFUBJeMB2x/hf_20260713_182309_fb29e787-8e37-4fd2-9a84-4943d57b4fa8.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              onClick={e => { const v = e.currentTarget; v.muted = false; v.play().catch(() => {}); }}
+              style={{ width: '100%', maxWidth: 960, display: 'block', margin: '0 auto', borderRadius: 16, boxShadow: '0 24px 60px -24px rgba(0,0,0,.35)', cursor: 'pointer' }}
+              title="Toca para activar el sonido"
+            />
+          </div>
+        </section>
+      )}
+
       {/* ACTUALIDAD — élite (DELAGALA): datos oficiales + gráficos; marca blanca: solo noticias */}
       {brand.key === 'delagala' ? (
       <section className="mtg-sec alt">
