@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:migrate": "node scripts/migrate.js"
+    "db:migrate": "node scripts/migrate.js",
+    "check:valuation": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-valuation.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
