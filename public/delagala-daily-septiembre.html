@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delagala Daily · Nº 07 · Septiembre 2026 · Especial PGOU</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+  :root{
+    --ink:#0A0A0A; --gold:#F5C842; --gold-dk:#C9A227; --cream:#FAF7F2;
+    --warm-gray:#F0EDE6; --mid-gray:#888; --rule:1.5px solid var(--ink);
+    --rule-thin:0.5px solid #AAA; --gold-soft:#FBF3D6; --chart-track:#E9DEB8;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--cream);color:var(--ink);font-family:'Libre Baskerville',Georgia,serif;font-size:10.5pt;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+  .page{position:relative;width:210mm;margin:0 auto 8mm;background:#fff;padding:10mm 12mm 12mm;box-shadow:0 4px 32px rgba(0,0,0,.12);overflow:hidden;}
+  .watermark{position:absolute;inset:0;pointer-events:none;z-index:0;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .watermark span{font-family:'Playfair Display',serif;font-weight:900;font-size:120pt;letter-spacing:.05em;color:rgba(10,10,10,0.035);transform:rotate(-30deg);white-space:nowrap;text-transform:uppercase;}
+  .page>*:not(.watermark){position:relative;z-index:1;}
+
+  .masthead{border-top:4px solid var(--ink);border-bottom:2px solid var(--ink);padding:6px 0 8px;margin-bottom:4px;display:flex;align-items:center;gap:12px;}
+  .masthead-logo{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .masthead-name{flex:1;text-align:center;}
+  .masthead-name h1{font-family:'Playfair Display',serif;font-weight:900;font-size:42pt;letter-spacing:-.02em;line-height:.9;text-transform:uppercase;}
+  .masthead-name .subtitle{font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:600;letter-spacing:.4em;text-transform:uppercase;color:var(--mid-gray);margin-top:4px;}
+  .masthead-meta{flex-shrink:0;text-align:right;font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:500;color:var(--mid-gray);line-height:1.7;}
+  .masthead-meta strong{color:var(--ink);font-weight:700;font-size:8pt;}
+
+  .top-strip{background:var(--gold);padding:4px 8px;font-family:'Montserrat',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;border-bottom:1px solid var(--ink);}
+
+  .market-band{background:var(--gold-soft);color:var(--ink);border:1.5px solid var(--ink);border-left:6px solid var(--gold);padding:8px 14px;margin-bottom:8px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .market-label{font-family:'Montserrat',sans-serif;font-size:8pt;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dk);flex-shrink:0;line-height:1.1;}
+  .market-value{font-family:'Playfair Display',serif;font-size:22pt;font-weight:900;color:var(--gold-dk);line-height:1;flex-shrink:0;}
+  .market-hist{display:flex;gap:16px;flex-wrap:wrap;}
+  .market-item{font-family:'Montserrat',sans-serif;font-size:7.5pt;color:#666;text-align:center;}
+  .market-item .val{display:block;font-weight:700;font-size:10pt;color:var(--ink);}
+  .market-note{margin-left:auto;font-family:'Montserrat',sans-serif;font-size:7pt;color:#777;max-width:150px;line-height:1.4;font-style:italic;}
+
+  .columns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 16px;margin-bottom:8px;}
+  .col-span-2{grid-column:span 2;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;}
+
+  .section-tag{font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:.3em;text-transform:uppercase;background:var(--gold);color:var(--ink);display:inline-block;padding:2px 8px;margin-bottom:5px;}
+  .section-tag.local{background:var(--gold);color:var(--ink);}
+  .section-tag.blue{background:#fff;color:#1A3A5C;border:1.5px solid #1A3A5C;padding:1px 7px;}
+  .section-rule{border:none;border-top:var(--rule);margin:6px 0 5px;}
+  .section-rule-thin{border:none;border-top:var(--rule-thin);margin:6px 0 5px;}
+
+  article{margin-bottom:8px;}
+  article h2{font-family:'Playfair Display',serif;font-weight:900;font-size:15pt;line-height:1.12;margin-bottom:4px;}
+  article h2 em{font-style:italic;}
+  article h3{font-family:'Playfair Display',serif;font-weight:700;font-size:11pt;line-height:1.25;margin-bottom:3px;margin-top:5px;}
+  article .deck{font-family:'Libre Baskerville',serif;font-style:italic;font-size:9.5pt;color:#444;margin-bottom:5px;line-height:1.4;}
+  article p{font-size:9.5pt;line-height:1.55;text-align:justify;hyphens:auto;margin-bottom:5px;}
+  article .byline{font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mid-gray);margin-bottom:4px;}
+  .dropcap::first-letter{font-family:'Playfair Display',serif;font-weight:900;font-size:34pt;line-height:.8;float:left;padding:4px 6px 0 0;color:var(--gold-dk);}
+
+  /* firma / autora */
+  .author{display:flex;align-items:center;gap:9px;border-top:var(--rule-thin);border-bottom:var(--rule-thin);padding:5px 0;margin-bottom:6px;}
+  .author .avatar{width:34px;height:34px;flex-shrink:0;border-radius:50%;background:var(--gold-soft);border:1.5px solid var(--gold-dk);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:15pt;color:var(--gold-dk);}
+  .author .who{line-height:1.25;}
+  .author .who .n{font-family:'Playfair Display',serif;font-weight:700;font-size:9.5pt;}
+  .author .who .r{font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-dk);}
+
+  .data-box{border:1.5px solid var(--ink);padding:8px 10px;margin-bottom:8px;background:var(--warm-gray);}
+  .data-box .label{font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mid-gray);margin-bottom:3px;}
+  .data-box .value{font-family:'Playfair Display',serif;font-size:20pt;font-weight:900;line-height:1;color:var(--ink);}
+  .data-box .sub{font-family:'Montserrat',sans-serif;font-size:7.5pt;color:#555;margin-top:2px;}
+
+  /* ── gráficos ── */
+  .chartbox{border:1.5px solid var(--ink);border-left:6px solid var(--gold);background:var(--gold-soft);padding:9px 12px 10px;margin-bottom:8px;}
+  .chartbox .ctitle{font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:7px;}
+  .chartbox .ccap{font-family:'Montserrat',sans-serif;font-size:6.6pt;color:#777;margin-top:6px;line-height:1.4;font-style:italic;}
+  .donut-wrap{display:flex;align-items:center;gap:14px;}
+  .donut-legend{font-family:'Montserrat',sans-serif;font-size:7.5pt;line-height:1.35;}
+  .donut-legend .li{display:flex;align-items:baseline;gap:6px;margin-bottom:5px;}
+  .donut-legend .sw{width:11px;height:11px;flex-shrink:0;display:inline-block;border:1px solid var(--gold-dk);transform:translateY(2px);}
+  .donut-legend .big{font-family:'Playfair Display',serif;font-weight:900;font-size:12pt;color:var(--gold-dk);}
+  .barchart{margin-top:2px;}
+  .bar-row{display:flex;align-items:center;gap:8px;margin:6px 0;}
+  .bar-row .blabel{font-family:'Montserrat',sans-serif;font-size:7.2pt;font-weight:600;color:var(--ink);width:132px;flex-shrink:0;line-height:1.15;}
+  .bar-track{flex:1;background:var(--chart-track);height:17px;border:1px solid var(--gold-dk);position:relative;overflow:hidden;}
+  .bar-fill{height:100%;background:var(--gold-dk);}
+  .bar-fill.soft{background:var(--gold);}
+  .bar-val{font-family:'Montserrat',sans-serif;font-size:8.5pt;font-weight:800;color:var(--gold-dk);white-space:nowrap;width:52px;text-align:right;flex-shrink:0;}
+
+  table.grid{width:100%;border-collapse:collapse;font-size:8.5pt;margin:2px 0 8px;}
+  table.grid th{text-align:left;font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border-top:var(--rule);border-bottom:1px solid var(--ink);padding:4px 8px 4px 0;}
+  table.grid td{padding:4px 8px 4px 0;border-bottom:var(--rule-thin);vertical-align:top;}
+  table.grid td:first-child{font-weight:700;white-space:nowrap;}
+
+  .blue-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:0 12px;border-top:var(--rule);border-bottom:var(--rule);padding:6px 0;margin-bottom:8px;}
+  .blue-strip .item{font-size:8.5pt;line-height:1.45;padding-right:12px;border-right:var(--rule-thin);}
+  .blue-strip .item:last-child{border-right:none;padding-right:0;}
+  .blue-strip .item strong{display:block;font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#1A3A5C;margin-bottom:2px;}
+
+  /* timeline visual */
+  .timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:8px 0;position:relative;}
+  .timeline::before{content:"";position:absolute;top:6px;left:5%;right:5%;height:2px;background:var(--gold-dk);}
+  .tl-node{text-align:center;padding:0 5px;position:relative;}
+  .tl-node .dot{width:13px;height:13px;border-radius:50%;background:var(--gold);border:2px solid var(--gold-dk);margin:0 auto 6px;position:relative;z-index:1;}
+  .tl-node.on .dot{background:var(--gold-dk);}
+  .tl-node .yr{font-family:'Montserrat',sans-serif;font-size:7.5pt;font-weight:800;color:var(--gold-dk);}
+  .tl-node .tx{font-family:'Montserrat',sans-serif;font-size:6.6pt;color:#555;line-height:1.35;margin-top:2px;}
+
+  .pull-quote{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:8px 0;margin:8px 0;font-family:'Playfair Display',serif;font-size:12pt;font-style:italic;font-weight:700;line-height:1.35;text-align:center;}
+
+  .faq{background:var(--gold-soft);border:1.5px solid var(--ink);border-left:6px solid var(--gold);padding:10px 14px;margin:8px 0;}
+  .faq h4{font-family:'Playfair Display',serif;font-size:10.5pt;font-weight:700;margin:6px 0 2px;}
+  .faq h4:first-child{margin-top:0;}
+  .faq p{font-size:8.8pt;line-height:1.5;text-align:justify;margin-bottom:4px;}
+
+  .editorial{border:1.5px solid var(--gold-dk);padding:10px 14px;margin:8px 0;background:#fff;}
+  .editorial .lbl{font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:4px;}
+  .editorial p{font-family:'Libre Baskerville',serif;font-size:9pt;line-height:1.55;text-align:justify;font-style:italic;margin-bottom:4px;}
+
+  .cta{background:var(--gold-soft);color:var(--ink);border:2px solid var(--ink);border-left:6px solid var(--gold);padding:12px 16px;margin-top:10px;display:flex;align-items:center;gap:14px;}
+  .cta .text h4{font-family:'Playfair Display',serif;font-size:13pt;font-weight:900;font-style:italic;color:var(--gold-dk);margin-bottom:3px;}
+  .cta .text p{font-family:'Montserrat',sans-serif;font-size:8pt;color:#333;line-height:1.45;text-align:left;margin:0;}
+  .cta .link{margin-left:auto;background:var(--gold);color:var(--ink);font-family:'Montserrat',sans-serif;font-size:8.5pt;font-weight:800;text-decoration:none;padding:9px 16px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;text-align:center;line-height:1.3;}
+
+  .sources{font-family:'Montserrat',sans-serif;font-size:6.8pt;color:#666;line-height:1.5;border-top:var(--rule-thin);padding-top:5px;margin-top:6px;}
+  .sources strong{color:var(--ink);text-transform:uppercase;letter-spacing:.1em;font-size:6.5pt;}
+
+  .footer{border-top:var(--rule);padding-top:6px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;font-family:'Montserrat',sans-serif;font-size:7pt;color:var(--mid-gray);}
+  .footer strong{color:var(--ink);}
+
+  /* ── RESPONSIVE MÓVIL ── */
+  @media (max-width: 820px){
+    body{font-size:12px;}
+    .page{width:100%;padding:16px 14px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.10);}
+    .watermark span{font-size:74pt;}
+    .masthead{flex-wrap:wrap;gap:8px 12px;padding:8px 0;}
+    .masthead>*{min-width:0;}
+    .masthead-name{order:-1;flex-basis:100%;}
+    .masthead-name h1{font-size:38pt;}
+    .masthead-name .subtitle{letter-spacing:.12em;font-size:6pt;white-space:normal;}
+    .masthead-meta{text-align:left;}
+    .market-band>*,.donut-wrap>*,.bar-row>*{min-width:0;}
+    .top-strip{letter-spacing:.04em;}
+    .top-strip{flex-direction:column;align-items:flex-start;gap:2px;}
+    .market-band{gap:10px 14px;padding:10px 12px;}
+    .market-value{font-size:20pt;}
+    .market-note{margin-left:0;max-width:none;flex-basis:100%;}
+    .columns,.two-col{grid-template-columns:1fr;gap:0;}
+    .col-span-2{grid-column:auto;}
+    .columns>div,.two-col>*{border-right:none !important;padding-right:0 !important;min-width:0;}
+    .columns>*,.two-col>*,article,.faq,.editorial{min-width:0;overflow-wrap:break-word;}
+    article p,.faq p{text-align:left;}
+    .columns>div+div{margin-top:6px;}
+    .blue-strip{grid-template-columns:1fr;}
+    .blue-strip .item{border-right:none;border-bottom:var(--rule-thin);padding:7px 0;}
+    .blue-strip .item:last-child{border-bottom:none;}
+    .timeline{grid-template-columns:1fr 1fr;gap:12px 8px;}
+    .timeline::before{display:none;}
+    .donut-wrap{gap:12px;}
+    .bar-row .blabel{width:104px;font-size:8pt;}
+    .cta{flex-direction:column;align-items:stretch;gap:10px;}
+    .cta .link{margin-left:0;width:100%;}
+    article p,.faq p,.editorial p{font-size:11.5px;line-height:1.6;}
+    article h2{font-size:22px;}
+    html,body{overflow-x:hidden;}
+    table.grid{font-size:11px;}
+    table.grid td:first-child{white-space:normal;}
+    table.grid td,table.grid th{padding-right:6px;}
+    .pull-quote{font-size:13px;}
+  }
+
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none;margin:0;padding:8mm 10mm 10mm;width:100%;page-break-after:always;}
+    .page:last-child{page-break-after:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ PÁGINA 1 ══════════════ -->
+<div class="page">
+  <div class="watermark"><span>DELAGALA</span></div>
+
+  <div class="masthead">
+    <div class="masthead-logo">
+      <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <text x="1" y="42" font-family="Montserrat,Arial Black,sans-serif" font-weight="900" font-size="46" fill="#F5C842">D</text>
+        <g transform="translate(30,1)"><polygon points="9,0 18,8 0,8" fill="#F5C842"/><rect x="3" y="8" width="12" height="9" fill="#F5C842"/></g>
+      </svg>
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:16pt;letter-spacing:3px;text-transform:uppercase;line-height:1.1;color:#F5C842">DELAGALA</div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:6.5pt;letter-spacing:2px;text-transform:uppercase;color:#888">Consultoría Inmobiliaria</div>
+      </div>
+    </div>
+    <div class="masthead-name">
+      <h1>Daily</h1>
+      <div class="subtitle">El periódico inmobiliario de Getxo · Especial Urbanismo</div>
+    </div>
+    <div class="masthead-meta">
+      <strong>Nº 07 · Septiembre 2026</strong><br>
+      Martes, 1 de septiembre de 2026<br>
+      Distribución gratuita<br>
+      idelagala.com
+    </div>
+  </div>
+
+  <div class="top-strip">
+    <span>Especial PGOU · Urbanismo · Vivienda · Getxo</span>
+    <span>📍 El plan que ordena los próximos 20 años</span>
+  </div>
+
+  <div class="market-band">
+    <div class="market-label">Vivienda<br>Getxo</div>
+    <div class="market-value">3.608 €/m²</div>
+    <div class="market-hist">
+      <div class="market-item"><span class="val">+9,05%</span>Interanual (Tinsa 2T)</div>
+      <div class="market-item"><span class="val">~325.000 €</span>Piso medio 90 m²</div>
+      <div class="market-item"><span class="val">4.700–4.900</span>€/m² en portales</div>
+    </div>
+    <div class="market-note">Getxo llega al nuevo plan con los precios en máximos y subiendo cerca del 9%.</div>
+  </div>
+
+  <div class="columns">
+    <div class="col-span-2" style="padding-right:16px;border-right:var(--rule-thin)">
+      <span class="section-tag local">Portada · El nuevo mapa de Getxo</span>
+      <article>
+        <h2>El nuevo Getxo ya es oficial: te explico qué cambia para <em>tu casa</em></h2>
+        <div class="deck">Me he leído el nuevo Plan General de arriba abajo para contártelo yo misma, claro y sin tecnicismos. Prevé 4.471 viviendas —dos de cada tres protegidas—, congela la costa de Azkorri y concentra el crecimiento en el nordeste. Esto es lo que significa para tu vivienda.</div>
+        <div class="author">
+          <div class="avatar">I</div>
+          <div class="who">
+            <div class="n">Por Isabel De La Gala</div>
+            <div class="r">Perito tasador · Agente API colegiada (COAPI) · Getxo</div>
+          </div>
+        </div>
+        <p class="dropcap">Llevo más de una década tasando y vendiendo casas en Getxo, y pocas veces he visto un documento que vaya a marcar tanto el mercado como este. Después de casi diez años de tramitación, tenemos <strong>nuevo Plan General de Ordenación Urbana</strong>. Se aprobó definitivamente en el pleno de <strong>noviembre de 2025</strong>, se publicó en el Boletín Oficial de Bizkaia el <strong>3 de agosto de 2026</strong> y <strong>entró en vigor el 25 de agosto</strong>. Desde ese día es el documento con el que se responde toda licencia, valoración o consulta en el municipio.</p>
+        <p>Y no es un asunto solo de arquitectos: el PGOU decide <strong>qué se puede construir y dónde, qué queda protegido y qué suelo cambia de valor</strong>. Eso te toca a ti —quieras vender, hayas heredado, tengas un terreno o simplemente quieras saber cuánto vale hoy tu casa—. Por eso lo he estudiado a fondo: para poder sentarme contigo y decirte, con nombres y calles, cómo te afecta.</p>
+        <p>Un plan general es la "constitución urbanística" de un municipio: fija el modelo de ciudad para dos décadas. El anterior era de 2001, de otra época del mercado, y llevaba años agotado. El nuevo apuesta por <strong>crecer hacia dentro</strong> —completar la trama en vez de expandirse sobre suelo virgen—, con mayoría de vivienda protegida y más zonas verdes.</p>
+
+        <h3>Las cinco cifras que tienes que conocer</h3>
+        <table class="grid">
+          <thead><tr><th>Magnitud</th><th>Dato</th></tr></thead>
+          <tbody>
+            <tr><td>Viviendas nuevas previstas</td><td><strong>4.471</strong></td></tr>
+            <tr><td>De ellas, protegidas (VPO)</td><td><strong>3.044</strong> (68,1%) · libres 1.427 (31,9%)</td></tr>
+            <tr><td>Suelo para actividad económica</td><td><strong>14 ha</strong> (sector Martiturri)</td></tr>
+            <tr><td>Nuevos parques y equipamientos</td><td><strong>191.600 m²</strong></td></tr>
+            <tr><td>Azkorri</td><td><strong>Desclasificado y preservado</strong></td></tr>
+          </tbody>
+        </table>
+
+        <h3>Mi lectura, en una frase</h3>
+        <p>De cada tres viviendas nuevas, <strong>dos tendrán precio administrado</strong>. La vivienda libre nueva será escasa. Y en el Getxo de siempre —Las Arenas, Romo, Algorta, Neguri, Aiboa— la obra nueva será <strong>testimonial</strong>: unas 200 viviendas en 23 pequeñas actuaciones. Traducido: si tienes casa en estas zonas, <strong>apenas vas a tener competencia de obra nueva</strong>, y esa escasez sostiene tu valor.</p>
+      </article>
+    </div>
+
+    <div>
+      <div class="chartbox">
+        <div class="ctitle">2 de cada 3 casas nuevas, protegidas</div>
+        <div class="donut-wrap">
+          <svg width="104" height="104" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="47" fill="none" stroke="#E9DEB8" stroke-width="20"/>
+            <circle cx="60" cy="60" r="47" fill="none" stroke="#C9A227" stroke-width="20" stroke-dasharray="201 95" transform="rotate(-90 60 60)"/>
+            <text x="60" y="57" text-anchor="middle" font-family="'Playfair Display',serif" font-weight="900" font-size="27" fill="#C9A227">68%</text>
+            <text x="60" y="73" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="700" font-size="8" letter-spacing="1" fill="#0A0A0A">PROTEGIDA</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="li"><span class="sw" style="background:#C9A227"></span><span><span class="big">3.044</span><br>Protegidas (VPO) · 68,1%</span></div>
+            <div class="li"><span class="sw" style="background:#E9DEB8"></span><span><span class="big">1.427</span><br>Libres · 31,9%</span></div>
+          </div>
+        </div>
+        <div class="ccap">Reparto de las 4.471 viviendas nuevas del plan. Fuente: PGOU de Getxo 2026.</div>
+      </div>
+
+      <div class="data-box"><div class="label">Obra nueva en tu barrio</div><div class="value">~200</div><div class="sub">viviendas en todo el Getxo consolidado (23 actuaciones)</div></div>
+
+      <hr class="section-rule" style="margin-top:8px">
+      <span class="section-tag local" style="margin-bottom:6px;display:block">En vigor desde</span>
+      <p style="font-size:8.5pt;line-height:1.5;text-align:justify;hyphens:auto"><strong>25 de agosto de 2026.</strong> Desde ese día, toda tasación, nota de encargo o consulta se responde con el nuevo plan, no con el de 2001. Si te hicieron una valoración antes, conviene que la revisemos.</p>
+
+      <hr class="section-rule" style="margin-top:8px">
+      <span class="section-tag blue" style="margin-bottom:6px;display:block">Cómo se aprobó</span>
+      <p style="font-size:8.5pt;line-height:1.5;text-align:justify;hyphens:auto">A favor: EAJ-PNV, PSE-EE y PP. En contra: EH Bildu y Elkarrekin Podemos. Llega tras 16 años de contestación vecinal en la zona de Ibarbengoa.</p>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+  <span class="section-tag">Cronología · Cómo se ha fraguado el plan</span>
+  <div class="timeline">
+    <div class="tl-node"><div class="dot"></div><div class="yr">2020-22</div><div class="tx">Avance y exposición pública. La 1ª versión hablaba de 4.601 viviendas.</div></div>
+    <div class="tl-node"><div class="dot"></div><div class="yr">Jul 2024</div><div class="tx">El pleno aprueba el documento, ya con 4.471 viviendas.</div></div>
+    <div class="tl-node"><div class="dot"></div><div class="yr">2024-25</div><div class="tx">Informes del Gobierno Vasco fuerzan cambios; se recorta Fadura.</div></div>
+    <div class="tl-node on"><div class="dot"></div><div class="yr">Nov 2025</div><div class="tx">Aprobación definitiva en pleno extraordinario.</div></div>
+    <div class="tl-node on"><div class="dot"></div><div class="yr">Ago 2026</div><div class="tx">Publicación en el BOB (día 3) y entrada en vigor (día 25).</div></div>
+  </div>
+
+  <div class="footer">
+    <div><strong>DELAGALA Daily</strong> · Nº 07 · Septiembre 2026 · pág. 1 de 3</div>
+    <div style="text-align:center">Especial PGOU de Getxo</div>
+    <div style="text-align:right">idelagala.com · 662 128 409</div>
+  </div>
+</div>
+
+<!-- ══════════════ PÁGINA 2 ══════════════ -->
+<div class="page">
+  <div class="watermark"><span>DELAGALA</span></div>
+
+  <div class="top-strip" style="margin-top:0">
+    <span>Especial PGOU · Barrio a barrio</span>
+    <span>📍 Dónde se construye y dónde no</span>
+  </div>
+
+  <div class="chartbox">
+    <div class="ctitle">Dónde se construye · viviendas nuevas por zona</div>
+    <div class="barchart">
+      <div class="bar-row">
+        <span class="blabel">Nordeste<br>Ibarbengoa · Muru · La Galea</span>
+        <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+        <span class="bar-val">~4.270</span>
+      </div>
+      <div class="bar-row">
+        <span class="blabel">Getxo consolidado<br>Las Arenas · Neguri · Algorta…</span>
+        <div class="bar-track"><div class="bar-fill soft" style="width:4.7%"></div></div>
+        <span class="bar-val">~200</span>
+      </div>
+    </div>
+    <div class="ccap">El 95% del crecimiento se concentra en el nordeste. En el Getxo consolidado —el mercado de siempre— la obra nueva es mínima. Fuente: PGOU 2026.</div>
+  </div>
+
+  <span class="section-tag local">El plan, zona por zona</span>
+  <div class="columns" style="margin-top:6px">
+    <div style="padding-right:16px;border-right:var(--rule-thin)">
+      <article>
+        <h3 style="margin-top:0">Ibarbengoa–Muru–La Galea</h3>
+        <p style="font-size:9pt">Aquí se concentra <strong>el grueso de las 4.471 viviendas</strong>, en bloques que "completan" la trama y preservan el 70-80% del entorno con parques y servicios. Es el mayor crecimiento del plan y también el más polémico: acumula 16 años de contestación vecinal.</p>
+        <p style="font-size:9pt">La pieza clave es la <strong>estación de metro de Ibarbengoa</strong>, construida en 2011 y que nunca ha llegado a abrir, condicionada a un aparcamiento disuasorio de unas 300 plazas. El desarrollo residencial es justo lo que puede desbloquear su apertura —y esa apertura revalorizaría todo el nordeste—. Te lo digo claro: quien compre aquí "expectativa", que sepa que es dinero paciente.</p>
+      </article>
+    </div>
+    <div style="padding-right:16px;border-right:var(--rule-thin)">
+      <article>
+        <h3 style="margin-top:0">Azkorri · lo que NO se construye</h3>
+        <p style="font-size:9pt">El plan <strong>desclasifica</strong> el suelo urbanizable de la costa que arrastraba el plan de 2001 y lo preserva como activo natural (70-80%). Los propietarios que esperaban plusvalías urbanísticas las pierden; a cambio, las viviendas del entorno ganan un argumento de venta muy poderoso: <em>"esto ya no se puede replicar".</em></p>
+        <h3>Martiturri · la apuesta económica</h3>
+        <p style="font-size:9pt"><strong>14 hectáreas</strong> para actividad económica de alto valor añadido —oficinas, innovación, terciario avanzado—, no un polígono clásico. Es la apuesta para que Getxo retenga talento y empresa, y deje de ser solo ciudad residencial.</p>
+      </article>
+    </div>
+    <div>
+      <article>
+        <h3 style="margin-top:0">Las Arenas, Romo, Algorta, Neguri, Aiboa</h3>
+        <p style="font-size:9pt">El Getxo de siempre. <strong>23 actuaciones puntuales</strong> (unas 200 viviendas en total), 14 de mejora de accesibilidad y espacios libres repartidos. La obra nueva aquí es mínima: es, sobre todo, una buena noticia para quien ya tiene casa.</p>
+        <h3>Fadura y el patrimonio</h3>
+        <p style="font-size:9pt">La ampliación deportiva se recortó (16.653 m²) para proteger el humedal de Bolue. Además, el plan incluye <strong>9 planes especiales</strong> en zonas de alto valor —como el Puerto Viejo o Andra Mari— para resolver déficits sin alterar la identidad de los barrios.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="pull-quote">«De cada tres viviendas nuevas en Getxo, dos tendrán precio protegido. La vivienda libre bien ubicada se vuelve un bien aún más escaso» — Isabel De La Gala</div>
+
+  <div class="two-col">
+    <article>
+      <span class="section-tag" style="margin-bottom:5px">Análisis</span>
+      <h3 style="margin-top:0">Por qué esto NO baja los precios mañana</h3>
+      <p>Es la pregunta que más me hacéis: si se van a construir 4.471 viviendas, ¿bajarán los precios? Te respondo con franqueza: <strong>no a corto plazo</strong>. Entre planes de desarrollo, reparcelaciones, urbanización y construcción, los primeros sectores tardarán <strong>de 4 a 8 años</strong> en llegar al mercado; el grueso de Ibarbengoa, condicionado por el aparcamiento del metro, puede irse más allá de 2030-2032.</p>
+      <p>Mientras tanto, la vivienda usada bien ubicada —la que de verdad mueve el mercado de Getxo— sigue siendo escasa y muy demandada, con precios en máximos. A medio plazo, la enorme bolsa de protegida puede drenar parte de la demanda de entrada, pero no la de la vivienda libre consolidada.</p>
+    </article>
+    <article>
+      <span class="section-tag" style="margin-bottom:5px">Vivienda protegida</span>
+      <h3 style="margin-top:0">3.044 viviendas de VPO: cómo se accede</h3>
+      <p>Es el primer PGOU de Euskadi que incorpora vivienda de protección social <strong>en alquiler</strong> de forma sostenible para las arcas municipales. La protegida se adjudica a través de <strong>Etxebide</strong>, mediante inscripción en el registro y baremo por ingresos, empadronamiento y situación familiar.</p>
+      <p>Si estás pensando en inscribirte o comprar una protegida, dos claves que te doy siempre: revisa bien los requisitos de ingresos y ten preparada la <strong>financiación</strong>. Cada vivienda protegida es también una hipoteca —te ayudamos a conseguir la mejor con <strong>Hipoteca Justa</strong>—.</p>
+    </article>
+  </div>
+
+  <hr class="section-rule">
+  <span class="section-tag local">Qué significa para TI, propietario</span>
+  <div class="two-col" style="margin-top:6px;margin-bottom:4px">
+    <article>
+      <h3 style="margin-top:0">Si tu casa está en el Getxo consolidado</h3>
+      <p>Apenas habrá obra nueva compitiendo contigo (unas 200 viviendas en toda la zona, frente a las miles del nordeste). La <strong>escasez sostiene los precios</strong> de la vivienda usada bien ubicada, que ya sube cerca del 9% anual. Es, objetivamente, un buen momento para vender bien —y para hacerlo con una valoración actualizada al nuevo plan, que te preparo yo misma—.</p>
+    </article>
+    <article>
+      <h3 style="margin-top:0">Si tienes suelo o un inmueble afectado</h3>
+      <p>Cambia todo: qué aprovechamiento te corresponde en Ibarbengoa o La Galea, la pérdida de expectativa en Azkorri, o el efecto de las 23 actuaciones en el consolidado. Cada caso tiene una lectura —y una valoración— distinta con el plan nuevo. Antes de decidir, siéntate conmigo y miramos exactamente qué te permite hacer el PGOU en tu parcela.</p>
+    </article>
+  </div>
+  <div class="blue-strip">
+    <div class="item"><strong>Ojo con el IBI</strong>Los cambios de clasificación (Azkorri, nuevos urbanizables) moverán valores catastrales con retardo. Revisa que no pagas de más por suelo que ya no es urbanizable.</div>
+    <div class="item"><strong>Plazos largos</strong>Los grandes desarrollos pueden irse más allá de 2030. Quien compra "expectativa" debe saber que es dinero paciente.</div>
+    <div class="item"><strong>Metro Ibarbengoa</strong>Si el desarrollo desbloquea la apertura de la estación, todo el nordeste se revaloriza. Un factor decisivo a vigilar.</div>
+  </div>
+
+  <div class="footer">
+    <div><strong>DELAGALA Daily</strong> · Nº 07 · Septiembre 2026 · pág. 2 de 3</div>
+    <div style="text-align:center">Análisis inmobiliario del PGOU</div>
+    <div style="text-align:right">idelagala.com · 662 128 409</div>
+  </div>
+</div>
+
+<!-- ══════════════ PÁGINA 3 ══════════════ -->
+<div class="page">
+  <div class="watermark"><span>DELAGALA</span></div>
+
+  <div class="top-strip" style="margin-top:0">
+    <span>Especial PGOU · El mercado y tus preguntas</span>
+    <span>📍 Lo que me preguntáis</span>
+  </div>
+
+  <div class="two-col" style="margin-bottom:2px">
+    <div>
+      <div class="chartbox" style="margin-bottom:6px">
+        <div class="ctitle">El precio en Getxo, en máximos</div>
+        <div class="barchart">
+          <div class="bar-row">
+            <span class="blabel">Tasación<br>Tinsa · 2T 2026</span>
+            <div class="bar-track"><div class="bar-fill" style="width:73%"></div></div>
+            <span class="bar-val">3.608</span>
+          </div>
+          <div class="bar-row">
+            <span class="blabel">Oferta<br>portales · 2026</span>
+            <div class="bar-track"><div class="bar-fill soft" style="width:98%"></div></div>
+            <span class="bar-val">4.800</span>
+          </div>
+        </div>
+        <div class="ccap">€/m². El precio sube <strong style="color:#C9A227">+9,05% interanual</strong> (Tinsa). Un piso medio de 90 m² ronda los 325.000 €.</div>
+      </div>
+    </div>
+    <div>
+      <article>
+        <span class="section-tag" style="margin-bottom:5px">El mercado sobre el que aterriza el plan</span>
+        <h3 style="margin-top:0">Un plan nuevo, un mercado tensionado</h3>
+        <p style="font-size:8.8pt">El PGOU llega con Getxo en máximos históricos y subiendo cerca del 9% anual. La vivienda nueva del plan tardará años en llegar, así que a corto plazo <strong>no relaja el mercado</strong>. Mi consejo: si tienes que vender, aprovecha la escasez actual; si compras, prepara bien la financiación porque la competencia por el producto bueno es alta.</p>
+      </article>
+    </div>
+  </div>
+
+  <span class="section-tag local">Preguntas que me hacéis</span>
+  <div class="faq" style="margin-top:6px">
+    <h4>¿Sube o baja el valor de mi vivienda con el PGOU?</h4>
+    <p>Depende de la zona. En el Getxo consolidado, la casi ausencia de obra nueva refuerza el valor de la vivienda usada bien ubicada. En zonas de nuevo desarrollo, dependerá del producto y del calendario. Lo que sí es seguro: cualquier valoración anterior al 25 de agosto hay que revisarla con el plan nuevo.</p>
+    <h4>Tengo un terreno. ¿Puedo construir o venderlo mejor ahora?</h4>
+    <p>El PGOU redefine qué se puede hacer en cada parcela. Algunos suelos ganan aprovechamiento (nordeste) y otros lo pierden (Azkorri). Antes de vender o promover, leemos juntos la ficha urbanística concreta de tu parcela en el nuevo plan.</p>
+    <h4>¿Cuándo se construirán las 4.471 viviendas?</h4>
+    <p>No de golpe. Los primeros sectores, entre 4 y 8 años; el grueso del nordeste, previsiblemente más allá de 2030. Es un plan a 15-20 años.</p>
+    <h4>Quiero una vivienda protegida. ¿Por dónde empiezo?</h4>
+    <p>Inscríbete en <strong>Etxebide</strong> y revisa los requisitos de ingresos. Y prepara la financiación: te acompaño con <strong>Hipoteca Justa</strong> para que llegues con la hipoteca resuelta.</p>
+    <h4>¿El plan puede tumbarse en los tribunales?</h4>
+    <p>Se aprobó con oposición y cabe recurso contencioso-administrativo. Un recurso no suspende el plan por sí solo, pero conviene no dar por hechos plazos de desarrollo concretos hasta que los sectores estén en marcha.</p>
+  </div>
+
+  <div class="editorial">
+    <div class="lbl">La lectura de Isabel De La Gala</div>
+    <p>Te lo resumo como se lo digo a mis clientes en el despacho: el nuevo PGOU dibuja un Getxo con más vivienda protegida, más zonas verdes y un crecimiento concentrado en el nordeste. Para el propietario de siempre, el mensaje es claro: <strong>tu vivienda no va a tener competencia de obra nueva</strong>, y eso, en un mercado ya tensionado y al alza, sostiene su valor.</p>
+    <p>Mi recomendación es sencilla: si piensas vender, hazlo con una valoración actualizada al plan nuevo; si tienes suelo o un inmueble en zona de cambio, infórmate antes de decidir; y si buscas comprar protegida, prepara la financiación cuanto antes. Me he leído el plan para poder ayudarte de verdad —con criterio, no con titulares—. Aquí me tienes.</p>
+    <p style="text-align:right;font-style:normal;font-family:'Montserrat',sans-serif;font-size:7.5pt;color:#666;margin-bottom:0">— Isabel De La Gala · Perito tasador y API (COAPI) · DELAGALA Consultoría Inmobiliaria</p>
+  </div>
+
+  <div class="cta">
+    <div class="text">
+      <h4>¿Cómo afecta el PGOU al valor de TU vivienda?</h4>
+      <p>Te preparo un informe personalizado y gratuito: qué te permite el nuevo plan, qué protección tiene tu inmueble y cuánto vale hoy tu casa en Getxo. Te atiendo yo misma, Isabel De La Gala, perito tasador y API con sillón en el COAPI.</p>
+    </div>
+    <a class="link" href="https://wa.me/34662128409?text=Hola%20Isabel%2C%20quiero%20saber%20c%C3%B3mo%20me%20afecta%20el%20nuevo%20PGOU%20a%20mi%20vivienda">WhatsApp<br>662 128 409</a>
+  </div>
+
+  <div class="sources">
+    <strong>Fuentes:</strong> Ayuntamiento de Getxo (getxo.eus — PGOU 2026, Texto Integrado mayo 2026; notas de prensa). Boletín Oficial de Bizkaia (3-08-2026). Deia (aprobación definitiva 11-11-2025; entrada en vigor 07-08-2026; documento con 4.471 viviendas 27-07-2024; avance 2022). Diario de Getxo (entrada en vigor 25-08-2026). EH Bildu Getxo (rectificación de Fadura; informes del Gobierno Vasco). El Salto (oposición vecinal en Ibarbengoa). Precios de vivienda: Tinsa (2T 2026), Idealista, Fotocasa, Housfy (jun 2026). Elaboración y análisis: Isabel De La Gala · DELAGALA Consultoría Inmobiliaria.
+  </div>
+
+  <div class="footer">
+    <div><strong>DELAGALA Daily</strong> · Nº 07 · Septiembre 2026 · pág. 3 de 3</div>
+    <div style="text-align:center">idelagala.com · info@idelagala.com</div>
+    <div style="text-align:right"><strong>ICA HOME S.L.</strong> · CIF B10641546<br>C/ Las Mercedes 17, 48930 Getxo</div>
+  </div>
+</div>
+
+</body>
+</html>
