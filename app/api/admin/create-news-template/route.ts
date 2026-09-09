@@ -2,6 +2,23 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 
+// GET: devuelve el estado de aprobación de la plantilla del PGOU en Meta (para vigilar).
+export async function GET() {
+  const token = process.env.WHATSAPP_TOKEN;
+  const wabaId = process.env.WHATSAPP_WABA_ID || process.env.WABA_ID || '3556657921150855';
+  if (!token) return NextResponse.json({ error: 'No WHATSAPP_TOKEN' }, { status: 500 });
+  try {
+    const r = await fetch(`https://graph.facebook.com/v20.0/${wabaId}/message_templates?fields=name,status,category&limit=200`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const d = await r.json();
+    const t = Array.isArray(d?.data) ? d.data.find((x: { name?: string }) => x.name === 'delagala_daily_pgou') : null;
+    return NextResponse.json({ found: !!t, status: t?.status ?? null });
+  } catch (e) {
+    return NextResponse.json({ error: String(e) }, { status: 500 });
+  }
+}
+
 // Crea (o reintenta) la plantilla del newsletter enfocada en el PGOU de Getxo.
 // Protegida por la contraseña admin. Meta la deja en PENDING hasta aprobarla.
 export async function POST(req: NextRequest) {
