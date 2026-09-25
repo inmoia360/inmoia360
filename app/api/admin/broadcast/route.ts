@@ -15,8 +15,8 @@ const BATCH = 25;
 async function pickNewsTemplate(token: string): Promise<string> {
   // Forzamos la plantilla nueva (con el texto cercano + baja). No usamos la env var
   // WHATSAPP_TEMPLATE_NEWS porque apunta a la plantilla vieja.
-  const preferred = 'delagala_daily_hoy2';
-  const fallback = 'delagala_daily_hoy';
+  const preferred = 'delagala_daily_pgou';
+  const fallback = 'delagala_daily_septiembre';
   const waba = process.env.WHATSAPP_WABA_ID || process.env.WABA_ID || '3556657921150855';
   try {
     const r = await fetch(`https://graph.facebook.com/v20.0/${waba}/message_templates?fields=name,status&limit=200`, {

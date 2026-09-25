@@ -19,7 +19,6 @@ export default function DailyCoffeeLanding() {
       .catch(() => {});
   }, []);
   const [consentPromo, setConsentPromo] = useState(false);
-  const [consentMarketing, setConsentMarketing] = useState(false);
   const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [result, setResult] = useState<{ coupon_code: string; expires_at?: string; already_claimed?: boolean; next_available?: string } | null>(null);
   const [errorMsg, setErrorMsg] = useState('');
@@ -35,7 +34,7 @@ export default function DailyCoffeeLanding() {
       const res = await fetch('/api/delagala/dailycoffee/claim', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lead_name: nombre.trim(), lead_phone: telefono.trim(), source_url: window.location.href, bar_name: bar, consent_marketing: consentMarketing }),
+        body: JSON.stringify({ lead_name: nombre.trim(), lead_phone: telefono.trim(), source_url: window.location.href, bar_name: bar, consent_marketing: false }),
       });
       const data = await res.json();
       if (!res.ok) { setErrorMsg(data.error ?? 'Error al procesar'); setState('error'); return; }
@@ -399,21 +398,11 @@ export default function DailyCoffeeLanding() {
                 <label className="check-row">
                   <input type="checkbox" checked={consentPromo} onChange={e => setConsentPromo(e.target.checked)} required />
                   <span className="check-text">
-                    <strong>Acepto participar en la promoción.</strong>{' '}
-                    Autorizo a {RAZON_SOCIAL} (CIF {CIF}) a usar mis datos para gestionar esta invitación y enviarme el código por WhatsApp.{' '}
+                    <strong>Acepto participar.</strong>{' '}
+                    Autorizo a {RAZON_SOCIAL} (CIF {CIF}) a usar mis datos para enviarme por WhatsApp el <strong>código del café</strong>, el <strong>periódico</strong> e información inmobiliaria.{' '}
                     <a href="/privacidad" target="_blank" rel="noopener noreferrer">Política de privacidad</a>.
                   </span>
                 </label>
-
-                <div className="check-optional">
-                  <label className="check-row" style={{ marginBottom: 0 }}>
-                    <input type="checkbox" checked={consentMarketing} onChange={e => setConsentMarketing(e.target.checked)} />
-                    <span className="check-text">
-                      <strong>Quiero saber cuánto vale mi casa</strong> y recibir consejos para venderla mejor, de DELAGALA por WhatsApp.
-                      <span className="opt-tag">Gratis · Opcional</span>
-                    </span>
-                  </label>
-                </div>
 
                 <button type="submit" className="submit-btn" disabled={state === 'loading'}>
                   {state === 'loading' ? (
@@ -434,13 +423,24 @@ export default function DailyCoffeeLanding() {
               <div className="success-box">
                 <span className="success-icon">☕</span>
                 <h2>{result?.already_claimed ? 'Ya tienes tu café' : '¡Listo!'}</h2>
+                {result?.coupon_code && (
+                  <div style={{ margin: '16px 0', padding: '16px 14px', border: '3px solid #0A0A0A', borderRadius: 12, background: '#FFF4C2', textAlign: 'center' }}>
+                    <div style={{ fontSize: '.68rem', letterSpacing: '.16em', textTransform: 'uppercase', color: '#6B6B6B', fontWeight: 700 }}>Tu código del café</div>
+                    <div style={{ fontFamily: 'monospace', fontSize: '2rem', fontWeight: 900, letterSpacing: '.06em', color: '#0A0A0A', margin: '4px 0', wordBreak: 'break-all' }}>{result.coupon_code}</div>
+                    <div style={{ fontSize: '.82rem', color: '#2A2A2A', fontWeight: 600 }}>📸 Enséñaselo al camarero (o haz una captura)</div>
+                  </div>
+                )}
                 <p>{result?.already_claimed
-                  ? <>Tu código sigue activo en WhatsApp. Próximo café disponible el <strong>{result.next_available ? new Date(result.next_available).toLocaleDateString('es-ES') : ''}</strong>.</>
-                  : <>Tu código del café y el Delagala Daily están de camino a tu WhatsApp ahora mismo.</>
+                  ? <>Próximo café disponible el <strong>{result.next_available ? new Date(result.next_available).toLocaleDateString('es-ES') : ''}</strong>.</>
+                  : <>También te lo mandamos por WhatsApp junto con el Delagala Daily.</>
                 }</p>
+                <a href="https://www.inmoia360.com/delagala-daily.pdf" target="_blank" rel="noopener noreferrer"
+                  style={{ display: 'block', margin: '8px 0 4px', padding: '14px', background: '#0A0A0A', color: '#F5C842', borderRadius: 10, fontWeight: 800, textDecoration: 'none', letterSpacing: '.02em' }}>
+                  📰 Leer el Delagala Daily
+                </a>
                 <div className="wa-box">
                   <span className="wa-emoji">📲</span>
-                  <strong>Abre tu WhatsApp</strong>
+                  <strong>También en tu WhatsApp</strong>
                   <span>El código y el periódico te esperan ahí</span>
                 </div>
               </div>
@@ -466,9 +466,9 @@ export default function DailyCoffeeLanding() {
           <p className="strap">El pulso del ladrillo en Bizkaia y la Margen Derecha — <em>análisis y datos del mercado, cada mañana</em></p>
         </header>
         <div className="issue-bar">
-          <span>Vol. I <span className="sep">·</span> Nº 04 <span className="sep">·</span> Edición Trimestral</span>
-          <span>Junio 2026</span>
-          <span>Getxo · Bilbao · Las Arenas · Algorta</span>
+          <span>Nº 07 <span className="sep">·</span> Edición Especial <span className="sep">·</span> Urbanismo</span>
+          <span>Septiembre 2026</span>
+          <span>Getxo · El nuevo PGOU</span>
         </div>
       </div>
 
@@ -514,38 +514,38 @@ export default function DailyCoffeeLanding() {
           </div>
           <div className="news-grid">
             <article className="news-lead">
-              <div className="cat">Mercado · Vivienda · Bizkaia</div>
-              <h4>Bilbao sigue al alza: la vivienda sube un 10,8% interanual en abril</h4>
-              <p className="deck">La presión sobre la capital empuja a parte de la demanda hacia Getxo, Leioa y Barakaldo, donde los precios todavía son más moderados. ¿Estamos ante un nuevo techo o una corrección a la vuelta de la esquina?</p>
+              <div className="cat">Especial · Urbanismo · Getxo</div>
+              <h4>El nuevo Getxo ya es oficial: qué cambia para tu casa con el PGOU</h4>
+              <p className="deck">El Plan General que ordena el municipio para los próximos 15-20 años entró en vigor el 25 de agosto. Prevé 4.471 viviendas —dos de cada tres protegidas—, congela la costa de Azkorri y concentra el crecimiento en el nordeste. Te explicamos, sin tecnicismos, cómo te afecta.</p>
               <div className="lead-kpis">
-                <div className="kpi"><span className="kpi-num highlight">+10,8%</span><div className="kpi-lbl">Venta abril</div></div>
-                <div className="kpi"><span className="kpi-num">+5,8%</span><div className="kpi-lbl">Alquiler abril</div></div>
-                <div className="kpi"><span className="kpi-num">~3.721 €</span><div className="kpi-lbl">€/m² Bilbao</div></div>
+                <div className="kpi"><span className="kpi-num highlight">4.471</span><div className="kpi-lbl">Viviendas nuevas</div></div>
+                <div className="kpi"><span className="kpi-num">68%</span><div className="kpi-lbl">Protegidas (VPO)</div></div>
+                <div className="kpi"><span className="kpi-num">~200</span><div className="kpi-lbl">Obra nueva en tu barrio</div></div>
               </div>
-              <p>El precio de la vivienda en Bilbao se anotó en abril una subida del 10,8% interanual según idealista, consolidando la tendencia que ya marcaba un +9% en marzo. El alquiler, por su parte, subió un 5,8% en el mismo mes. El análisis completo, con seis códigos postales y la curva desde 2019, abre la edición impresa de este mes.</p>
-              <div className="byline">— Análisis de la redacción · Fuente: idealista/news + Fotocasa</div>
+              <p>En el Getxo de siempre —Las Arenas, Romo, Algorta, Neguri, Aiboa— la obra nueva será testimonial: solo unas 200 viviendas. Traducido: si tienes casa en estas zonas, apenas tendrás competencia de obra nueva, y la escasez sostiene el valor. El análisis completo, barrio a barrio, en el periódico de este mes.</p>
+              <div className="byline">— Redacción · Análisis inmobiliario · Fuentes oficiales</div>
             </article>
             <div className="news-side">
               <article>
-                <div className="cat">Inversión · Q1 2026</div>
-                <h4>España rompe la baraja europea: 6.394 M€ invertidos en Q1, +45%</h4>
-                <p>El segmento Living lidera con 2.386 M€ (+127%), arrastrado por el multifamily/BTR, que concentra el 90% de la inversión residencial. La eurozona, en cambio, cae un 26% de media.</p>
-                <div className="data"><span><span className="yellow-pill">6.394 M€</span>Inversión Q1</span><span><span className="yellow-pill">+45,4%</span>Vs. media 2025</span></div>
+                <div className="cat">Zona por zona</div>
+                <h4>Dónde se construye… y dónde ya no</h4>
+                <p>El grueso de las viviendas se concentra en Ibarbengoa–Muru–La Galea (puede desbloquear el metro). Azkorri se desclasifica: la costa ya no se urbaniza. Martiturri estrena 14 ha de actividad económica.</p>
+                <div className="data"><span><span className="yellow-pill">25-ago-2026</span>En vigor</span><span><span className="yellow-pill">Azkorri</span>Preservado</span></div>
               </article>
               <article>
-                <div className="cat">Normativa · BOE</div>
-                <h4>Plan Estatal de Vivienda 2026-2030: 7.000 M€ para cinco años</h4>
-                <p>El RD 326/2026, publicado en el BOE, despliega ayudas al alquiler, rehabilitación y compra de vivienda protegida. Incluye 12 novedades fiscales que cambian la cuenta de tu vivienda.</p>
-                <div className="data"><span><span className="yellow-pill">7.000 M€</span>Dotación 5 años</span></div>
+                <div className="cat">Qué significa para TI</div>
+                <h4>¿Sube el valor de tu vivienda? ¿Cambia tu suelo?</h4>
+                <p>Escasez de obra nueva en el consolidado = precios sostenidos. Ojo al IBI si tu suelo cambia de clasificación. Te hacemos un informe gratis de cómo te afecta el PGOU a tu casa.</p>
+                <div className="data"><span><span className="yellow-pill">3.608 €/m²</span>Getxo (+9%)</span></div>
               </article>
             </div>
           </div>
           <div className="briefs">
-            <h5>Otros movimientos en esta edición</h5>
+            <h5>También en esta edición</h5>
             <div className="briefs-grid">
-              <div className="brief"><span className="tag">Tinsa · Precios</span>La vivienda <strong>se dispara un 15,4%</strong> en abril, la mayor subida desde 2006. Islas (+20,3%) y costa mediterránea (+16,7%) a la cabeza.</div>
-              <div className="brief"><span className="tag">Euríbor · Hipotecas</span>El Euríbor se asienta en <strong>~2,85%</strong> y encarece la cuota mensual unos 60 € para una hipoteca media. Mixtas ganan peso como cobertura.</div>
-              <div className="brief"><span className="tag">Margen Derecha · Obra nueva</span><strong>Los Tilos de Neguri</strong> (Acciona Inmobiliaria) reactiva la zona premium de Getxo con vivienda contemporánea de estética tradicional.</div>
+              <div className="brief"><span className="tag">Escasez · Consolidado</span>Solo ~200 viviendas nuevas en <strong>Las Arenas, Romo, Algorta, Neguri y Aiboa</strong>: tu casa apenas tendrá competencia de obra nueva.</div>
+              <div className="brief"><span className="tag">Metro Ibarbengoa</span>El desarrollo del nordeste puede desbloquear por fin la <strong>estación de metro</strong> cerrada desde 2011, y revalorizar toda la zona.</div>
+              <div className="brief"><span className="tag">VPO · 68%</span>De cada 3 viviendas nuevas, 2 serán <strong>protegidas</strong>. La vivienda libre bien ubicada se vuelve un bien aún más escaso.</div>
             </div>
           </div>
         </section>

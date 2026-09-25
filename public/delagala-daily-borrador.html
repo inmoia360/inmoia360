@@ -3,23 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Delagala Daily · Nº 05 · Junio 2026</title>
+<title>Delagala Daily · Nº 08 · Especial Herencias</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
 
   :root {
     --ink: #0A0A0A;
     --gold: #F5C842;
     --gold-dk: #C9A227;
+    --navy: #1A3A5C;
     --cream: #FAF7F2;
     --warm-gray: #F0EDE6;
     --mid-gray: #888;
     --rule: 1.5px solid var(--ink);
     --rule-thin: 0.5px solid #AAA;
-    --col: calc((100% - 64px) / 3);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { overflow-x: hidden; }
 
   body {
     background: var(--cream);
@@ -33,7 +35,7 @@
 
   .page {
     width: 210mm;
-    min-height: 297mm;
+    max-width: 100%;
     margin: 0 auto;
     background: #fff;
     padding: 10mm 12mm 14mm;
@@ -50,15 +52,17 @@
     align-items: center;
     gap: 12px;
   }
-  .masthead-logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
-  }
-  .masthead-name {
-    flex: 1;
-    text-align: center;
+  .masthead-logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .masthead-name { flex: 1; text-align: center; min-width: 0; }
+  .masthead-name .brandline {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 11pt;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--gold-dk);
+    line-height: 1;
+    margin-bottom: 3px;
   }
   .masthead-name h1 {
     font-family: 'Playfair Display', serif;
@@ -72,7 +76,7 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 7pt;
     font-weight: 600;
-    letter-spacing: 0.45em;
+    letter-spacing: 0.34em;
     text-transform: uppercase;
     color: var(--mid-gray);
     margin-top: 4px;
@@ -86,92 +90,81 @@
     color: var(--mid-gray);
     line-height: 1.7;
   }
-  .masthead-meta strong {
-    color: var(--ink);
-    font-weight: 700;
-    font-size: 8pt;
-  }
+  .masthead-meta strong { color: var(--ink); font-weight: 700; font-size: 8pt; }
+  .masthead-meta .locate { display: inline-block; font-size: 9pt; font-weight: 800; color: var(--ink); margin-top: 3px; }
 
   /* ── TOP STRIP ── */
   .top-strip {
     background: var(--gold);
-    padding: 4px 8px;
+    padding: 5px 10px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 7.5pt;
+    font-size: 8.5pt;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
     margin-bottom: 6px;
     border-bottom: 1px solid var(--ink);
   }
+  .top-strip .esp { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 15pt; letter-spacing: 0; }
 
-  /* ── EURIBOR BOX ── */
-  .euribor-band {
-    background: var(--ink);
-    color: #fff;
-    padding: 8px 12px;
-    margin-bottom: 8px;
+  /* ── CLAVE FORAL BAND (crema/dorado, sin fondo negro) ── */
+  .clave-band {
+    border: 2px solid var(--ink);
+    border-left: 8px solid var(--gold);
+    background: var(--warm-gray);
+    padding: 9px 14px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 22px;
     flex-wrap: wrap;
   }
-  .euribor-label {
+  .clave-band .lead {
     font-family: 'Montserrat', sans-serif;
     font-size: 8pt;
     font-weight: 800;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--gold-dk);
+    max-width: 120px;
+    line-height: 1.3;
     flex-shrink: 0;
   }
-  .euribor-value {
+  .clave-item { text-align: left; flex-shrink: 0; }
+  .clave-item .num {
     font-family: 'Playfair Display', serif;
-    font-size: 22pt;
+    font-size: 21pt;
     font-weight: 900;
-    color: var(--gold);
+    color: var(--ink);
     line-height: 1;
-    flex-shrink: 0;
   }
-  .euribor-hist {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .euribor-item {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 7.5pt;
-    color: #ccc;
-    text-align: center;
-  }
-  .euribor-item .val {
-    display: block;
-    font-weight: 700;
-    font-size: 10pt;
-    color: #fff;
-  }
-  .euribor-item .arrow-up { color: #FF6B6B; }
-  .euribor-item .arrow-dn { color: #6BFF9E; }
-  .euribor-note {
-    margin-left: auto;
+  .clave-item .cap {
     font-family: 'Montserrat', sans-serif;
     font-size: 7pt;
-    color: #aaa;
-    max-width: 140px;
-    line-height: 1.4;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 2px;
+  }
+  .clave-note {
+    margin-left: auto;
+    font-family: 'Libre Baskerville', serif;
     font-style: italic;
+    font-size: 7.5pt;
+    color: #555;
+    max-width: 150px;
+    line-height: 1.4;
   }
 
   /* ── GRID ── */
-  .columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0 16px;
-    margin-bottom: 10px;
-  }
+  .columns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 16px; margin-bottom: 10px; }
+  .columns > div { min-width: 0; }
   .col-span-2 { grid-column: span 2; }
 
   /* ── SECTION HEADERS ── */
@@ -181,229 +174,129 @@
     font-weight: 800;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    background: var(--ink);
+    background: var(--navy);
     color: #fff;
     display: inline-block;
     padding: 2px 8px;
     margin-bottom: 5px;
   }
   .section-tag.local { background: var(--gold); color: var(--ink); }
-  .section-tag.europa { background: #1A3A5C; }
+  .section-tag.playa { background: var(--gold-dk); color: #fff; }
 
-  .section-rule {
-    border: none;
-    border-top: var(--rule);
-    margin: 6px 0 5px;
-  }
-  .section-rule-thin {
-    border: none;
-    border-top: var(--rule-thin);
-    margin: 6px 0 5px;
-  }
+  .section-rule { border: none; border-top: var(--rule); margin: 6px 0 5px; }
+  .section-rule-thin { border: none; border-top: var(--rule-thin); margin: 6px 0 5px; }
 
   /* ── ARTICLE ── */
   article { margin-bottom: 10px; }
-  article h2 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 900;
-    font-size: 13.5pt;
-    line-height: 1.2;
-    margin-bottom: 4px;
-  }
+  article h2 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 16pt; line-height: 1.15; margin-bottom: 4px; }
   article h2 em { font-style: italic; }
-  article h3 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 11pt;
-    line-height: 1.25;
-    margin-bottom: 3px;
-  }
-  article .deck {
-    font-family: 'Libre Baskerville', serif;
-    font-style: italic;
-    font-size: 9.5pt;
-    color: #444;
-    margin-bottom: 5px;
-    line-height: 1.4;
-  }
-  article p {
-    font-size: 9.5pt;
-    line-height: 1.55;
-    text-align: justify;
-    hyphens: auto;
-    margin-bottom: 5px;
-  }
-  article .byline {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 6.5pt;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--mid-gray);
-    margin-bottom: 4px;
-  }
+  article h3 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 11pt; line-height: 1.25; margin-bottom: 3px; }
+  article .deck { font-family: 'Libre Baskerville', serif; font-style: italic; font-size: 9.5pt; color: #444; margin-bottom: 5px; line-height: 1.4; }
+  article p { font-size: 9.5pt; line-height: 1.55; text-align: justify; hyphens: auto; margin-bottom: 5px; }
+  article .byline { font-family: 'Montserrat', sans-serif; font-size: 6.5pt; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 4px; }
+
+  /* ── AUTOR (Isabel) ── */
+  .author { border-top: 2px solid var(--ink); border-bottom: 0.5px solid #AAA; padding: 5px 0; margin: 6px 0; display: flex; align-items: center; gap: 10px; }
+  .author .badge { width: 30px; height: 30px; border-radius: 50%; background: var(--gold); color: var(--ink); font-family: 'Playfair Display', serif; font-weight: 900; font-size: 14pt; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .author .who { font-family: 'Montserrat', sans-serif; line-height: 1.3; }
+  .author .who strong { font-size: 8.5pt; font-weight: 800; display: block; }
+  .author .who span { font-size: 6.8pt; color: #666; text-transform: uppercase; letter-spacing: 0.06em; }
 
   /* ── DATA BOXES ── */
-  .data-box {
-    border: 1.5px solid var(--ink);
-    padding: 8px 10px;
-    margin-bottom: 8px;
-    background: var(--warm-gray);
-  }
-  .data-box .label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 7pt;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--mid-gray);
-    margin-bottom: 3px;
-  }
-  .data-box .value {
-    font-family: 'Playfair Display', serif;
-    font-size: 20pt;
-    font-weight: 900;
-    line-height: 1;
-    color: var(--ink);
-  }
-  .data-box .sub {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 7.5pt;
-    color: #555;
-    margin-top: 2px;
-  }
+  .data-box { border: 1.5px solid var(--ink); padding: 8px 10px; margin-bottom: 8px; background: var(--warm-gray); }
+  .data-box .label { font-family: 'Montserrat', sans-serif; font-size: 7pt; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 3px; }
+  .data-box .value { font-family: 'Playfair Display', serif; font-size: 20pt; font-weight: 900; line-height: 1; color: var(--ink); }
+  .data-box .sub { font-family: 'Montserrat', sans-serif; font-size: 7.5pt; color: #555; margin-top: 2px; }
 
-  /* ── EUROPA STRIP ── */
-  .europa-strip {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0 12px;
-    border-top: var(--rule);
-    border-bottom: var(--rule);
-    padding: 6px 0;
-    margin-bottom: 8px;
-  }
-  .europa-strip .item {
-    font-size: 8.5pt;
-    line-height: 1.45;
-    padding-right: 12px;
-    border-right: var(--rule-thin);
-  }
-  .europa-strip .item:last-child { border-right: none; padding-right: 0; }
-  .europa-strip .item strong {
-    display: block;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 7pt;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: #1A3A5C;
-    margin-bottom: 2px;
-  }
+  /* ── CHART: barras reducción por grupo ── */
+  .chartbox { border: 1.5px solid var(--ink); background: var(--warm-gray); padding: 9px 11px; margin-bottom: 8px; }
+  .chartbox .ctitle { font-family: 'Montserrat', sans-serif; font-size: 7.5pt; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 7px; }
+  .bar-row { margin-bottom: 6px; }
+  .bar-row .bl { display: flex; justify-content: space-between; font-family: 'Montserrat', sans-serif; font-size: 7.5pt; font-weight: 600; margin-bottom: 2px; }
+  .bar-row .bl .amt { font-weight: 800; }
+  .bar-track { height: 11px; background: #E4DFD4; border: 0.5px solid #bbb; }
+  .bar-fill { height: 100%; background: var(--gold); }
+  .bar-fill.dim { background: var(--gold-dk); }
+  .bar-fill.low { background: #cdbf9a; }
 
-  /* ── EFEMERIDES ── */
-  .efem-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-  }
-  .efem-item {
-    border-left: 3px solid var(--gold);
-    padding-left: 7px;
-  }
-  .efem-item .year {
-    font-family: 'Playfair Display', serif;
-    font-weight: 900;
-    font-size: 15pt;
-    line-height: 1;
-    color: var(--gold-dk);
-  }
-  .efem-item p {
-    font-size: 8pt;
-    text-align: left;
-    line-height: 1.4;
-    margin-bottom: 0;
-  }
+  /* ── EJEMPLO callout ── */
+  .ejemplo { border: 2px solid var(--gold-dk); background: #FCF6E4; padding: 8px 11px; margin-bottom: 8px; }
+  .ejemplo .et { font-family: 'Montserrat', sans-serif; font-size: 6.8pt; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dk); margin-bottom: 3px; }
+  .ejemplo p { font-size: 8.6pt; line-height: 1.45; text-align: left; margin: 0; }
+  .ejemplo strong { font-weight: 800; }
 
-  /* ── ESCRIBENOS BOX ── */
-  .escribenos {
-    background: var(--ink);
-    color: #fff;
-    padding: 10px 14px;
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .escribenos .wa-icon {
-    font-size: 22pt;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-  .escribenos .text h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 12pt;
-    font-weight: 900;
-    font-style: italic;
-    color: var(--gold);
-    margin-bottom: 2px;
-  }
-  .escribenos .text p {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 7.5pt;
-    color: #ccc;
-    line-height: 1.4;
-    text-align: left;
-    margin-bottom: 0;
-  }
-  .escribenos .wa-link {
-    margin-left: auto;
-    background: var(--gold);
-    color: var(--ink);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 8pt;
-    font-weight: 800;
-    text-decoration: none;
-    padding: 7px 14px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
+  /* ── PASOS (monográfico) ── */
+  .pasos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 16px; margin-top: 7px; margin-bottom: 6px; }
+  .pasos > div { min-width: 0; padding-right: 14px; border-right: var(--rule-thin); }
+  .pasos > div:last-child { border-right: none; padding-right: 0; }
+  .paso-n { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 15pt; color: var(--gold-dk); line-height: 1; }
+  .pasos h4 { font-family: 'Playfair Display', serif; font-size: 10.5pt; font-weight: 700; margin: 2px 0 3px; }
+  .pasos p { font-size: 8.5pt; line-height: 1.45; text-align: left; }
 
-  /* ── FOOTER ── */
-  .footer {
-    border-top: var(--rule);
-    padding-top: 6px;
-    margin-top: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 7pt;
-    color: var(--mid-gray);
-  }
-  .footer strong { color: var(--ink); }
+  /* ── TABLA GRUPOS ── */
+  table.grupos { width: 100%; border-collapse: collapse; font-size: 8pt; margin: 4px 0 8px; }
+  table.grupos th { text-align: left; padding: 4px 8px 4px 0; font-family: 'Montserrat', sans-serif; font-size: 6.5pt; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; border-top: var(--rule); border-bottom: 1px solid var(--ink); }
+  table.grupos td { padding: 4px 8px 4px 0; border-bottom: var(--rule-thin); vertical-align: top; }
+  table.grupos tr:nth-child(even) td { background: var(--warm-gray); }
+  table.grupos td:first-child { font-weight: 700; white-space: normal; }
 
-  /* ── VERTICAL RULE ── */
-  .vrule { border-left: var(--rule-thin); }
+  /* ── FISCAL STRIP ── */
+  .fiscal-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 12px; border-top: var(--rule); border-bottom: var(--rule); padding: 6px 0; margin-bottom: 8px; }
+  .fiscal-strip .item { font-size: 8.5pt; line-height: 1.45; padding-right: 12px; border-right: var(--rule-thin); min-width: 0; }
+  .fiscal-strip .item:last-child { border-right: none; padding-right: 0; }
+  .fiscal-strip .item strong { display: block; font-family: 'Montserrat', sans-serif; font-size: 7pt; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--navy); margin-bottom: 2px; }
+
+  /* ── NOTA (novedad / plusvalía) ── */
+  .nota { border-left: 4px solid var(--gold); background: var(--warm-gray); padding: 7px 11px; margin-bottom: 8px; font-size: 8.5pt; line-height: 1.45; }
+  .nota strong { font-weight: 800; }
+  .nota .tag { font-family: 'Montserrat', sans-serif; font-size: 6.5pt; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-dk); display: block; margin-bottom: 2px; }
 
   /* ── PULL QUOTE ── */
-  .pull-quote {
-    border-top: 2px solid var(--ink);
-    border-bottom: 2px solid var(--ink);
-    padding: 8px 0;
-    margin: 8px 0;
-    font-family: 'Playfair Display', serif;
-    font-size: 12pt;
-    font-style: italic;
-    font-weight: 700;
-    line-height: 1.35;
-    text-align: center;
-    color: var(--ink);
+  .pull-quote { border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); padding: 8px 0; margin: 8px 0; font-family: 'Playfair Display', serif; font-size: 12.5pt; font-style: italic; font-weight: 700; line-height: 1.35; text-align: center; color: var(--ink); }
+
+  /* ── PLAYAS (secundario, compacto) ── */
+  .playas-block { border: 1.5px solid var(--ink); padding: 9px 12px; margin-bottom: 10px; background: #fff; }
+  .playas-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 14px; margin-top: 5px; }
+  .playas-grid > div { min-width: 0; padding-right: 12px; border-right: var(--rule-thin); }
+  .playas-grid > div:last-child { border-right: none; padding-right: 0; }
+  .playas-grid h4 { font-family: 'Playfair Display', serif; font-size: 10pt; font-weight: 700; margin-bottom: 2px; }
+  .playas-grid p { font-size: 8.3pt; line-height: 1.4; text-align: left; }
+
+  /* ── SOURCES / disclaimer ── */
+  .sources { font-family: 'Montserrat', sans-serif; font-size: 6.8pt; color: #777; line-height: 1.5; border-top: var(--rule-thin); padding-top: 5px; margin-bottom: 8px; }
+  .sources strong { color: #555; }
+
+  /* ── ESCRIBENOS (crema/dorado, sin fondo negro) ── */
+  .escribenos { border: 2px solid var(--ink); border-left: 8px solid var(--gold); background: var(--warm-gray); padding: 10px 14px; margin-top: 10px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .escribenos .wa-icon { font-size: 22pt; line-height: 1; flex-shrink: 0; }
+  .escribenos .text { min-width: 0; }
+  .escribenos .text h4 { font-family: 'Playfair Display', serif; font-size: 12pt; font-weight: 900; font-style: italic; color: var(--gold-dk); margin-bottom: 2px; }
+  .escribenos .text p { font-family: 'Montserrat', sans-serif; font-size: 7.5pt; color: #555; line-height: 1.4; text-align: left; margin-bottom: 0; }
+  .escribenos .wa-link { margin-left: auto; background: var(--gold); color: var(--ink); font-family: 'Montserrat', sans-serif; font-size: 8pt; font-weight: 800; text-decoration: none; padding: 8px 15px; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; border: 1.5px solid var(--ink); }
+
+  /* ── FOOTER ── */
+  .footer { border-top: var(--rule); padding-top: 6px; margin-top: 8px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-family: 'Montserrat', sans-serif; font-size: 7pt; color: var(--mid-gray); }
+  .footer strong { color: var(--ink); }
+
+  /* ── RESPONSIVE (móvil) ── */
+  @media (max-width: 820px) {
+    body { font-size: 12pt; }
+    .page { padding: 6mm 5mm 9mm; box-shadow: none; }
+    .masthead { flex-wrap: wrap; gap: 6px; }
+    .masthead-name { order: -1; flex-basis: 100%; }
+    .masthead-name h1 { font-size: 40pt; }
+    .masthead-name .subtitle { letter-spacing: 0.12em; font-size: 6.5pt; white-space: normal; }
+    .masthead-logo, .masthead-meta { flex: 1; }
+    .masthead-meta { text-align: right; }
+    .columns, .pasos, .playas-grid, .fiscal-strip { grid-template-columns: 1fr; gap: 0; }
+    .col-span-2 { grid-column: auto; border-right: none !important; padding-right: 0 !important; }
+    .columns > div, .pasos > div, .playas-grid > div, .fiscal-strip .item { border-right: none !important; padding-right: 0 !important; border-bottom: var(--rule-thin); padding-bottom: 8px; margin-bottom: 8px; }
+    .columns > div:last-child, .pasos > div:last-child, .playas-grid > div:last-child, .fiscal-strip .item:last-child { border-bottom: none; }
+    .clave-band { gap: 14px; }
+    .clave-note { margin-left: 0; max-width: 100%; }
+    article h2 { font-size: 19pt; }
   }
 
-  /* ── PRINT ── */
   @media print {
     body { background: #fff; }
     .page { box-shadow: none; margin: 0; padding: 8mm 10mm 12mm; width: 100%; }
@@ -424,257 +317,244 @@
         </g>
       </svg>
       <div>
-        <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:16pt;letter-spacing:3px;text-transform:uppercase;line-height:1.1;color:#F5C842">DELAGALA</div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:16pt;letter-spacing:3px;text-transform:uppercase;line-height:1.1;color:#C9A227">DELAGALA</div>
         <div style="font-family:'Montserrat',sans-serif;font-size:6.5pt;letter-spacing:2px;text-transform:uppercase;color:#888">Consultoría Inmobiliaria</div>
       </div>
     </div>
     <div class="masthead-name">
+      <div class="brandline">DELAGALA</div>
       <h1>Daily</h1>
-      <div class="subtitle">El periódico inmobiliario de Getxo · Especial Playas</div>
+      <div class="subtitle">El periódico inmobiliario de DELAGALA Consultoría Inmobiliaria · Getxo</div>
     </div>
     <div class="masthead-meta">
-      <strong>Nº 06 · Julio 2026</strong><br>
-      Jueves, 9 de julio de 2026<br>
+      <strong>Nº 08 · Septiembre 2026</strong><br>
       Distribución gratuita<br>
-      idelagala.com
+      <span class="locate">📍 C/ Las Mercedes 17 · Las Arenas</span><br>
+      <span class="locate">🌐 idelagala.com</span>
     </div>
   </div>
 
   <!-- TOP STRIP -->
   <div class="top-strip">
-    <span>Especial Playas · Herencias · Inmobiliario · Getxo</span>
+    <span><span class="esp">ESPECIAL HERENCIAS</span> · Heredar vivienda en Bizkaia · Getxo</span>
     <span>📍 Getxo, Bizkaia · Edición digital y en papel</span>
   </div>
 
-  <!-- EURIBOR BAND -->
-  <div class="euribor-band">
-    <div class="euribor-label">Euríbor<br>12 meses</div>
-    <div class="euribor-value">2,65%</div>
-    <div class="euribor-hist">
-      <div class="euribor-item">
-        <span class="val arrow-up">2,20%</span>
-        Hace 1 año
-      </div>
-      <div class="euribor-item">
-        <span class="val arrow-up">3,86%</span>
-        Hace 3 años
-      </div>
-      <div class="euribor-item">
-        <span class="val arrow-dn">-0,48%</span>
-        Hace 5 años
-      </div>
-      <div class="euribor-item">
-        <span class="val arrow-dn">-0,03%</span>
-        Hace 10 años
-      </div>
+  <!-- CLAVE FORAL BAND -->
+  <div class="clave-band">
+    <div class="lead">La clave foral de Bizkaia</div>
+    <div class="clave-item">
+      <div class="num">400.000 €</div>
+      <div class="cap">Exentos por heredero · línea directa</div>
     </div>
-    <div class="euribor-note">El BCE mantiene los tipos en el 2,25%. El abaratamiento del crédito sigue animando la compra de vivienda.</div>
+    <div class="clave-item">
+      <div class="num">1,5%</div>
+      <div class="cap">Tipo único sobre el resto</div>
+    </div>
+    <div class="clave-item">
+      <div class="num">1 año</div>
+      <div class="cap">Plazo desde el fallecimiento</div>
+    </div>
+    <div class="clave-note">En Bizkaia, la familia directa hereda la casa pagando muy poco. Aquí te lo explicamos sin líos.</div>
   </div>
 
-  <!-- MAIN GRID -->
+  <!-- MAIN GRID: PORTADA HERENCIAS -->
   <div class="columns">
 
-    <!-- COL 1 + 2: PORTADA LOCAL -->
+    <!-- COL 1 + 2: PORTADA -->
     <div class="col-span-2" style="padding-right:16px;border-right:var(--rule-thin)">
-      <span class="section-tag local">Especial · Playas de Getxo</span>
+      <span class="section-tag local">Portada · Heredar en Bizkaia</span>
       <article>
-        <h2>Getxo estrena verano con <em>tres banderas azules</em></h2>
-        <div class="deck">Sol, surf y playas para todos los planes —Ereaga, Arrigunaga y Azkorri-Gorrondatxe—, las únicas del municipio con Bandera Azul y de las pocas de toda Euskadi</div>
-        <div class="byline">Redacción · Especial Costa</div>
-        <p>Con el verano en su apogeo, Getxo despliega sus playas. El municipio mantiene este año <strong>tres Banderas Azules</strong> —el distintivo internacional de calidad ambiental de la FEE—, en Ereaga, Arrigunaga y Azkorri (Gorrondatxe). Te contamos qué playa encaja con cada plan.</p>
-        <h3 style="margin-top:6px">Para familias · Ereaga</h3>
-        <p>La más urbana y completa: amplia, con paseo, socorrismo, duchas y el puerto deportivo al lado para combinar playa y comida. Se practica surf, voley y vela. La opción cómoda para ir con niños sin renunciar a servicios.</p>
-        <h3>Para surf y naturaleza · Gorrondatxe (Azkorri)</h3>
-        <p>La más salvaje: arena oscura, sistema dunar protegido y suelo de "beach rock". Sin urbanizar, ideal para desconectar y para quienes buscan olas. Bandera Azul por su calidad ambiental.</p>
-        <h3>Para tranquilidad · Arrigunaga</h3>
-        <p>Ambiente local al pie de los acantilados de La Galea. Bandera Azul, txiringuito, duchas, salvamento y una zona de skate justo encima del arenal.</p>
-      </article>
+        <h2>Heredar la casa familiar en Bizkaia: por qué aquí la familia paga <em>mucho menos</em></h2>
+        <div class="deck">Nuestro régimen foral es de los más favorables de España para cónyuge, pareja de hecho e hijos. Te cuento qué se paga de verdad y qué hacer después con la vivienda.</div>
 
-      <hr class="section-rule-thin">
+        <div class="author">
+          <div class="badge">I</div>
+          <div class="who">
+            <strong>Por Isabel De La Gala</strong>
+            <span>Perito tasador · Agente API colegiada (COAPI) · Getxo</span>
+          </div>
+        </div>
 
-      <span class="section-tag">Con perro 🐶</span>
-      <hr class="section-rule" style="margin-top:4px">
-      <article>
-        <h3>Getxo se abre a los perros: Ereaga y Arrigunaga, <em>novedad 2026</em></h3>
-        <div class="byline">Redacción · Dog friendly</div>
-        <p>Getxo, hasta ahora muy restrictivo, permite ya el acceso de perros a <strong>Ereaga y Arrigunaga</strong>. En verano (del 1 de junio al 30 de septiembre) pueden entrar de <strong>20:00 a 09:30 h</strong>, mientras no hay servicio de socorrismo; en invierno, sin límite de horario. <strong>Azkorri (Gorrondatxe) no admite perros</strong> por protección ambiental. Cerca, también son dog-friendly La Salvaje/Barinatxe, Arrietara y Atxabiribil (Sopela), Plentzia y Barrika.</p>
+        <p>Acompaño muchas herencias, y casi siempre me encuentro el mismo miedo: <em>«voy a tener que vender la casa para pagar Hacienda»</em>. En Bizkaia, para la familia directa, eso rara vez es así. Nuestro Impuesto sobre Sucesiones se rige por la <strong>Norma Foral 4/2015</strong>, distinta del régimen del resto de España, y trata muy bien a quien hereda de sus padres, de su cónyuge o de su pareja de hecho.</p>
+        <p>La regla principal es sencilla: <strong>cónyuge, pareja de hecho inscrita, hijos y padres</strong> (la línea directa) tienen un <strong>mínimo exento de 400.000 € por cada heredero</strong>. Solo se tributa por lo que pase de esa cifra, y encima a un <strong>tipo único del 1,5%</strong>. Como la mayoría de las viviendas familiares en Getxo se reparten entre varios herederos, muchas herencias no pagan nada o pagan una cantidad pequeña.</p>
+        <p>Hay una ventaja más si la casa era la <strong>vivienda habitual</strong> de quien fallece: una <strong>reducción del 95%</strong> de su valor (con un máximo de 215.000 €), siempre que el heredero <strong>hubiera convivido con esa persona los dos años anteriores</strong>. Ojo: para hermanos, sobrinos o personas sin parentesco, el trato es muy distinto —y bastante más caro— como verás en la tabla de más abajo.</p>
+        <p>Donde de verdad te puedo ayudar es en lo que viene <em>después</em> del papeleo: poner un <strong>valor realista</strong> a la vivienda (que además es la base del impuesto), revisar cargas y situación registral, y decidir con la cabeza fría si conviene <strong>venderla, alquilarla o repartirla</strong> entre los herederos. Esa decisión, bien tomada, vale mucho más que el propio impuesto.</p>
       </article>
     </div>
 
-    <!-- COL 3: DATOS + SIDEBAR -->
+    <!-- COL 3: DATOS -->
     <div>
       <div class="data-box">
-        <div class="label">Banderas Azules · Getxo</div>
-        <div class="value">3</div>
-        <div class="sub">Ereaga · Arrigunaga · Azkorri (Gorrondatxe)</div>
+        <div class="label">Mínimo exento · línea directa</div>
+        <div class="value">400.000 €</div>
+        <div class="sub">Por cada heredero (cónyuge, pareja de hecho, hijos, padres)</div>
       </div>
-
       <div class="data-box">
-        <div class="label">Perros · verano</div>
-        <div class="value">20–09:30</div>
-        <div class="sub">Ereaga y Arrigunaga, del 1 jun al 30 sep · Azkorri, no</div>
+        <div class="label">Tipo sobre el resto</div>
+        <div class="value">1,5%</div>
+        <div class="sub">Tipo único para la línea directa (Norma Foral 4/2015)</div>
       </div>
-
       <div class="data-box">
-        <div class="label">Agua del mar · verano</div>
-        <div class="value">~21°C</div>
-        <div class="sub">Temperatura agradable para el baño en julio y agosto</div>
+        <div class="label">Vivienda habitual</div>
+        <div class="value">−95%</div>
+        <div class="sub">Máx. 215.000 € · si conviviste 2 años con el fallecido</div>
       </div>
 
-      <hr class="section-rule" style="margin-top:10px">
-      <span class="section-tag local" style="margin-bottom:6px;display:block">Consejo DELAGALA</span>
-      <p style="font-size:8.5pt;line-height:1.5;text-align:justify;hyphens:auto">Vivir cerca del mar revaloriza. En Getxo, la primera línea de Ereaga y Las Arenas marca los precios más altos del municipio (por encima de 5.000 €/m²), pero zonas como Algorta o Romo ofrecen cercanía a la playa a precios más accesibles. La proximidad al arenal es uno de los factores que más sostiene el valor de la vivienda en la costa.</p>
-
-      <hr class="section-rule" style="margin-top:10px">
-      <span class="section-tag europa" style="margin-bottom:6px;display:block">Playas · en datos</span>
-      <table style="width:100%;font-size:8pt;border-collapse:collapse;line-height:1.6">
-        <tr><td style="color:#666">Ereaga</td><td style="text-align:right;font-weight:700">Familias · surf</td></tr>
-        <tr style="background:var(--warm-gray)"><td style="color:#666;padding:2px 0">Arrigunaga</td><td style="text-align:right;font-weight:700">Tranquila · skate</td></tr>
-        <tr><td style="color:#666">Gorrondatxe</td><td style="text-align:right;font-weight:700">Salvaje · dunas</td></tr>
-        <tr style="background:var(--warm-gray)"><td style="color:#666;padding:2px 0">Bandera Azul</td><td style="text-align:right;font-weight:700">Las 3</td></tr>
-        <tr><td style="color:#666">Con perro</td><td style="text-align:right;font-weight:700">Ereaga · Arrigunaga</td></tr>
-      </table>
+      <div class="ejemplo">
+        <div class="et">Un ejemplo real</div>
+        <p>Un hijo hereda una vivienda valorada en <strong>520.000 €</strong>. Resta el mínimo exento (400.000 €) y solo tributa por <strong>120.000 €</strong> al 1,5% → unos <strong>1.800 €</strong> de impuesto. <span style="color:#777">(Ejemplo orientativo, un solo heredero.)</span></p>
+      </div>
     </div>
   </div>
 
-  <!-- MONOGRAFICO: GUIA PRACTICA -->
+  <!-- MONOGRAFICO: PASOS -->
   <hr class="section-rule">
-  <span class="section-tag local">Monográfico · Guía práctica de las playas</span>
-  <div class="columns" style="margin-top:7px;margin-bottom:4px">
-    <div style="padding-right:16px;border-right:var(--rule-thin)">
-      <h3 style="font-size:10.5pt">Servicios y seguridad</h3>
-      <p style="font-size:8.5pt">La temporada arranca a finales de mayo y se alarga hasta septiembre. Este verano las playas de Getxo refuerzan el <strong>socorrismo</strong>: cinco socorristas en Ereaga, cuatro en Arrigunaga y tres en Gorrondatxe. El <strong>baño asistido</strong> funciona de <strong>11:00 a 20:00 h</strong>. Las tres tienen duchas, aseos, limpieza diaria de arena y bandera de estado del mar; Ereaga y Arrigunaga suman txiringuito y alquiler de hamacas.</p>
-    </div>
-    <div style="padding-right:16px;border-right:var(--rule-thin)">
-      <h3 style="font-size:10.5pt">Cómo llegar</h3>
-      <p style="font-size:8.5pt">En <strong>metro</strong> (líneas L1 y L2): la parada de <strong>Neguri</strong> es la más cercana a Ereaga y Las Arenas; <strong>Bidezabal</strong>, la más práctica para Gorrondatxe (Azkorri). También llegan varias líneas de <strong>Bizkaibus</strong>. Hay aparcamiento junto a Ereaga y el puerto deportivo, pero en pleno verano se llena pronto: mejor ir temprano o en transporte público.</p>
+  <span class="section-tag">Monográfico · Cómo heredar una vivienda en Bizkaia, paso a paso</span>
+  <div class="pasos">
+    <div>
+      <div class="paso-n">1</div>
+      <h4>Reúne los documentos</h4>
+      <p>Documentación habitual: certificado de <strong>defunción</strong>, de <strong>últimas voluntades</strong> y de seguros; el <strong>testamento</strong> (o acta de declaración de herederos si no lo hay); y el título de propiedad y datos catastrales de la vivienda.</p>
     </div>
     <div>
-      <h3 style="font-size:10.5pt">Playa para todos</h3>
-      <p style="font-size:8.5pt">Getxo cuida la <strong>accesibilidad</strong>. El programa <strong>"Hondartza Denontzat"</strong> ofrece en <strong>Ereaga</strong> (julio y agosto, de 11:15 a 18:45) sillas anfibias, personal de apoyo y baño asistido para personas con movilidad reducida. En <strong>Arrigunaga</strong>, pasarelas hasta la arena durante el verano. Aseos y duchas adaptados a lo largo del paseo.</p>
+      <div class="paso-n">2</div>
+      <h4>Valora y acepta</h4>
+      <p>Se firma ante notario la <strong>escritura de aceptación y adjudicación</strong>. Para ello hace falta una <strong>valoración del inmueble</strong>, que además fija la base del impuesto: una tasación bien hecha evita pagar de más y problemas futuros.</p>
+    </div>
+    <div>
+      <div class="paso-n">3</div>
+      <h4>Liquida los impuestos</h4>
+      <p><strong>Sucesiones</strong> (modelo 650) ante la Hacienda Foral de Bizkaia en el <strong>plazo de 1 año</strong> desde el fallecimiento. Y la <strong>plusvalía municipal</strong> del ayuntamiento, que también se devenga al heredar (ver abajo).</p>
     </div>
   </div>
 
-  <!-- TABLA COMPARATIVA -->
-  <table style="width:100%;border-collapse:collapse;font-size:8pt;margin:2px 0 8px">
+  <!-- TABLA GRUPOS -->
+  <table class="grupos">
     <thead>
-      <tr style="border-top:var(--rule);border-bottom:1px solid var(--ink)">
-        <th style="text-align:left;padding:4px 8px 4px 0;font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:0.12em;text-transform:uppercase">Playa</th>
-        <th style="text-align:left;padding:4px 8px;font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:0.12em;text-transform:uppercase">Arena y entorno</th>
-        <th style="text-align:left;padding:4px 8px;font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:0.12em;text-transform:uppercase">Ideal para</th>
-        <th style="text-align:left;padding:4px 8px;font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:0.12em;text-transform:uppercase">Servicios</th>
-        <th style="text-align:left;padding:4px 0 4px 8px;font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:0.12em;text-transform:uppercase">Cómo llegar</th>
+      <tr>
+        <th>Quién hereda</th>
+        <th>Reducción por heredero</th>
+        <th>Tipo / tarifa sobre el resto</th>
       </tr>
     </thead>
     <tbody>
-      <tr style="border-bottom:var(--rule-thin)">
-        <td style="padding:4px 8px 4px 0;font-weight:700">Ereaga</td>
-        <td style="padding:4px 8px">Dorada y urbana, junto al puerto deportivo</td>
-        <td style="padding:4px 8px">Familias y primeros baños</td>
-        <td style="padding:4px 8px">Socorrismo, txiringuito, duchas, hamacas, parking</td>
-        <td style="padding:4px 0 4px 8px">Metro Neguri</td>
-      </tr>
-      <tr style="border-bottom:var(--rule-thin);background:var(--warm-gray)">
-        <td style="padding:4px 8px 4px 0;font-weight:700">Arrigunaga</td>
-        <td style="padding:4px 8px">Bajo los acantilados de La Galea</td>
-        <td style="padding:4px 8px">Tranquilidad, ambiente local y skate</td>
-        <td style="padding:4px 8px">Socorrismo, txiringuito, duchas, pasarelas</td>
-        <td style="padding:4px 0 4px 8px">Algorta + paseo</td>
+      <tr>
+        <td>Línea directa<br><span style="font-weight:400;color:#777">cónyuge, pareja de hecho inscrita, hijos, padres</span></td>
+        <td>400.000 €</td>
+        <td>Tipo único <strong>1,5%</strong></td>
       </tr>
       <tr>
-        <td style="padding:4px 8px 4px 0;font-weight:700">Gorrondatxe<br><span style="font-weight:400;color:#777">(Azkorri)</span></td>
-        <td style="padding:4px 8px">Arena oscura, dunas, sin urbanizar</td>
-        <td style="padding:4px 8px">Surf y naturaleza</td>
-        <td style="padding:4px 8px">Socorrismo y duchas (entorno protegido)</td>
-        <td style="padding:4px 0 4px 8px">Metro Bidezabal</td>
+        <td>Hermanos<br><span style="font-weight:400;color:#777">colaterales de 2º grado</span></td>
+        <td>40.000 €</td>
+        <td>Tarifa progresiva 5,70% → 34,58%</td>
+      </tr>
+      <tr>
+        <td>Tíos y sobrinos<br><span style="font-weight:400;color:#777">colaterales de 3<sup>er</sup> grado</span></td>
+        <td>20.000 €</td>
+        <td>Tarifa progresiva 5,70% → 34,58%</td>
+      </tr>
+      <tr>
+        <td>Otros / sin parentesco<br><span style="font-weight:400;color:#777">colaterales lejanos y extraños</span></td>
+        <td>Sin reducción</td>
+        <td>Tarifa propia 7,60% → 42,56%</td>
       </tr>
     </tbody>
   </table>
 
-  <div class="pull-quote" style="margin:6px 0">«Tres playas, tres planes distintos a un paseo de casa: la costa es uno de los grandes lujos de vivir en Getxo»</div>
-
+  <!-- CHART + PULL QUOTE -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px;margin-bottom:6px">
-    <article>
-      <h3>Surf: olas para empezar y para repetir</h3>
-      <div class="byline">Redacción · Mar de fondo</div>
-      <p style="font-size:9pt"><strong>Gorrondatxe</strong> y los bajos de <strong>La Galea</strong> recogen bien el oleaje del Cantábrico y son un clásico para surfear en Getxo, sobre todo con marea y mar de fondo del noroeste. Muy cerca, la playa de <strong>La Salvaje (Barinatxe)</strong>, entre Getxo y Sopela, es uno de los grandes puntos de surf de Bizkaia, con escuelas y alquiler de material a pocos minutos. Para iniciarse conviene ir con monitor: las corrientes pueden ser fuertes.</p>
-    </article>
-    <article>
-      <h3>Si quieres ampliar el plan: playas vecinas</h3>
-      <div class="byline">Redacción · A un paso</div>
-      <p style="font-size:9pt">Saliendo de Getxo, la costa sigue regalando arenales. <strong>Sopela</strong> (Barinatxe, Arrietara y Atxabiribil) es surfera y juvenil; <strong>Plentzia</strong>, familiar y resguardada en la ría, con metro directo; <strong>Barrika</strong>, salvaje y espectacular por su flysch geológico; y <strong>Gorliz</strong>, amplia y tranquila, ideal con niños. Todas dog-friendly fuera de temporada y muchas también en verano por la noche.</p>
-    </article>
+    <div class="chartbox" style="margin-bottom:0">
+      <div class="ctitle">Mínimo exento por heredero, según el parentesco</div>
+      <div class="bar-row">
+        <div class="bl"><span>Línea directa</span><span class="amt">400.000 €</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bl"><span>Hermanos</span><span class="amt">40.000 €</span></div>
+        <div class="bar-track"><div class="bar-fill dim" style="width:10%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bl"><span>Tíos y sobrinos</span><span class="amt">20.000 €</span></div>
+        <div class="bar-track"><div class="bar-fill low" style="width:5%"></div></div>
+      </div>
+      <div class="bar-row" style="margin-bottom:0">
+        <div class="bl"><span>Sin parentesco</span><span class="amt">0 €</span></div>
+        <div class="bar-track"><div class="bar-fill low" style="width:0.6%"></div></div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center">
+      <div class="pull-quote" style="margin:0;border:none;border-left:4px solid var(--gold);padding:6px 0 6px 14px;text-align:left">«En Bizkaia, quien hereda de sus padres casi nunca tiene que vender la casa para pagar Hacienda. El miedo suele ser mayor que el impuesto.»<br><span style="font-size:8pt;font-style:normal;font-weight:600;color:#777">— Isabel De La Gala</span></div>
+    </div>
   </div>
 
-  <!-- HERENCIAS FULL WIDTH -->
-  <hr class="section-rule">
-  <span class="section-tag europa">Herencias · Heredar vivienda en Bizkaia</span>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px;margin-top:6px;margin-bottom:6px">
-    <article>
-      <h3>Heredar la casa familiar en Bizkaia: por qué aquí se paga <em>mucho menos</em></h3>
-      <div class="byline">Redacción · Fiscal · Norma Foral 4/2015</div>
-      <p>El régimen foral de Bizkaia es de los más favorables de España para la familia directa. Para <strong>cónyuge o pareja de hecho, hijos y padres</strong> (Grupo I), la base se reduce en <strong>400.000 € por heredero</strong> y el resto tributa a un tipo único del <strong>1,5%</strong>. Un ejemplo: heredar una vivienda valorada en 520.000 € supondría tributar solo sobre 120.000 € → unos <strong>1.800 €</strong> de impuesto.</p>
-      <p>Si la casa era la <strong>vivienda habitual del fallecido</strong>, existe además una reducción del <strong>95%</strong> (con un límite de 212.242 €), siempre que se mantenga la titularidad durante el plazo previsto. Para hermanos y parientes más lejanos, en cambio, los tipos son progresivos y pueden llegar hasta el <strong>34%</strong>.</p>
-    </article>
-    <article>
-      <h3>Los plazos que no puedes saltarte</h3>
-      <div class="byline">Redacción · Trámites</div>
-      <p>La declaración del Impuesto sobre Sucesiones (<strong>Modelo 650</strong>) se presenta ante la Diputación Foral de Bizkaia en un plazo de <strong>12 meses</strong> desde el fallecimiento —no desde la aceptación de la herencia—. Si se necesita más tiempo, puede solicitarse una <strong>prórroga dentro de los primeros 5 meses</strong>.</p>
-      <p>Antes de decidir qué hacer con una vivienda heredada —venderla, alquilarla o repartirla entre los herederos— conviene una valoración realista del inmueble y conocer su situación registral y de cargas. <strong>En DELAGALA te ayudamos</strong> a valorarla y a tomar la mejor decisión.</p>
-    </article>
-  </div>
-
-  <div class="europa-strip">
+  <!-- FISCAL STRIP -->
+  <div class="fiscal-strip">
     <div class="item">
-      <strong>Familia directa · Grupo I</strong>
-      Cónyuge o pareja de hecho, hijos y padres: 400.000 € exentos por heredero y un tipo único del 1,5% sobre el resto.
+      <strong>Línea directa</strong>
+      Cónyuge, pareja de hecho inscrita, hijos y padres: 400.000 € exentos por heredero y un tipo único del 1,5% sobre el resto.
     </div>
     <div class="item">
       <strong>Vivienda habitual</strong>
-      Reducción del 95% (máx. 212.242 €) si era la residencia habitual del fallecido y se mantiene la titularidad.
+      Reducción del 95% (máx. 215.000 €) si era la residencia habitual del fallecido y el heredero convivió con él los 2 años previos.
     </div>
     <div class="item">
       <strong>Plazo y modelo</strong>
-      12 meses desde el fallecimiento · Modelo 650 ante la Diputación Foral · prórroga posible en los primeros 5 meses.
+      Un año desde el fallecimiento para presentar el modelo 650 ante la Hacienda Foral de Bizkaia.
     </div>
   </div>
 
-  <!-- EFEMERIDES -->
+  <!-- PLUSVALIA + NOVEDAD -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px;margin-bottom:6px">
+    <div class="nota">
+      <span class="tag">Plusvalía municipal</span>
+      Al heredar un piso o casa <strong>también se paga la plusvalía municipal</strong> (IIVTNU) al ayuntamiento. Muchos municipios bonifican gran parte de la cuota cuando se hereda la vivienda habitual entre familia directa, pero <strong>depende de la ordenanza de cada ayuntamiento</strong>: conviene consultar la ordenanza vigente de Getxo antes de calcular.
+    </div>
+    <div class="nota">
+      <span class="tag">Novedad 2025 · donaciones</span>
+      La <strong>Norma Foral 2/2025</strong> creó una exención para <strong>donaciones</strong> en efectivo de hasta <strong>30.000 €</strong> destinadas a que un <strong>menor de 36 años</strong> compre su primera vivienda habitual. Es una donación (en vida), no una herencia, pero es una vía útil para ayudar a los hijos a comprar.
+    </div>
+  </div>
+
+  <!-- PLAYAS (secundario) -->
   <hr class="section-rule">
-  <span class="section-tag local">Efemérides de la costa de Getxo</span>
-  <div class="efem-grid" style="margin-top:7px;margin-bottom:10px">
-    <div class="efem-item">
-      <div class="year">1859</div>
-      <p>Máximo Aguirre adquiere los arenales entre el Gobela y el Udondo —el futuro Las Arenas— con la idea de crear una zona residencial y de baños junto al mar.</p>
+  <span class="section-tag playa">En verano · La costa de Getxo</span>
+  <div class="playas-block">
+    <p style="font-size:8.8pt;line-height:1.5;text-align:justify;margin-bottom:2px">Getxo mantiene este año <strong>tres Banderas Azules</strong> —Ereaga, Arrigunaga y Azkorri (Gorrondatxe)—, de las pocas de toda Euskadi. Vivir cerca del mar sigue siendo uno de los factores que más sostiene el valor de la vivienda en la costa.</p>
+    <div class="playas-grid">
+      <div>
+        <h4>Ereaga · familias</h4>
+        <p>La más urbana y completa, junto al puerto deportivo: socorrismo, duchas y servicios. Admite perros en verano de 20:00 a 09:30 h. Metro Neguri.</p>
+      </div>
+      <div>
+        <h4>Arrigunaga · tranquila</h4>
+        <p>Al pie de los acantilados de La Galea, ambiente local y zona de skate. Bandera Azul y dog-friendly en verano por la noche.</p>
+      </div>
+      <div>
+        <h4>Gorrondatxe · salvaje</h4>
+        <p>Azkorri: arena oscura, dunas protegidas y surf. Entorno sin urbanizar; no admite perros por protección ambiental. Metro Bidezabal.</p>
+      </div>
     </div>
-    <div class="efem-item">
-      <div class="year">1868</div>
-      <p>Abre el "Establecimiento de Baños de Mar Bilbaínos" en Las Arenas: el origen del turismo de playa en Getxo y de sus primeras villas veraniegas.</p>
-    </div>
-    <div class="efem-item">
-      <div class="year">1889</div>
-      <p>Comienza la construcción del puerto exterior, dirigida por Evaristo de Churruca. La zona de baños se traslada entonces a la playa de Ereaga.</p>
-    </div>
-    <div class="efem-item">
-      <div class="year">1893</div>
-      <p>Se inaugura el Puente Bizkaia (28 de julio), primer puente transbordador del mundo, que une Las Arenas con Portugalete. Patrimonio de la Humanidad (UNESCO, 2006).</p>
-    </div>
+  </div>
+
+  <!-- SOURCES / DISCLAIMER -->
+  <div class="sources">
+    <strong>Fuentes de los datos fiscales:</strong> Norma Foral 4/2015 del Impuesto sobre Sucesiones y Donaciones de Bizkaia y Hacienda Foral de Bizkaia (bizkaia.eus); Norma Foral 2/2025. Información orientativa y general: cada herencia es un caso particular y sus cifras dependen del valor, el número de herederos y el parentesco. Antes de liquidar, contrasta tu caso con la Hacienda Foral o con tu asesor. DELAGALA te acompaña en la valoración de la vivienda y en la decisión de qué hacer con ella.
   </div>
 
   <!-- ESCRIBENOS -->
   <div class="escribenos">
     <div class="wa-icon">✉️</div>
     <div class="text">
-      <h4>Escríbenos</h4>
-      <p>¿Sobre qué quieres leer en el próximo número? Mándanos el tema que más te interesa —hipotecas, barrios, inversión, alquiler— y lo incluimos en la siguiente edición.</p>
+      <h4>¿Has heredado una vivienda y no sabes por dónde empezar?</h4>
+      <p>Escríbenos y te ayudamos a valorarla y a decidir: vender, alquilar o repartir. Sin compromiso.</p>
     </div>
-    <a href="https://wa.me/34662128409?text=Hola%20DELAGALA%2C%20me%20gustar%C3%ADa%20leer%20sobre%3A%20" class="wa-link">WhatsApp →<br>662 128 409</a>
+    <a href="https://wa.me/34691478679?text=Hola%20DELAGALA%2C%20he%20heredado%20una%20vivienda%20y%20me%20gustar%C3%ADa%20que%20me%20ayud%C3%A9is" class="wa-link">WhatsApp →<br>691 478 679</a>
   </div>
 
   <!-- FOOTER -->
   <div class="footer">
-    <div><strong>DELAGALA Daily</strong> · Nº 06 · Julio 2026 · Distribución gratuita</div>
+    <div><strong>DELAGALA Daily</strong> · Nº 08 · Septiembre 2026 · Distribución gratuita</div>
     <div style="text-align:center">idelagala.com · info@idelagala.com</div>
     <div style="text-align:right"><strong>ICA HOME S.L.</strong> · CIF B10641546<br>Calle Las Mercedes 17, 48930 Getxo</div>
   </div>

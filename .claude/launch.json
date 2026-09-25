@@ -37,6 +37,36 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--prefix", "C:\\Users\\alvaro.PARTNERS\\delagala-os\\frontend", "--", "--port", "3100"],
       "port": 3100
+    },
+    {
+      "name": "alvaro-cardenal-web",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "-l", "4173", "C:\\Users\\alvaro.PARTNERS\\alvaro-cardenal-web"],
+      "port": 4173
+    },
+    {
+      "name": "itsasoa-web",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "-l", "4174", "C:\\Users\\alvaro.PARTNERS\\itsasoa-web"],
+      "port": 4174
+    },
+    {
+      "name": "sico-backend",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": ["/c", "cd /d C:\\Users\\alvaro.PARTNERS\\SubvencionMatcher\\backend && set ENABLE_CRON=false&& set RUN_SCRAPER_ON_STARTUP=false&& npx ts-node -T src/main.ts"],
+      "port": 3001
+    },
+    {
+      "name": "sico-frontend",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": ["/c", "cd /d C:\\Users\\alvaro.PARTNERS\\SubvencionMatcher\\frontend && npm run dev -- --port 3005"],
+      "port": 3005
+    },
+    {
+      "name": "proyeccia",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "C:\\Users\\alvaro.PARTNERS\\proyeccia", "--", "--port", "3410"],
+      "port": 3410
     }
   ]
 }

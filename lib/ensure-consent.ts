@@ -1,4 +1,5 @@
 import { getDb } from './db';
+import { logBaja, removeBaja } from './bajas';
 
 // Asegura las columnas de marketing en las tablas de cupones (pan y café):
 //  - consent_marketing: el lead aceptó recibir info inmobiliaria (🟢) o solo promo (🟡)
@@ -30,9 +31,24 @@ export async function setUnsubscribed(phone: string, value: boolean): Promise<nu
   const like = `%${last9}`;
   const r1 = await sql`
     UPDATE pan.coupons SET unsubscribed = ${value}
-    WHERE regexp_replace(lead_phone, '[^0-9]', '', 'g') LIKE ${like} RETURNING id`;
+    WHERE regexp_replace(lead_phone, '[^0-9]', '', 'g') LIKE ${like} RETURNING id, lead_name`;
   const r2 = await sql`
     UPDATE marketing_pilot.coffee_coupons SET unsubscribed = ${value}
-    WHERE regexp_replace(lead_phone, '[^0-9]', '', 'g') LIKE ${like} RETURNING id`;
-  return r1.length + r2.length;
+    WHERE regexp_replace(lead_phone, '[^0-9]', '', 'g') LIKE ${like} RETURNING id, lead_name`;
+
+  // Registrar en la base de datos APARTE de bajas (o quitar de ella si es un alta).
+  const total = r1.length + r2.length;
+  if (total > 0) {
+    try {
+      if (value) {
+        const name = (r2[0] as { lead_name?: string })?.lead_name
+          ?? (r1[0] as { lead_name?: string })?.lead_name ?? null;
+        const source = r1.length && r2.length ? 'ambas' : r1.length ? 'pan' : 'cafe';
+        await logBaja(phone, name, source, 'baja');
+      } else {
+        await removeBaja(phone);
+      }
+    } catch { /* no romper la baja/alta si falla el registro aparte */ }
+  }
+  return total;
 }

@@ -2,9 +2,9 @@ const GRAPH_API = 'https://graph.facebook.com/v20.0';
 const PDF_URL = 'https://inmoia360.vercel.app/delagala-daily.pdf';
 
 // ── Notificación al camarero del bar ──────────────────────────────────────
-// NOTA: requiere que el camarero haya enviado primero un mensaje al número
-// de DELAGALA (+34 663 305 791) para abrir la ventana de 24h.
-// En producción sustituir por una plantilla UTILITY aprobada en Meta.
+// Usa una plantilla UTILITY aprobada (delagala_aviso_camarero) para que llegue
+// SIEMPRE, sin depender de la ventana de 24h (el fallo de "antes sí, ahora no").
+// Variables de la plantilla: {{1}}=local {{2}}=cliente {{3}}=codigo {{4}}=servidos/limite.
 export async function sendBarStaffNotification(
   staffPhone: string,
   barName: string,
@@ -12,26 +12,32 @@ export async function sendBarStaffNotification(
   code: string,
   count: number,
   limit: number,
-  opts: { productLabel?: string; emoji?: string } = {},
+  _opts: { productLabel?: string; emoji?: string } = {},
 ) {
   const token = process.env.WHATSAPP_TOKEN;
   const phoneId = process.env.WHATSAPP_PHONE_ID;
   if (!token || !phoneId || !staffPhone) return;
 
-  const product = opts.productLabel ?? 'café';
-  const emoji = opts.emoji ?? '☕';
   const to = normalizeSpanishPhone(staffPhone);
+  const templateName = (process.env.WHATSAPP_TEMPLATE_STAFF ?? '').trim() || 'delagala_aviso_camarero';
   await sendWA(phoneId, token, {
     messaging_product: 'whatsapp',
     to,
-    type: 'text',
-    text: {
-      body:
-        `${emoji} *DELAGALA — nuevo código (${product})*\n\n` +
-        `Cliente: ${customerName}\n` +
-        `Código: *${code}*\n` +
-        `Local: ${barName}\n\n` +
-        `📊 Servidos este mes: *${count} / ${limit}*`,
+    type: 'template',
+    template: {
+      name: templateName,
+      language: { code: 'es_ES' },
+      components: [
+        {
+          type: 'body',
+          parameters: [
+            { type: 'text', text: barName || 'el local' },
+            { type: 'text', text: customerName || 'Cliente' },
+            { type: 'text', text: code },
+            { type: 'text', text: `${count} / ${limit}` },
+          ],
+        },
+      ],
     },
   });
 }

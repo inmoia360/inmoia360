@@ -1,6 +1,6 @@
 'use client';
 
-const LANDING_URL = 'https://inmoia360.vercel.app/delagala/dailycoffee#registro';
+const LANDING_URL = 'https://www.inmoia360.com/delagala/dailycoffee#registro';
 const QR_URL = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=16&color=0A0A0A&bgcolor=FFFFFF&data=${encodeURIComponent(LANDING_URL)}`;
 
 const Y = '#F5C842';
@@ -49,12 +49,11 @@ export default function QRPage() {
           </div>
 
           {/* Headline */}
-          <h1 style={{ fontFamily: "'Playfair Display',serif", fontWeight: 900, fontSize: 42, lineHeight: 1, letterSpacing: '-0.02em', marginBottom: 12 }}>
-            Un café,<br /><span style={{ fontStyle: 'italic' }}>gratis.</span>
+          <h1 style={{ fontFamily: "'Playfair Display',serif", fontWeight: 900, fontSize: 33, lineHeight: 1.02, letterSpacing: '-0.02em', marginBottom: 10 }}>
+            Te regalamos<br />un café<span style={{ fontStyle: 'italic', color: YD }}> y el periódico</span>
           </h1>
-          <p style={{ fontSize: 13, color: '#2A2A2A', lineHeight: 1.6, marginBottom: 24 }}>
-            Escanea el código, regístrate en 30 segundos<br />
-            y recibe tu código por <strong>WhatsApp</strong>.
+          <p style={{ fontSize: 12.5, color: '#2A2A2A', lineHeight: 1.6, marginBottom: 22 }}>
+            Escanea el código y regístrate en 30 segundos. Te llega por <strong>WhatsApp</strong> tu <strong>café gratis</strong> ☕ y el <strong>periódico DELAGALA</strong> 📰 para descargar.
           </p>
 
           {/* QR Code */}
@@ -68,7 +67,7 @@ export default function QRPage() {
             {[
               { n: '1', t: 'Escanea', d: 'Con la cámara del móvil' },
               { n: '2', t: 'Regístrate', d: 'Nombre y WhatsApp' },
-              { n: '3', t: 'Disfruta', d: 'Café por cortesía' },
+              { n: '3', t: 'Disfruta', d: 'Café + periódico' },
             ].map((s, i) => (
               <div key={s.n} style={{ flex: 1, textAlign: 'center', borderRight: i < 2 ? `1px solid #E5E5E0` : 'none', padding: '0 8px' }}>
                 <div style={{ fontFamily: "'Playfair Display',serif", fontWeight: 900, fontSize: 30, lineHeight: 1, fontStyle: 'italic' }}>{s.n}</div>
@@ -88,8 +87,12 @@ export default function QRPage() {
             <div style={{ fontFamily: "'Playfair Display',serif", fontWeight: 800, fontSize: 15, fontStyle: 'italic' }}>
               <span style={{ color: YD }}>Delagala</span> Daily
             </div>
-            <div style={{ fontSize: 9, color: '#6B6B6B', marginTop: 4, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-              idelagala.com · 662 128 409 · Getxo
+            <div style={{ fontSize: 10.5, color: '#1A1A1A', fontWeight: 700, marginTop: 7, lineHeight: 1.45 }}>
+              C/ Las Mercedes 17 · Las Arenas · 48930 Getxo<br />
+              <span style={{ color: YD }}>★ Toldo Amarillo</span>
+            </div>
+            <div style={{ fontSize: 9, color: '#6B6B6B', marginTop: 6, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              idelagala.com · 662 128 409
             </div>
           </div>
         </div>
