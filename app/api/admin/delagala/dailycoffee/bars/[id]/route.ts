@@ -9,7 +9,7 @@ export async function PATCH(
 ) {
   const { id } = await params;
   const body = await request.json().catch(() => ({}));
-  const { name, address, city, is_active } = body;
+  const { name, address, city, is_active, campaign_slug } = body;
 
   const sql = getDb();
   const [updated] = await sql`
@@ -18,7 +18,11 @@ export async function PATCH(
       name      = COALESCE(${name ?? null},      name),
       address   = COALESCE(${address ?? null},   address),
       city      = COALESCE(${city ?? null},       city),
-      is_active = COALESCE(${is_active ?? null}, is_active)
+      is_active = COALESCE(${is_active ?? null}, is_active),
+      campaign_id = COALESCE(
+        (SELECT id FROM marketing_pilot.campaigns WHERE slug = ${campaign_slug ?? null}),
+        campaign_id
+      )
     WHERE id = ${id}
     RETURNING *
   `;
