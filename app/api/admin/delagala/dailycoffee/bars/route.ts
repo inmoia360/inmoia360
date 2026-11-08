@@ -24,8 +24,9 @@ export async function POST(request: NextRequest) {
   const sql = getDb();
   try {
     const [bar] = await sql`
-      INSERT INTO marketing_pilot.bars (slug, name, address, city)
-      VALUES (${slug.trim()}, ${name.trim()}, ${address?.trim() ?? null}, ${city?.trim() ?? null})
+      INSERT INTO marketing_pilot.bars (slug, name, address, city, campaign_id)
+      VALUES (${slug.trim()}, ${name.trim()}, ${address?.trim() ?? null}, ${city?.trim() ?? null},
+        (SELECT id FROM marketing_pilot.campaigns WHERE slug = 'dailycoffee'))
       RETURNING *
     `;
     return NextResponse.json(bar, { status: 201 });
