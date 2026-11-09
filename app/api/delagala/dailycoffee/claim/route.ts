@@ -125,7 +125,7 @@ export async function POST(request: NextRequest) {
   // La herbolistería (Centro Dietético Las Arenas) usa su propia plantilla de "bolsa de té".
   const isHerbol = resolvedBar?.name === 'Centro Dietético Las Arenas';
   const waOpts = isHerbol
-    ? { templateName: 'delagala_te_v1', productLabel: 'té', redeemText: 'Enséñaselo en Centro Dietético Las Arenas y recoge tu té 🍵' }
+    ? { templateName: 'delagala_te_v2', productLabel: 'té', redeemText: 'Enséñaselo en Herbolario Las Arenas y recoge tu té 🍵' }
     : {};
   await sendCouponWhatsApp(phone, lead_name.trim(), coupon_code, waOpts).catch(e =>
     console.error('[WA] send error', e)
