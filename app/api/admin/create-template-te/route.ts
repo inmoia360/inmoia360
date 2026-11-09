@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 
-const TEMPLATE_NAME = 'delagala_te_v1';
+const TEMPLATE_NAME = 'delagala_te_v2';
 
 // GET: estado de aprobación de la plantilla del código de té en Meta.
 export async function GET() {
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
         type: 'BODY',
         text:
           '¡Hola {{1}}! 👋\n\n' +
-          '¡Gracias por suscribirte! Aquí tienes tu código para tu *bolsa de té* gratis en Centro Dietético Las Arenas:\n\n' +
+          '¡Gracias por suscribirte! Aquí tienes tu código para tu *bolsa de té* gratis en Herbolario Las Arenas:\n\n' +
           '*{{2}}*\n\n' +
           'Enséñaselo en la tienda y recoge tu té. 🍵\n\n' +
           '— DELAGALA Consultoría Inmobiliaria',
