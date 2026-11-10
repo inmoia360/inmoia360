@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delagala Daily · Nº 09 · Noviembre 2026 · Especial Hogar Saludable</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+  :root{
+    --ink:#0A0A0A; --gold:#F5C842; --gold-dk:#C9A227; --cream:#FAF7F2;
+    --warm-gray:#F0EDE6; --mid-gray:#888; --rule:1.5px solid var(--ink);
+    --rule-thin:0.5px solid #AAA; --gold-soft:#FBF3D6; --chart-track:#E9DEB8;
+    --green:#4B7A52; --green-dk:#2F5436;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--cream);color:var(--ink);font-family:'Libre Baskerville',Georgia,serif;font-size:10.5pt;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+  .page{position:relative;width:210mm;margin:0 auto 8mm;background:#fff;padding:10mm 12mm 12mm;box-shadow:0 4px 32px rgba(0,0,0,.12);overflow:hidden;}
+  .watermark{position:absolute;inset:0;pointer-events:none;z-index:0;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .watermark span{font-family:'Playfair Display',serif;font-weight:900;font-size:120pt;letter-spacing:.05em;color:rgba(10,10,10,0.035);transform:rotate(-30deg);white-space:nowrap;text-transform:uppercase;}
+  .page>*:not(.watermark){position:relative;z-index:1;}
+
+  .masthead{border-top:4px solid var(--ink);border-bottom:2px solid var(--ink);padding:6px 0 8px;margin-bottom:4px;display:flex;align-items:center;gap:12px;}
+  .masthead-logo{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .masthead-name{flex:1;text-align:center;}
+  .masthead-name .brandline{font-family:'Montserrat',sans-serif;font-weight:800;font-size:11pt;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-dk);line-height:1;margin-bottom:3px;}
+  .masthead-name h1{font-family:'Playfair Display',serif;font-weight:900;font-size:42pt;letter-spacing:-.02em;line-height:.9;text-transform:uppercase;}
+  .masthead-name .subtitle{font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:600;letter-spacing:.4em;text-transform:uppercase;color:var(--mid-gray);margin-top:4px;}
+  .masthead-meta{flex-shrink:0;text-align:right;font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:500;color:var(--mid-gray);line-height:1.7;}
+  .masthead-meta strong{color:var(--ink);font-weight:700;font-size:8pt;}
+  .masthead-meta .locate{display:inline-block;font-family:'Montserrat',sans-serif;font-size:9pt;font-weight:800;color:var(--ink);letter-spacing:.01em;margin-top:3px;}
+
+  .top-strip{background:var(--gold);padding:6px 10px;font-family:'Montserrat',sans-serif;font-size:8.5pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;border-bottom:2px solid var(--ink);}
+  .top-strip .pgou{font-family:'Playfair Display',serif;font-weight:900;font-size:15pt;letter-spacing:.01em;line-height:1;margin-right:4px;}
+  .top-strip.hero{padding:9px 12px;border-top:2px solid var(--ink);}
+
+  .market-band{background:var(--gold-soft);color:var(--ink);border:1.5px solid var(--ink);border-left:6px solid var(--gold);padding:8px 14px;margin-bottom:8px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .market-label{font-family:'Montserrat',sans-serif;font-size:8pt;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dk);flex-shrink:0;line-height:1.1;}
+  .market-value{font-family:'Playfair Display',serif;font-size:22pt;font-weight:900;color:var(--gold-dk);line-height:1;flex-shrink:0;}
+  .market-hist{display:flex;gap:16px;flex-wrap:wrap;}
+  .market-item{font-family:'Montserrat',sans-serif;font-size:7.5pt;color:#666;text-align:center;}
+  .market-item .val{display:block;font-weight:700;font-size:10pt;color:var(--ink);}
+  .market-note{margin-left:auto;font-family:'Montserrat',sans-serif;font-size:7pt;color:#777;max-width:150px;line-height:1.4;font-style:italic;}
+
+  .columns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 16px;margin-bottom:8px;}
+  .col-span-2{grid-column:span 2;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;}
+
+  .section-tag{font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:.3em;text-transform:uppercase;background:var(--gold);color:var(--ink);display:inline-block;padding:2px 8px;margin-bottom:5px;}
+  .section-tag.local{background:var(--gold);color:var(--ink);}
+  .section-tag.green{background:var(--green);color:#fff;}
+  .section-rule{border:none;border-top:var(--rule);margin:6px 0 5px;}
+  .section-rule-thin{border:none;border-top:var(--rule-thin);margin:6px 0 5px;}
+
+  article{margin-bottom:8px;}
+  article h2{font-family:'Playfair Display',serif;font-weight:900;font-size:15pt;line-height:1.12;margin-bottom:4px;}
+  article h2 em{font-style:italic;}
+  article h3{font-family:'Playfair Display',serif;font-weight:700;font-size:11pt;line-height:1.25;margin-bottom:3px;margin-top:5px;}
+  article .deck{font-family:'Libre Baskerville',serif;font-style:italic;font-size:9.5pt;color:#444;margin-bottom:5px;line-height:1.4;}
+  article p{font-size:9.5pt;line-height:1.55;text-align:justify;hyphens:auto;margin-bottom:5px;}
+  article .byline{font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mid-gray);margin-bottom:4px;}
+  .dropcap::first-letter{font-family:'Playfair Display',serif;font-weight:900;font-size:34pt;line-height:.8;float:left;padding:4px 6px 0 0;color:var(--gold-dk);}
+
+  .author{display:flex;align-items:center;gap:9px;border-top:var(--rule-thin);border-bottom:var(--rule-thin);padding:5px 0;margin-bottom:6px;}
+  .author .avatar{width:34px;height:34px;flex-shrink:0;border-radius:50%;background:var(--gold-soft);border:1.5px solid var(--gold-dk);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:15pt;color:var(--gold-dk);}
+  .author .who{line-height:1.25;}
+  .author .who .n{font-family:'Playfair Display',serif;font-weight:700;font-size:9.5pt;}
+  .author .who .r{font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-dk);}
+
+  .photo{border:1.5px solid var(--ink);margin-bottom:8px;overflow:hidden;}
+  .photo img{width:100%;display:block;}
+  .photo .cap{font-family:'Montserrat',sans-serif;font-size:6.6pt;color:#777;line-height:1.4;font-style:italic;padding:4px 8px;background:var(--warm-gray);border-top:1px solid var(--ink);}
+
+  .data-box{border:1.5px solid var(--ink);padding:8px 10px;margin-bottom:8px;background:var(--warm-gray);}
+  .data-box .label{font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mid-gray);margin-bottom:3px;}
+  .data-box .value{font-family:'Playfair Display',serif;font-size:20pt;font-weight:900;line-height:1;color:var(--ink);}
+  .data-box .sub{font-family:'Montserrat',sans-serif;font-size:7.5pt;color:#555;margin-top:2px;}
+
+  .chartbox{border:1.5px solid var(--ink);border-left:6px solid var(--gold);background:var(--gold-soft);padding:9px 12px 10px;margin-bottom:8px;}
+  .chartbox .ctitle{font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:7px;}
+  .chartbox .ccap{font-family:'Montserrat',sans-serif;font-size:6.6pt;color:#777;margin-top:6px;line-height:1.4;font-style:italic;}
+  .donut-wrap{display:flex;align-items:center;gap:14px;}
+  .donut-legend{font-family:'Montserrat',sans-serif;font-size:7.5pt;line-height:1.35;}
+  .donut-legend .li{display:flex;align-items:baseline;gap:6px;margin-bottom:5px;}
+  .donut-legend .sw{width:11px;height:11px;flex-shrink:0;display:inline-block;border:1px solid var(--gold-dk);transform:translateY(2px);}
+  .donut-legend .big{font-family:'Playfair Display',serif;font-weight:900;font-size:12pt;color:var(--gold-dk);}
+  .barchart{margin-top:2px;}
+  .bar-row{display:flex;align-items:center;gap:8px;margin:6px 0;}
+  .bar-row .blabel{font-family:'Montserrat',sans-serif;font-size:7.2pt;font-weight:600;color:var(--ink);width:150px;flex-shrink:0;line-height:1.15;}
+  .bar-track{flex:1;background:var(--chart-track);height:17px;border:1px solid var(--gold-dk);position:relative;overflow:hidden;}
+  .bar-fill{height:100%;background:var(--gold-dk);}
+  .bar-fill.soft{background:var(--gold);}
+  .bar-val{font-family:'Montserrat',sans-serif;font-size:8.5pt;font-weight:800;color:var(--gold-dk);white-space:nowrap;width:52px;text-align:right;flex-shrink:0;}
+
+  table.grid{width:100%;border-collapse:collapse;font-size:8.5pt;margin:2px 0 8px;}
+  table.grid th{text-align:left;font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border-top:var(--rule);border-bottom:1px solid var(--ink);padding:4px 8px 4px 0;}
+  table.grid td{padding:4px 8px 4px 0;border-bottom:var(--rule-thin);vertical-align:top;}
+  table.grid td:first-child{font-weight:700;white-space:nowrap;}
+
+  .blue-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:0 12px;border-top:var(--rule);border-bottom:var(--rule);padding:6px 0;margin-bottom:8px;}
+  .blue-strip .item{font-size:8.5pt;line-height:1.45;padding-right:12px;border-right:var(--rule-thin);}
+  .blue-strip .item:last-child{border-right:none;padding-right:0;}
+  .blue-strip .item strong{display:block;font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--green-dk);margin-bottom:2px;}
+
+  .pull-quote{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:8px 0;margin:8px 0;font-family:'Playfair Display',serif;font-size:12pt;font-style:italic;font-weight:700;line-height:1.35;text-align:center;}
+
+  .faq{background:var(--gold-soft);border:1.5px solid var(--ink);border-left:6px solid var(--gold);padding:10px 14px;margin:8px 0;}
+  .faq h4{font-family:'Playfair Display',serif;font-size:10.5pt;font-weight:700;margin:6px 0 2px;}
+  .faq h4:first-child{margin-top:0;}
+  .faq p{font-size:8.8pt;line-height:1.5;text-align:justify;margin-bottom:4px;}
+
+  .editorial{border:1.5px solid var(--gold-dk);padding:10px 14px;margin:8px 0;background:#fff;}
+  .editorial .lbl{font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:4px;}
+  .editorial p{font-family:'Libre Baskerville',serif;font-size:9pt;line-height:1.55;text-align:justify;font-style:italic;margin-bottom:4px;}
+
+  .cta{background:var(--gold-soft);color:var(--ink);border:2px solid var(--ink);border-left:6px solid var(--gold);padding:12px 16px;margin-top:10px;display:flex;align-items:center;gap:14px;}
+  .cta .text h4{font-family:'Playfair Display',serif;font-size:13pt;font-weight:900;font-style:italic;color:var(--gold-dk);margin-bottom:3px;}
+  .cta .text p{font-family:'Montserrat',sans-serif;font-size:8pt;color:#333;line-height:1.45;text-align:left;margin:0;}
+  .cta .link{margin-left:auto;background:var(--gold);color:var(--ink);font-family:'Montserrat',sans-serif;font-size:8.5pt;font-weight:800;text-decoration:none;padding:9px 16px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;text-align:center;line-height:1.3;}
+
+  .sources{font-family:'Montserrat',sans-serif;font-size:6.8pt;color:#666;line-height:1.5;border-top:var(--rule-thin);padding-top:5px;margin-top:6px;}
+  .sources strong{color:var(--ink);text-transform:uppercase;letter-spacing:.1em;font-size:6.5pt;}
+
+  .footer{border-top:var(--rule);padding-top:6px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;font-family:'Montserrat',sans-serif;font-size:7pt;color:var(--mid-gray);}
+  .footer strong{color:var(--ink);}
+
+  @media screen and (max-width: 820px){
+    body{font-size:12px;}
+    .page{width:100%;padding:16px 14px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.10);}
+    .watermark span{font-size:74pt;}
+    .masthead{flex-wrap:wrap;gap:8px 12px;padding:8px 0;}
+    .masthead>*{min-width:0;}
+    .masthead-name{order:-1;flex-basis:100%;}
+    .masthead-name h1{font-size:38pt;}
+    .masthead-name .subtitle{letter-spacing:.12em;font-size:6pt;white-space:normal;}
+    .masthead-meta{text-align:left;}
+    .market-band>*,.donut-wrap>*,.bar-row>*{min-width:0;}
+    .top-strip{letter-spacing:.04em;}
+    .top-strip{flex-direction:column;align-items:flex-start;gap:2px;}
+    .market-band{gap:10px 14px;padding:10px 12px;}
+    .market-value{font-size:20pt;}
+    .market-note{margin-left:0;max-width:none;flex-basis:100%;}
+    .columns,.two-col{grid-template-columns:1fr;gap:0;}
+    .col-span-2{grid-column:auto;}
+    .columns>div,.two-col>*{border-right:none !important;padding-right:0 !important;min-width:0;}
+    .columns>*,.two-col>*,article,.faq,.editorial{min-width:0;overflow-wrap:break-word;}
+    article p,.faq p{text-align:left;}
+    .columns>div+div{margin-top:6px;}
+    .blue-strip{grid-template-columns:1fr;}
+    .blue-strip .item{border-right:none;border-bottom:var(--rule-thin);padding:7px 0;}
+    .blue-strip .item:last-child{border-bottom:none;}
+    .donut-wrap{gap:12px;}
+    .bar-row .blabel{width:120px;font-size:8pt;}
+    .cta{flex-direction:column;align-items:stretch;gap:10px;}
+    .cta .link{margin-left:0;width:100%;}
+    article p,.faq p,.editorial p{font-size:11.5px;line-height:1.6;}
+    article h2{font-size:22px;}
+    html,body{overflow-x:hidden;}
+    table.grid{font-size:11px;}
+    table.grid td:first-child{white-space:normal;}
+    table.grid td,table.grid th{padding-right:6px;}
+    .pull-quote{font-size:13px;}
+  }
+
+  @page{size:A4;margin:0;}
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none;margin:0;padding:8mm 10mm 10mm;width:100%;}
+    .page + .page{page-break-before:always;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ PÁGINA 1 ══════════════ -->
+<div class="page">
+  <div class="watermark"><span>DELAGALA</span></div>
+
+  <div class="masthead">
+    <div class="masthead-logo">
+      <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <text x="1" y="42" font-family="Montserrat,Arial Black,sans-serif" font-weight="900" font-size="46" fill="#F5C842">D</text>
+        <g transform="translate(30,1)"><polygon points="9,0 18,8 0,8" fill="#F5C842"/><rect x="3" y="8" width="12" height="9" fill="#F5C842"/></g>
+      </svg>
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:16pt;letter-spacing:3px;text-transform:uppercase;line-height:1.1;color:#F5C842">DELAGALA</div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:6.5pt;letter-spacing:2px;text-transform:uppercase;color:#888">Consultoría Inmobiliaria</div>
+      </div>
+    </div>
+    <div class="masthead-name">
+      <div class="brandline">DELAGALA</div>
+      <h1>Daily</h1>
+      <div class="subtitle">El periódico inmobiliario de DELAGALA Consultoría Inmobiliaria · Getxo</div>
+    </div>
+    <div class="masthead-meta">
+      <strong>Nº 09 · Noviembre 2026</strong><br>
+      Distribución gratuita<br>
+      <span class="locate">📍 C/ Las Mercedes 17 · Las Arenas</span><br>
+      <span class="locate">🌐 idelagala.com</span>
+    </div>
+  </div>
+
+  <div class="top-strip hero">
+    <span><span class="pgou">ESPECIAL HOGAR SALUDABLE</span> · Aire · Luz · Humedad · Radón</span>
+    <span>📍 Tu casa influye en tu salud más de lo que crees</span>
+  </div>
+
+  <div class="market-band">
+    <div class="market-label">Vivimos<br>dentro</div>
+    <div class="market-value">90%</div>
+    <div class="market-hist">
+      <div class="market-item"><span class="val">2–5×</span>Aire interior más sucio</div>
+      <div class="market-item"><span class="val">40–60%</span>Humedad saludable</div>
+      <div class="market-item"><span class="val">18 °C</span>Mínimo invierno (OMS)</div>
+    </div>
+    <div class="market-note">Pasamos 9 de cada 10 horas en espacios cerrados. La calidad de tu vivienda es, literalmente, salud.</div>
+  </div>
+
+  <div class="columns">
+    <div class="col-span-2" style="padding-right:16px;border-right:var(--rule-thin)">
+      <span class="section-tag local">Portada · El hogar que cuida</span>
+      <article>
+        <h2>Tu casa también cuida tu salud: la guía del <em>hogar saludable</em></h2>
+        <div class="deck">Pasamos el 90% del tiempo en interiores, y el aire de dentro puede estar más contaminado que el de la calle. La buena noticia: con pequeños gestos, tu casa cuida de ti. Y una vivienda sana, además, vale más.</div>
+        <div class="author">
+          <div class="avatar">I</div>
+          <div class="who">
+            <div class="n">Por Isabel De La Gala</div>
+            <div class="r">Perito tasador · Agente API colegiada (COAPI) · Getxo</div>
+          </div>
+        </div>
+        <p class="dropcap">Me paso el día entrando en casas para tasarlas, y hay algo que he aprendido mirando miles de viviendas: una casa no es solo metros cuadrados y ubicación. Es el aire que respiras, la luz que entra, la humedad de sus paredes. <strong>Pasamos cerca del 90% de nuestro tiempo en espacios cerrados</strong> —así lo estima la Agencia de Medioambiente de EE. UU.—, y buena parte de ese tiempo, en nuestra propia casa.</p>
+        <p>Por eso sorprende poco que el <strong>aire interior pueda estar entre 2 y 5 veces más contaminado que el de la calle</strong> (EPA): se acumulan la humedad de cocinar y ducharse, los compuestos de muebles y pinturas, el CO₂ que exhalamos. No se ve, pero se nota en el descanso y las alergias.</p>
+        <p>La buena noticia: un <strong>hogar saludable no es cuestión de obras</strong>, sino de hábitos y de conocer tu casa —ventilar, controlar la humedad, luz, temperatura y, donde toque, el radón—. Te lo cuento punto por punto. Y te adelanto algo que veo cada semana como tasadora: <strong>la casa sana y eficiente también se vende mejor</strong>.</p>
+      </article>
+      <div class="photo">
+        <img src="./hogar-saludable-C.png" alt="Salón luminoso y ventilado con plantas de interior" style="height:94px;object-fit:cover;object-position:center 46%">
+        <div class="cap">Un hogar saludable: luz natural, ventilación cruzada y plantas. Pequeños gestos con gran efecto en el bienestar y en el valor de la vivienda.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="chartbox">
+        <div class="ctitle">¿Cuánto tiempo pasamos dentro?</div>
+        <div class="donut-wrap">
+          <svg width="104" height="104" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="47" fill="none" stroke="#E9DEB8" stroke-width="20"/>
+            <circle cx="60" cy="60" r="47" fill="none" stroke="#C9A227" stroke-width="20" stroke-dasharray="265.8 29.5" transform="rotate(-90 60 60)"/>
+            <text x="60" y="57" text-anchor="middle" font-family="'Playfair Display',serif" font-weight="900" font-size="24" fill="#C9A227">90%</text>
+            <text x="60" y="73" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="700" font-size="7.5" letter-spacing="1" fill="#0A0A0A">DENTRO</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="li"><span class="sw" style="background:#C9A227"></span><span><span class="big">90%</span><br>En espacios cerrados</span></div>
+            <div class="li"><span class="sw" style="background:#E9DEB8"></span><span><span class="big">10%</span><br>Al aire libre</span></div>
+          </div>
+        </div>
+        <div class="ccap">Tiempo medio que pasamos en interiores. Fuente: US EPA, Report on the Environment (Indoor Air Quality).</div>
+      </div>
+
+      <div class="data-box"><div class="label">Aire interior vs. exterior · EPA</div><div class="value">2–5×</div><div class="sub">más contaminado puede estar el aire de casa que el de la calle</div></div>
+
+      <hr class="section-rule" style="margin-top:8px">
+      <span class="section-tag green" style="margin-bottom:6px;display:block">El apunte de Isabel</span>
+      <p style="font-size:8.5pt;line-height:1.5;text-align:justify;hyphens:auto">El bienestar empieza por dentro… y por el hogar donde vives. Cuidar lo que respiras en casa es tan importante como lo que comes o bebes. Ventilar 10 minutos al día ya cambia el aire de toda la vivienda.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div><strong>DELAGALA Daily</strong> · Nº 09 · Noviembre 2026 · pág. 1 de 4</div>
+    <div style="text-align:center">Especial Hogar Saludable · Getxo</div>
+    <div style="text-align:right">idelagala.com · 662 128 409</div>
+  </div>
+</div>
+
+<!-- ══════════════ PÁGINA 2 ══════════════ -->
+<div class="page">
+  <div class="watermark"><span>DELAGALA</span></div>
+
+  <div class="top-strip" style="margin-top:0">
+    <span>Especial Hogar Saludable · Las cifras</span>
+    <span>📍 Lo que dice la evidencia</span>
+  </div>
+
+  <span class="section-tag">Una casa sana vale más · datos reales</span>
+  <div class="chartbox">
+    <div class="ctitle">Cuánto más vale una vivienda eficiente y sana</div>
+    <div class="barchart">
+      <div class="bar-row">
+        <span class="blabel">Vivienda A/B vs. F/G similar<br><span style="font-weight:400;color:#888">(precio de venta)</span></span>
+        <div class="bar-track"><div class="bar-fill" style="width:97%"></div></div>
+        <span class="bar-val">+9,7%</span>
+      </div>
+      <div class="bar-row">
+        <span class="blabel">Subir una letra energética<br><span style="font-weight:400;color:#888">(media nacional)</span></span>
+        <div class="bar-track"><div class="bar-fill soft" style="width:13%"></div></div>
+        <span class="bar-val">+1,3%</span>
+      </div>
+      <div class="bar-row">
+        <span class="blabel">Pasar de la C a la B</span>
+        <div class="bar-track"><div class="bar-fill soft" style="width:33%"></div></div>
+        <span class="bar-val">+3,3%</span>
+      </div>
+      <div class="bar-row">
+        <span class="blabel">Mejora de letra en el norte<br><span style="font-weight:400;color:#888">(País Vasco y entorno)</span></span>
+        <div class="bar-track"><div class="bar-fill soft" style="width:40%"></div></div>
+        <span class="bar-val">+4%</span>
+      </div>
+    </div>
+    <div class="ccap">Diferencia de precio por eficiencia energética. Fuentes: Banco de España (A/B vs. F/G) e IESE con Tinsa by Accumin, Informe de Eficiencia Energética 2025 (subir una letra y por zonas).</div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <span class="section-tag local">Las cifras que tienes que conocer</span>
+      <table class="grid" style="margin-top:4px">
+        <thead><tr><th>Dato del hogar saludable</th><th>Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Tiempo en interiores</td><td><strong>~90%</strong> del día</td></tr>
+          <tr><td>Aire interior vs. exterior</td><td><strong>2–5×</strong> más sucio</td></tr>
+          <tr><td>Humedad saludable</td><td><strong>40–60%</strong></td></tr>
+          <tr><td>Temp. mínima invierno (OMS)</td><td><strong>18 °C</strong></td></tr>
+          <tr><td>CO₂ interior salubre</td><td><strong>&lt; 1.000 ppm</strong></td></tr>
+          <tr><td>Radón · nivel de referencia</td><td><strong>300 Bq/m³</strong></td></tr>
+          <tr><td>Vivienda A/B vs. F/G</td><td><strong>+9,7%</strong> de precio</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <article>
+        <span class="section-tag green">Mi lectura, en una frase</span>
+        <p style="margin-top:4px">Cuidar tu casa no es solo estética ni confort: es <strong>salud y es patrimonio</strong>. Los mismos gestos que hacen tu hogar más sano —ventilación, aislamiento, control de humedad y eficiencia— son los que, el día de mañana, hacen que se venda antes y más caro.</p>
+        <p>No hace falta reformar entero. Empieza por medir y conocer tu vivienda: dónde se concentra la humedad, cómo entra la luz, qué tal ventila. A partir de ahí, cada mejora suma en bienestar hoy y en valor mañana.</p>
+      </article>
+      <div class="data-box"><div class="label">Humedad por encima del 60%</div><div class="value">Moho</div><div class="sub">ácaros y problemas respiratorios. Entre el 10% y 50% de los interiores en Europa tienen humedades (OMS, 2009)</div></div>
+    </div>
+  </div>
+
+  <div class="pull-quote">«Una casa no es solo metros y ubicación: es el aire que respiras, la luz que entra y la humedad de sus paredes» — Isabel De La Gala</div>
+
+  <div class="footer">
+    <div><strong>DELAGALA Daily</strong> · Nº 09 · Noviembre 2026 · pág. 2 de 4</div>
+    <div style="text-align:center">Las cifras del hogar sano</div>
+    <div style="text-align:right">idelagala.com · 662 128 409</div>
+  </div>
+</div>
+
+<!-- ══════════════ PÁGINA 3 ══════════════ -->
+<div class="page">
+  <div class="watermark"><span>DELAGALA</span></div>
+
+  <div class="top-strip" style="margin-top:0">
+    <span>Especial Hogar Saludable · Punto por punto</span>
+    <span>📍 Los 5 pilares de una casa sana</span>
+  </div>
+
+  <span class="section-tag local">El hogar saludable, punto por punto</span>
+  <div class="columns" style="margin-top:6px">
+    <div style="padding-right:16px;border-right:var(--rule-thin)">
+      <article>
+        <h3 style="margin-top:0">1 · Ventila a diario</h3>
+        <p style="font-size:9pt">Abrir las ventanas <strong>10 minutos al día</strong> renueva el aire y saca humedad, CO₂ y contaminantes. El indicador más fácil es el <strong>CO₂</strong>: por debajo de <strong>1.000 ppm</strong> el aire está bien; si sube, toca ventilar. La normativa (CTE DB-HS3) ya exige ventilación en la vivienda: unos <strong>10 l/s en el salón</strong> y <strong>8 l/s en el dormitorio principal</strong>.</p>
+      </article>
+    </div>
+    <div style="padding-right:16px;border-right:var(--rule-thin)">
+      <article>
+        <h3 style="margin-top:0">2 · Controla la humedad</h3>
+        <p style="font-size:9pt">El punto dulce está entre el <strong>40% y el 60%</strong> de humedad relativa. Por debajo, se resienten las vías respiratorias; por encima del 60%, aparecen <strong>moho y ácaros</strong>. La OMS calcula que entre el <strong>10% y el 50%</strong> de los interiores en Europa tienen humedades, y las relaciona con asma y alergias.</p>
+      </article>
+    </div>
+    <div>
+      <article>
+        <h3 style="margin-top:0">3 · Aprovecha la luz natural</h3>
+        <p style="font-size:9pt">La luz de día regula tu reloj interno y tu descanso. Un estudio clínico (Boubekri, 2014) observó que quienes trabajaban <strong>junto a una ventana dormían de media 46 minutos más</strong> por noche*. En casa, prioriza las estancias de día donde entra el sol y no tapes la luz.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:2px">
+    <article>
+      <span class="section-tag green" style="margin-bottom:5px">4 · Temperatura</span>
+      <h3 style="margin-top:0">Ni frío ni calor: 18 °C es el suelo</h3>
+      <p>La OMS fija en <strong>18 °C la temperatura mínima saludable</strong> en invierno (algo más para mayores, bebés y enfermos). No es un lujo: en España, el <strong>17,6% de los hogares</strong> no pudo mantener su vivienda a una temperatura adecuada en 2024*. Un buen aislamiento y evitar puentes térmicos cuidan tu salud y tu factura.</p>
+    </article>
+    <article>
+      <span class="section-tag green" style="margin-bottom:5px">5 · Radón</span>
+      <h3 style="margin-top:0">El gas invisible que conviene medir</h3>
+      <p>El radón es un gas natural del terreno y la <strong>segunda causa de cáncer de pulmón tras el tabaco</strong> (OMS). Desde 2019 el Código Técnico (DB-HS6) obliga a protegerse en las zonas afectadas, con un <strong>nivel de referencia de 300 Bq/m³</strong>. Si tu casa está en planta baja o en zona de riesgo, medirlo es barato y tranquiliza.</p>
+    </article>
+  </div>
+
+  <hr class="section-rule">
+  <span class="section-tag local">Gestos que puedes hacer hoy</span>
+  <div class="blue-strip" style="margin-top:6px">
+    <div class="item"><strong>Ventilación cruzada</strong>Abre ventanas opuestas 10 minutos por la mañana. Renuevas el aire de toda la casa sin enfriarla apenas.</div>
+    <div class="item"><strong>Baño y cocina</strong>Son las zonas de más humedad. Usa el extractor al ducharte y cocinar, y seca las superficies para frenar el moho.</div>
+    <div class="item"><strong>Plantas y orden</strong>Las plantas y una casa despejada ayudan al ambiente. Y revisa manchas de humedad: cuanto antes se traten, mejor.</div>
+  </div>
+
+  <div class="footer">
+    <div><strong>DELAGALA Daily</strong> · Nº 09 · Noviembre 2026 · pág. 3 de 4</div>
+    <div style="text-align:center">Los 5 pilares</div>
+    <div style="text-align:right">idelagala.com · 662 128 409</div>
+  </div>
+</div>
+
+<!-- ══════════════ PÁGINA 4 ══════════════ -->
+<div class="page">
+  <div class="watermark"><span>DELAGALA</span></div>
+
+  <div class="top-strip" style="margin-top:0">
+    <span>Especial Hogar Saludable · Preguntas y conclusión</span>
+    <span>📍 Lo que me preguntáis</span>
+  </div>
+
+  <span class="section-tag local">Preguntas que me hacéis</span>
+  <div class="faq" style="margin-top:6px">
+    <h4>Tengo manchas de humedad en una pared. ¿Es grave?</h4>
+    <p>Depende del origen (condensación, filtración, capilaridad), pero no conviene dejarlo. La humedad mantenida genera moho, que la OMS relaciona con asma y alergias, y además deteriora el inmueble y resta valor. Lo primero es identificar de dónde viene; muchas veces se resuelve ventilando y mejorando el aislamiento.</p>
+    <h4>¿De verdad influye la casa en cómo descanso?</h4>
+    <p>Mucho. La luz natural regula tu reloj interno, y la temperatura y la calidad del aire afectan al sueño. Una estancia bien ventilada, a 18–21 °C y sin exceso de humedad, descansa mejor que una cargada y húmeda.</p>
+    <h4>¿Cómo sé si mi casa tiene radón?</h4>
+    <p>Midiéndolo: hay detectores sencillos y asequibles. Es especialmente recomendable en plantas bajas y en municipios señalados por el mapa del Consejo de Seguridad Nuclear. El nivel de referencia son 300 Bq/m³; por encima, hay soluciones de ventilación y sellado.</p>
+    <h4>Quiero vender. ¿Compensa mejorar la eficiencia antes?</h4>
+    <p>Muchas veces sí. Según el Banco de España, una vivienda A/B se vende en torno a un 9,7% más cara que una F/G comparable, y subir una sola letra ya suma valor. Te decimos, caso por caso, qué mejora renta y cuál no antes de poner tu casa a la venta.</p>
+  </div>
+
+  <div class="editorial">
+    <div class="lbl">La lectura de Isabel De La Gala</div>
+    <p>Te lo resumo como se lo digo a mis clientes: tu casa te cuida mucho más de lo que crees, y cuidarla a ella es cuidarte a ti. No hace falta una gran reforma —ventilar cada día, vigilar la humedad, aprovechar la luz, una temperatura digna y, donde toque, medir el radón— para vivir en un hogar más sano.</p>
+    <p>Y hay un premio doble: lo que es bueno para tu salud también es bueno para tu patrimonio. Una vivienda sana, luminosa y eficiente se disfruta más hoy y se vende mejor mañana. Si quieres que miremos juntos cómo está tu casa —o cuánto ganaría de valor con unas mejoras—, aquí me tienes.</p>
+    <p style="text-align:right;font-style:normal;font-family:'Montserrat',sans-serif;font-size:7.5pt;color:#666;margin-bottom:0">— Isabel De La Gala · Perito tasador y API (COAPI) · DELAGALA Consultoría Inmobiliaria</p>
+  </div>
+
+  <div class="cta">
+    <div class="text">
+      <h4>¿Quieres saber si tu casa es saludable y cuánto vale?</h4>
+      <p>Te hacemos una valoración y te decimos qué mejoras de confort y eficiencia suman salud hoy y valor el día que vendas. Te atiende el equipo de DELAGALA junto a Isabel De La Gala, perito tasador y API con sillón en el COAPI.</p>
+    </div>
+    <a class="link" href="https://wa.me/34662128409?text=Hola%20Isabel%2C%20quiero%20saber%20si%20mi%20casa%20es%20saludable%20y%20cu%C3%A1nto%20vale">WhatsApp<br>662 128 409</a>
+  </div>
+
+  <div class="sources">
+    <strong>Fuentes:</strong> US EPA – Report on the Environment: Indoor Air Quality (tiempo en interiores ~90%; aire interior 2–5× más contaminado). Arundel et al., Environmental Health Perspectives, 1986 (humedad saludable 40–60%). OMS – Housing and Health Guidelines, 2018 (18 °C mínimo en invierno). OMS – Guidelines for Indoor Air Quality: Dampness and Mould, 2009 (10–50% de interiores con humedades; asma y alergias). OMS – Radón y salud (2ª causa de cáncer de pulmón). RD 1029/2022 y CTE DB-HS6, vigente desde 2019 (radón, nivel de referencia 300 Bq/m³); Consejo de Seguridad Nuclear (cartografía del potencial de radón). CTE DB-HS3 (ventilación en viviendas). RITE / UNE 100-011 (CO₂ interior &lt; 1.000 ppm). INE – Encuesta de Condiciones de Vida y Cátedra de Energía y Pobreza, U.P. Comillas, 2024 (17,6% de hogares sin temperatura adecuada*). Boubekri et al., Journal of Clinical Sleep Medicine, 2014 (luz natural y sueño; estudio piloto*). Banco de España (precio de vivienda A/B vs. F/G, +9,7%) e IESE con Tinsa by Accumin, Informe de Eficiencia Energética 2025 (valor por letra). *Datos marcados: provisionales o de estudio preliminar; verificar antes de usos oficiales. Elaboración y análisis: Isabel De La Gala · DELAGALA Consultoría Inmobiliaria.
+  </div>
+
+  <div class="footer">
+    <div><strong>DELAGALA Daily</strong> · Nº 09 · Noviembre 2026 · pág. 4 de 4</div>
+    <div style="text-align:center">idelagala.com · info@idelagala.com</div>
+    <div style="text-align:right"><strong>ICA HOME S.L.</strong> · CIF B10641546<br>C/ Las Mercedes 17, 48930 Getxo</div>
+  </div>
+</div>
+
+</body>
+</html>
