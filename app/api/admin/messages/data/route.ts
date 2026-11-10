@@ -24,5 +24,18 @@ export async function GET(req: NextRequest) {
       COUNT(*) FILTER (WHERE direction = 'out' AND body LIKE '[Newsletter]%' AND status = 'read')::int AS read
     FROM wa.messages
   `;
-  return NextResponse.json({ messages, broadcastStats: stats });
+  // Desglose POR ENVÍO (por día): enviados / entregados / leídos de cada tanda.
+  // Sirve para ver que los envíos recientes (con el webhook ya activo) entregan bien,
+  // y que el "solo la mitad" del acumulado viene de envíos viejos sin seguimiento.
+  const sendDays = await sql`
+    SELECT created_at::date AS day,
+      COUNT(*)::int                                                        AS sent,
+      COUNT(*) FILTER (WHERE status IN ('delivered','read'))::int          AS delivered,
+      COUNT(*) FILTER (WHERE status = 'read')::int                         AS read
+    FROM wa.messages
+    WHERE direction = 'out' AND body LIKE '[Newsletter]%'
+    GROUP BY created_at::date
+    ORDER BY day
+  `;
+  return NextResponse.json({ messages, broadcastStats: stats, sendDays });
 }
