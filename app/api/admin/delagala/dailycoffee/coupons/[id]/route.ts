@@ -43,3 +43,24 @@ export async function PATCH(
 
   return NextResponse.json({ ok: true });
 }
+
+// DELETE: borra un cupón y sus eventos. Útil para desbloquear un número de prueba
+// (el límite de 1 cupón/30 días mira created_at; al borrar el cupón, ese número
+// puede volver a registrarse y recibir el WhatsApp).
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  const sql = getDb();
+  const [existing] = await sql`
+    SELECT id, lead_phone FROM marketing_pilot.coffee_coupons WHERE id = ${id}
+  `;
+  if (!existing) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+
+  // Primero los eventos (FK), luego el cupón.
+  await sql`DELETE FROM marketing_pilot.coffee_coupon_events WHERE coupon_id = ${id}`;
+  await sql`DELETE FROM marketing_pilot.coffee_coupons WHERE id = ${id}`;
+
+  return NextResponse.json({ ok: true, deleted: id, phone: existing.lead_phone });
+}
