@@ -1,10 +1,13 @@
 'use client';
 import { useState } from 'react';
 
-const ESTABLECIMIENTO = 'Centro Dietético Las Arenas';
+// Nombre PÚBLICO (el del rótulo, lo que ve el cliente). El nombre INTERNO que atribuye
+// el cupón en la base NO cambia (el claim lo busca por nombre exacto), por eso van separados.
+const ESTABLECIMIENTO = 'Herbolario Las Arenas';
+const ESTABLECIMIENTO_INTERNO = 'Centro Dietético Las Arenas';
 const RAZON_SOCIAL = 'ICA HOME S.L.';
 const CIF = 'B10641546';
-const DIRECCION = 'Calle Las Mercedes 17, 48930 Getxo';
+const UBICACION = 'Las Arenas · Getxo';
 const EMAIL = 'info@idelagala.com';
 
 export default function HerbolisteriaLanding() {
@@ -29,7 +32,7 @@ export default function HerbolisteriaLanding() {
           lead_name: nombre.trim(),
           lead_phone: telefono.trim(),
           source_url: window.location.href,
-          bar_name: ESTABLECIMIENTO,
+          bar_name: ESTABLECIMIENTO_INTERNO,
           consent_marketing: false,
         }),
       });
@@ -118,7 +121,7 @@ export default function HerbolisteriaLanding() {
           )}
         </div>
         <div className="foot">
-          <b>{ESTABLECIMIENTO}</b> · {DIRECCION}<br />
+          <b>{ESTABLECIMIENTO}</b> · {UBICACION}<br />
           {RAZON_SOCIAL} · CIF {CIF} · {EMAIL}
         </div>
       </div>
