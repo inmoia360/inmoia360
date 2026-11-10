@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 
-const TEMPLATE_NAME = 'delagala_te_v2';
+const TEMPLATE_NAME = 'delagala_te_v3';
 
 // GET: estado de aprobación de la plantilla del código de té en Meta.
 export async function GET() {
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
       {
         type: 'BUTTONS',
         buttons: [
-          { type: 'URL', text: 'Leer el Daily', url: 'https://www.inmoia360.com/delagala-daily.pdf' },
+          { type: 'URL', text: 'Leer el Daily', url: 'https://www.inmoia360.com/delagala-daily-bienestar.pdf' },
         ],
       },
     ],
