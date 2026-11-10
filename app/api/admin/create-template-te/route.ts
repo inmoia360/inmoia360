@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 
-const TEMPLATE_NAME = 'delagala_te_v3';
+const TEMPLATE_NAME = 'delagala_te_v4';
 
 // GET: estado de aprobación de la plantilla del código de té en Meta.
 export async function GET() {
