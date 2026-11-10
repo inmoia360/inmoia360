@@ -15,13 +15,17 @@ const nextConfig: NextConfig = {
     // Dominios propios de la web premium: tupartnerhipotecario.es y .com → landing Tu Partner Hipotecario.
     const HIPO_HOST = '(www\\.)?tupartnerhipotecario\\.(es|com)';
     return {
-      // beforeFiles: el root debe ganar a la home por defecto (app/page.tsx).
+      // beforeFiles: gana a los ficheros estáticos de /public y a las páginas.
       beforeFiles: [
         {
           source: '/',
           destination: '/delagala/hipotecas',
           has: [{ type: 'host', value: HIPO_HOST }],
         },
+        // Biblioteca de Dailys: las URLs fijas de las plantillas de WhatsApp sirven
+        // el periódico ACTIVO de cada carril (cambiable desde el panel sin reimprimir).
+        { source: '/delagala-daily.pdf',           destination: '/api/daily/cafe_pan' },
+        { source: '/delagala-daily-bienestar.pdf', destination: '/api/daily/herbolisteria' },
       ],
       afterFiles: [
         {

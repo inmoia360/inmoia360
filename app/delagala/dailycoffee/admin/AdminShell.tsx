@@ -8,6 +8,7 @@ const NAV = [
   { href: '/delagala/dailycoffee/admin/coupons',   label: 'Cupones',     icon: '🎟️' },
   { href: '/delagala/dailycoffee/admin/bars',       label: 'Bares',       icon: '☕' },
   { href: '/delagala/dailycoffee/admin/analytics',  label: 'Analítica',   icon: '📈' },
+  { href: '/delagala/dailycoffee/admin/dailies',    label: 'Biblioteca',  icon: '📚' },
 ];
 
 export default function AdminShell({ children }: { children: React.ReactNode }) {
