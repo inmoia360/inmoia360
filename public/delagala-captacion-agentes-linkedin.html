@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Captación de agentes · LinkedIn · De La Gala</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Nunito+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --oro:#C9A84C; --oro-osc:#7d6420; --oro-suave:#FDF6E3;
+    --azul:#4A6FA5; --azul-suave:#EEF3FA;
+    --tinta:#2C2C2C; --gris:#4a4a4a; --gris-cl:#6a6a6a;
+    --linea:#E6E2D6; --bg:#F4F4F0; --blanco:#fff;
+    --verde:#E4F2EA; --verde-t:#2f6b47; --ambar:#FBF3DF; --ambar-t:#705913; --rojo:#F7E4E4; --rojo-t:#9a3b3b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tinta);
+    font-family:"Nunito Sans",sans-serif;font-weight:300;font-size:17px;line-height:1.6}
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+  h1,h2,h3,.serif{font-family:"Cormorant Garamond",serif}
+  header{background:var(--blanco);border-bottom:3px solid var(--oro);padding:48px 0 40px;text-align:center}
+  .kick{letter-spacing:.22em;text-transform:uppercase;font-size:12px;color:var(--oro-osc);font-weight:600}
+  h1{font-size:46px;font-weight:600;margin:14px 0 10px;line-height:1.1}
+  header p{max-width:620px;margin:0 auto;color:var(--gris)}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px}
+  .chip{background:var(--oro-suave);border:1px solid var(--oro);color:var(--oro-osc);
+    border-radius:999px;padding:5px 14px;font-size:13px;font-weight:600}
+  section{padding:40px 0;border-bottom:1px solid var(--linea)}
+  h2{font-size:30px;font-weight:600;margin:0 0 6px}
+  .lead{color:var(--gris);margin:0 0 24px}
+  h3{font-size:21px;font-weight:600;margin:0 0 4px;color:var(--tinta)}
+  /* oferta destacada */
+  .oferta{background:var(--tinta);color:#fff;border-radius:16px;padding:34px;text-align:center}
+  .oferta.serif{}
+  .oferta .big{font-family:"Cormorant Garamond",serif;font-size:40px;font-weight:600;color:var(--oro);line-height:1.15}
+  .oferta .cols{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:24px}
+  .oferta .col{flex:1;min-width:180px;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.4);border-radius:12px;padding:18px}
+  .oferta .col b{color:var(--oro);font-family:"Cormorant Garamond",serif;font-size:26px;display:block}
+  .oferta .col span{font-size:14px;color:#d8d8d8}
+  /* piezas */
+  .pieza{background:var(--blanco);border:1px solid var(--linea);
+    border-radius:10px;padding:22px 24px;margin:16px 0}
+  .pieza .tag{font-size:13px;color:var(--oro-osc);font-weight:700;margin-bottom:10px}
+  .copy{white-space:pre-wrap;font-size:16.5px}
+  .copy strong{font-weight:600}
+  .nota{font-size:14px;color:var(--gris-cl);font-style:italic;margin-top:10px}
+  /* carrusel */
+  .laminas{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px;counter-reset:l}
+  .lamina{flex:1;min-width:150px;background:var(--oro-suave);border:1px solid var(--oro);border-radius:10px;padding:18px}
+  .lamina::before{counter-increment:l;content:counter(l);font-family:"Cormorant Garamond",serif;
+    font-size:30px;color:var(--oro-osc);font-weight:700;display:block;line-height:1}
+  .lamina.cierre{background:var(--tinta);border-color:var(--tinta);color:#fff}
+  .lamina.cierre::before{content:"→";color:var(--oro)}
+  /* tabla */
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:15.5px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--linea);vertical-align:top}
+  th{background:var(--oro-suave);color:var(--oro-osc);font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+  td:first-child{font-weight:600;white-space:nowrap;color:var(--oro-osc)}
+  ul{margin:8px 0;padding-left:20px}
+  li{margin:6px 0}
+  /* semaforo */
+  .sem{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+  .s{border-radius:10px;padding:12px 16px;font-size:15.5px}
+  .s b{font-weight:700}
+  .s.v{background:var(--verde);color:var(--verde-t)}
+  .s.a{background:var(--ambar);color:var(--ambar-t)}
+  .s.r{background:var(--rojo);color:var(--rojo-t)}
+  .guion{background:var(--azul-suave);border:1px solid var(--azul);border-radius:10px;padding:20px 22px;margin-top:14px}
+  .guion h3{color:var(--azul)}
+  .q{margin:0;padding:12px 0;border-top:1px solid var(--azul-suave)}
+  .q:first-child{border-top:none;padding-top:0}
+  .q b{color:var(--azul)}
+  footer{text-align:center;padding:32px 0;color:var(--gris-cl);font-size:14px}
+  footer .f{font-family:"Cormorant Garamond",serif;font-size:18px;color:var(--oro-osc);letter-spacing:.05em}
+  @media(max-width:600px){h1{font-size:34px}h2{font-size:25px}.oferta .big{font-size:30px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="kick">Grupo De La Gala · Campaña de captación en LinkedIn</div>
+    <h1>Deja de pagarte tus propios leads</h1>
+    <p>Reclutamiento de agentes inmobiliarios autónomos en Bizkaia. Material listo para publicar y enviar.</p>
+    <div class="meta">
+      <span class="chip">Público · agente autónomo −45</span>
+      <span class="chip">Getxo · Las Arenas · Bilbao · Leioa</span>
+      <span class="chip">Meta · 2-3 incorporaciones en 90 días</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <h2>El ángulo</h2>
+    <p class="lead">Nadie se despierta queriendo cambiar de agencia. Se despierta harto de pagarse sus propios leads y de perder al cliente cuando llega la hipoteca.</p>
+    <p>Un agente autónomo no envidia tu marca: envidia tu <strong>flujo de clientes</strong>. Y odia dos cosas concretas: pagarse Idealista de su bolsillo, y <strong>perder al comprador en la financiación</strong> porque lo deriva a un bróker externo que se queda la relación. De La Gala resuelve justo esas dos — una máquina de captación que le pasa leads, y una <strong>LCCI propia (Isabel)</strong> que casi nadie tiene en la zona. El mensaje ataca por <strong>aversión a la pérdida</strong> (lo que pierdes cada mes trabajando solo), no por promesa de futuro, y se apoya en prueba social real: 675 operaciones, 30M€ intermediados.</p>
+  </section>
+
+  <section>
+    <h2>La oferta</h2>
+    <p class="lead">Es el titular que hace que un autónomo deje lo que está haciendo y te lea. Va por delante de todo.</p>
+    <div class="oferta">
+      <div class="big">60% para ti.<br>Los leads los ponemos nosotros.</div>
+      <div class="cols">
+        <div class="col"><b>60%</b><span>de los honorarios para el agente</span></div>
+        <div class="col"><b>Leads</b><span>te los pasa la Fábrica de captación</span></div>
+        <div class="col"><b>0 €</b><span>de coste de estructura</span></div>
+      </div>
+    </div>
+    <p class="nota">Las otras agencias te dan marca y te cobran la estructura, o te dan leads y se quedan la mitad larga. Aquí tienes las tres cosas a la vez. Ese es el argumento.</p>
+  </section>
+
+  <section>
+    <h2>Las piezas · contenido publicado <span style="font-size:14px;color:var(--verde-t);background:var(--verde);padding:3px 10px;border-radius:999px;vertical-align:middle">🟢 verde</span></h2>
+    <p class="lead">El texto final, listo para copiar y pegar. No describe lo que habría que escribir — está escrito.</p>
+
+    <div class="pieza">
+      <div class="tag">Post 1 · El problema · abre la campaña</div>
+      <div class="copy"><strong>El 90% de las inmobiliarias de Getxo pierden al cliente en el mismo punto.</strong>
+
+No al captar. No al vender. En la hipoteca.
+
+El agente hace todo el trabajo —capta, enseña, negocia— y cuando el comprador necesita financiación, lo deriva a un bróker externo. A partir de ahí, el cliente ya no es suyo. La relación, la recompra, el boca a boca… se las queda otro.
+
+Nosotros tenemos la certificación LCCI dentro de casa. El cliente entra por una puerta y sale por la misma: compra, financiación y estrategia patrimonial bajo el mismo techo.
+
+Si eres agente autónomo y esto te suena, hablemos. No para venderte nada — para enseñarte los números.</div>
+    </div>
+
+    <div class="pieza">
+      <div class="tag">Post 2 · La economía del autónomo</div>
+      <div class="copy"><strong>Haz la cuenta de lo que te cuesta trabajar solo.</strong>
+
+Tu Idealista. Tu CRM. Tu publicidad. Tus horas de prospección en frío para llenar la agenda. Y el mes que no captas, cobras cero.
+
+Montamos una máquina que hace el 80% que agota —detectar, investigar, preparar, nutrir— para que tú hagas el 20% que convierte: la visita y la confianza.
+
+Con nosotros te llevas el 60%, los leads te los pasamos, y no pagas estructura. No te pedimos que renuncies a tu autonomía. Te quitamos la parte que te quema.</div>
+    </div>
+
+    <div class="pieza">
+      <div class="tag">Post 3 · Formación y marca</div>
+      <div class="copy"><strong>Un agente solo llega hasta donde llega su agenda. Un agente con estructura, hasta donde llega su talento.</strong>
+
+CRS. ABR®. LCCI. En De La Gala no son siglas en una web: son las herramientas con las que trabajas cada día y con las que te formamos.
+
+Especialización, exclusiva, tecnología y datos reales. Los mismos 7 principios con los que hemos hecho 30 millones en intermediaciones desde Las Arenas.
+
+Si eres bueno y lo sabes, el problema no eres tú — es trabajar sin palanca.</div>
+    </div>
+
+    <div class="pieza">
+      <div class="tag">Post 4 · Isabel en primera persona · la que más convierte</div>
+      <div class="copy"><em>(Publicado desde el perfil de Isabel De La Gala)</em>
+
+Fundé De La Gala en 2014 con una API y una idea: que el cliente no se perdiera nunca por el camino. Hoy somos un grupo con cuatro divisiones y una certificación LCCI que casi nadie tiene en Bizkaia.
+
+Busco agentes. No comerciales a comisión que vayan a puerta fría — <strong>asesores</strong> que quieran trabajar con criterio, con datos y con una marca detrás. 60% para ti, leads incluidos, sin coste de estructura.
+
+Si llevas años en esto y sientes que tu techo lo pone la estructura y no tu talento, te invito a un café en Las Mercedes 17. Sin compromiso y sin discurso.
+
+Escríbeme por aquí.</div>
+    </div>
+
+    <div class="pieza">
+      <div class="tag">Pieza 5 · Carrusel · "5 señales de que trabajas solo de más"</div>
+      <div class="laminas">
+        <div class="lamina">Te pagas tu propio Idealista y aún así compites con 119 agencias por el mismo piso.</div>
+        <div class="lamina">Pierdes al cliente en la hipoteca porque lo derivas fuera.</div>
+        <div class="lamina">El mes que no captas, cobras cero.</div>
+        <div class="lamina">Haces de fotógrafo, administrativo y comercial — y vendes en los ratos libres.</div>
+        <div class="lamina">Tu techo lo pone tu agenda, no tu talento.</div>
+        <div class="lamina cierre">Hay otra forma de hacer esto. De La Gala · Getxo</div>
+      </div>
+      <p class="nota">Fondo crema, títulos en Cormorant Garamond, acento dorado. Una señal por lámina.</p>
+    </div>
+
+    <div class="pieza">
+      <div class="tag">Pieza 6 · Perfil de Isabel · se optimiza ANTES de publicar nada</div>
+      <div class="copy"><strong>Titular:</strong> Fundadora De La Gala · API 581 · Certificada LCCI · Construyo el equipo de agentes inmobiliarios con mejor estructura de Bizkaia
+
+<strong>Extracto (las 3 líneas que se ven sin desplegar):</strong>
+675 operaciones. 30M€ intermediados. Una certificación LCCI que casi nadie tiene en la zona. Si eres agente autónomo y estás cansado de trabajar solo, sigue leyendo.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Las piezas de contacto <span style="font-size:14px;color:var(--ambar-t);background:var(--ambar);padding:3px 10px;border-radius:999px;vertical-align:middle">🟡 las envía un humano</span></h2>
+    <p class="lead">Las escribe y envía Isabel (o tú), una a una. Nunca un bot.</p>
+
+    <div class="pieza">
+      <div class="tag">Solicitud de conexión · máx. 300 caracteres</div>
+      <div class="copy">Hola [nombre], veo que trabajas el inmobiliario en [zona]. Estoy ampliando el equipo de agentes de De La Gala en Bizkaia y me gusta cómo trabajas. ¿Conectamos? Sin agenda, solo para tenernos cerca.</div>
+    </div>
+
+    <div class="pieza">
+      <div class="tag">Primer mensaje · solo si acepta y tras una interacción suya, nunca inmediato</div>
+      <div class="copy">Gracias por conectar, [nombre]. Te escribo claro: estoy buscando 2-3 agentes autónomos para De La Gala y tu perfil encaja. Lo que ofrecemos no es "trabaja para mí" — es el 60% para ti, leads que te pasamos nosotros, cero coste de estructura, y una LCCI propia para que no pierdas al cliente en la financiación. ¿Te tomas un café en Las Arenas y te enseño los números? Si no encaja, no pasa nada.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>El café · guion de la conversación que cierra</h2>
+    <p class="lead">La campaña atrae; este café ficha. Es cara a cara, en Las Mercedes 17. Estructura, no script rígido.</p>
+    <div class="guion">
+      <div class="q"><b>1. Escucha primero (10 min).</b> ¿Cómo captas hoy? ¿Cuánto te gastas al mes en portales y publicidad? ¿Qué pasa con tus compradores cuando necesitan hipoteca? — Deja que diga en voz alta su dolor. No vendas aún.</div>
+      <div class="q"><b>2. El número que lo cambia todo.</b> "En una venta de 400.000 €, la comisión del grupo son unos 8.800 €. Tu 60% son 5.280 € por operación — y el lead no lo has pagado tú." <span class="nota">(2,2% es la comisión media real del grupo; ajústalo al caso. No prometas un volumen de operaciones que no puedas sostener.)</span></div>
+      <div class="q"><b>3. La palanca, no el jefe.</b> Sigues siendo autónomo. Te damos leads, marca, formación (CRS, ABR, LCCI) y tecnología. Te quitamos la prospección en frío y el coste fijo. Tú pones el talento y la relación.</div>
+      <div class="q"><b>4. El diferenciador que nadie más tiene.</b> La LCCI de Isabel: cierras la hipoteca en casa y no sueltas al cliente. Eso es recompra y boca a boca que hoy regalas a un bróker externo.</div>
+      <div class="q"><b>5. Cierre sin presión.</b> "Piénsalo. Si quieres, te enseño el CRM y cómo entran los leads, y lo ves por dentro." — Un "no" bien tratado hoy es un fichaje dentro de seis meses.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Despliegue</h2>
+    <table>
+      <tr><th>Semana</th><th>Acción</th></tr>
+      <tr><td>0</td><td>Optimizar el perfil de Isabel (pieza 6). Sin esto, los posts caen en un perfil que no vende.</td></tr>
+      <tr><td>1</td><td>Post 1 (problema). Isabel empieza a conectar: 10-15 solicitudes/día a agentes de Bizkaia, escritas una a una.</td></tr>
+      <tr><td>2</td><td>Post 2 (economía) + carrusel (pieza 5). Seguir conectando.</td></tr>
+      <tr><td>3</td><td>Post 4 (Isabel en 1ª persona) — el de más alcance. Primeros mensajes a quienes ya interactuaron.</td></tr>
+      <tr><td>4</td><td>Post 3 (formación). Cafés con los interesados.</td></tr>
+      <tr><td>Continuo</td><td>2 posts/semana + 10 conexiones/día. Cada interacción con un post es permiso para un mensaje humano.</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Coste</h2>
+    <p><strong>Cero en medios.</strong> Todo orgánico: contenido + conexiones manuales. Opcional: LinkedIn Premium para Isabel (~40 €/mes) por el InMail y por ver quién visita el perfil. Sin Ads para empezar — en reclutamiento B2B local, el orgánico con cara visible convierte mejor que el anuncio.</p>
+  </section>
+
+  <section>
+    <h2>Cómo sabemos si funciona</h2>
+    <ul>
+      <li><strong>Tasa de aceptación</strong> de las solicitudes de conexión (objetivo &gt;35%; si baja, el mensaje de conexión está mal).</li>
+      <li><strong>Conversaciones → café:</strong> cafés agendados (meta: 8-12 en 90 días).</li>
+      <li><strong>Incorporaciones:</strong> 2-3 agentes en 90 días.</li>
+    </ul>
+  </section>
+
+  <section style="border-bottom:none">
+    <h2>Comprobación legal</h2>
+    <div class="sem">
+      <div class="s v"><b>🟢 Verde:</b> posts, carrusel y perfil (piezas 1-6). Contenido publicado, no contacta a nadie.</div>
+      <div class="s a"><b>🟡 Ámbar, y así debe quedarse:</b> conexiones y mensajes. Es B2B, dentro de LinkedIn, persona a persona, escrito y enviado por Isabel, sobre una oportunidad profesional. Legítimo.</div>
+      <div class="s r"><b>🔴 No se hace:</b> automatizar el envío con bots (Dux-Soup, Phantombuster) viola los términos de LinkedIn y puede cerrar la cuenta de Isabel. Ni listas compradas, ni InMail masivo en frío. Si alguien te vende "500 mensajes automáticos al día", es la vía de quemar el perfil.</div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="f">idelagala.com · ICA HOME S.L.</div>
+  <div>Campaña de captación de agentes · LinkedIn · uso interno</div>
+</footer>
+
+</body>
+</html>

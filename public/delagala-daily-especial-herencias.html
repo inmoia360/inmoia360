@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delagala Daily · Nº 08 · Especial Herencias</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --ink: #0A0A0A;
+    --gold: #F5C842;
+    --gold-dk: #C9A227;
+    --navy: #1A3A5C;
+    --cream: #FAF7F2;
+    --warm-gray: #F0EDE6;
+    --mid-gray: #888;
+    --rule: 1.5px solid var(--ink);
+    --rule-thin: 0.5px solid #AAA;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { overflow-x: hidden; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    max-width: 100%;
+    margin: 0 auto;
+    background: #fff;
+    padding: 10mm 12mm 14mm;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-top: 4px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding: 6px 0 8px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .masthead-logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .masthead-name { flex: 1; text-align: center; min-width: 0; }
+  .masthead-name .brandline {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 11pt;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--gold-dk);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .masthead-name h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 42pt;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+  .masthead-name .subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7pt;
+    font-weight: 600;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-top: 4px;
+  }
+  .masthead-meta {
+    flex-shrink: 0;
+    text-align: right;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7pt;
+    font-weight: 500;
+    color: var(--mid-gray);
+    line-height: 1.7;
+  }
+  .masthead-meta strong { color: var(--ink); font-weight: 700; font-size: 8pt; }
+  .masthead-meta .locate { display: inline-block; font-size: 9pt; font-weight: 800; color: var(--ink); margin-top: 3px; }
+
+  /* ── TOP STRIP ── */
+  .top-strip {
+    background: var(--gold);
+    padding: 5px 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .top-strip .esp { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 15pt; letter-spacing: 0; }
+
+  /* ── CLAVE FORAL BAND (crema/dorado, sin fondo negro) ── */
+  .clave-band {
+    border: 2px solid var(--ink);
+    border-left: 8px solid var(--gold);
+    background: var(--warm-gray);
+    padding: 9px 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  .clave-band .lead {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8pt;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-dk);
+    max-width: 120px;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+  .clave-item { text-align: left; flex-shrink: 0; }
+  .clave-item .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 21pt;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .clave-item .cap {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7pt;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 2px;
+  }
+  .clave-note {
+    margin-left: auto;
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: 7.5pt;
+    color: #555;
+    max-width: 150px;
+    line-height: 1.4;
+  }
+
+  /* ── GRID ── */
+  .columns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 16px; margin-bottom: 10px; }
+  .columns > div { min-width: 0; }
+  .col-span-2 { grid-column: span 2; }
+
+  /* ── SECTION HEADERS ── */
+  .section-tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 6.5pt;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    background: var(--navy);
+    color: #fff;
+    display: inline-block;
+    padding: 2px 8px;
+    margin-bottom: 5px;
+  }
+  .section-tag.local { background: var(--gold); color: var(--ink); }
+  .section-tag.playa { background: var(--gold-dk); color: #fff; }
+
+  .section-rule { border: none; border-top: var(--rule); margin: 6px 0 5px; }
+  .section-rule-thin { border: none; border-top: var(--rule-thin); margin: 6px 0 5px; }
+
+  /* ── ARTICLE ── */
+  article { margin-bottom: 10px; }
+  article h2 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 16pt; line-height: 1.15; margin-bottom: 4px; }
+  article h2 em { font-style: italic; }
+  article h3 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 11pt; line-height: 1.25; margin-bottom: 3px; }
+  article .deck { font-family: 'Libre Baskerville', serif; font-style: italic; font-size: 9.5pt; color: #444; margin-bottom: 5px; line-height: 1.4; }
+  article p { font-size: 9.5pt; line-height: 1.55; text-align: justify; hyphens: auto; margin-bottom: 5px; }
+  article .byline { font-family: 'Montserrat', sans-serif; font-size: 6.5pt; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 4px; }
+
+  /* ── AUTOR (Isabel) ── */
+  .author { border-top: 2px solid var(--ink); border-bottom: 0.5px solid #AAA; padding: 5px 0; margin: 6px 0; display: flex; align-items: center; gap: 10px; }
+  .author .badge { width: 30px; height: 30px; border-radius: 50%; background: var(--gold); color: var(--ink); font-family: 'Playfair Display', serif; font-weight: 900; font-size: 14pt; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .author .who { font-family: 'Montserrat', sans-serif; line-height: 1.3; }
+  .author .who strong { font-size: 8.5pt; font-weight: 800; display: block; }
+  .author .who span { font-size: 6.8pt; color: #666; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* ── DATA BOXES ── */
+  .data-box { border: 1.5px solid var(--ink); padding: 8px 10px; margin-bottom: 8px; background: var(--warm-gray); }
+  .data-box .label { font-family: 'Montserrat', sans-serif; font-size: 7pt; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid-gray); margin-bottom: 3px; }
+  .data-box .value { font-family: 'Playfair Display', serif; font-size: 20pt; font-weight: 900; line-height: 1; color: var(--ink); }
+  .data-box .sub { font-family: 'Montserrat', sans-serif; font-size: 7.5pt; color: #555; margin-top: 2px; }
+
+  /* ── CHART: barras reducción por grupo ── */
+  .chartbox { border: 1.5px solid var(--ink); background: var(--warm-gray); padding: 9px 11px; margin-bottom: 8px; }
+  .chartbox .ctitle { font-family: 'Montserrat', sans-serif; font-size: 7.5pt; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 7px; }
+  .bar-row { margin-bottom: 6px; }
+  .bar-row .bl { display: flex; justify-content: space-between; font-family: 'Montserrat', sans-serif; font-size: 7.5pt; font-weight: 600; margin-bottom: 2px; }
+  .bar-row .bl .amt { font-weight: 800; }
+  .bar-track { height: 11px; background: #E4DFD4; border: 0.5px solid #bbb; }
+  .bar-fill { height: 100%; background: var(--gold); }
+  .bar-fill.dim { background: var(--gold-dk); }
+  .bar-fill.low { background: #cdbf9a; }
+
+  /* ── EJEMPLO callout ── */
+  .ejemplo { border: 2px solid var(--gold-dk); background: #FCF6E4; padding: 8px 11px; margin-bottom: 8px; }
+  .ejemplo .et { font-family: 'Montserrat', sans-serif; font-size: 6.8pt; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dk); margin-bottom: 3px; }
+  .ejemplo p { font-size: 8.6pt; line-height: 1.45; text-align: left; margin: 0; }
+  .ejemplo strong { font-weight: 800; }
+
+  /* ── PASOS (monográfico) ── */
+  .pasos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 16px; margin-top: 7px; margin-bottom: 6px; }
+  .pasos > div { min-width: 0; padding-right: 14px; border-right: var(--rule-thin); }
+  .pasos > div:last-child { border-right: none; padding-right: 0; }
+  .paso-n { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 15pt; color: var(--gold-dk); line-height: 1; }
+  .pasos h4 { font-family: 'Playfair Display', serif; font-size: 10.5pt; font-weight: 700; margin: 2px 0 3px; }
+  .pasos p { font-size: 8.5pt; line-height: 1.45; text-align: left; }
+
+  /* ── TABLA GRUPOS ── */
+  table.grupos { width: 100%; border-collapse: collapse; font-size: 8pt; margin: 4px 0 8px; }
+  table.grupos th { text-align: left; padding: 4px 8px 4px 0; font-family: 'Montserrat', sans-serif; font-size: 6.5pt; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; border-top: var(--rule); border-bottom: 1px solid var(--ink); }
+  table.grupos td { padding: 4px 8px 4px 0; border-bottom: var(--rule-thin); vertical-align: top; }
+  table.grupos tr:nth-child(even) td { background: var(--warm-gray); }
+  table.grupos td:first-child { font-weight: 700; white-space: normal; }
+
+  /* ── FISCAL STRIP ── */
+  .fiscal-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 12px; border-top: var(--rule); border-bottom: var(--rule); padding: 6px 0; margin-bottom: 8px; }
+  .fiscal-strip .item { font-size: 8.5pt; line-height: 1.45; padding-right: 12px; border-right: var(--rule-thin); min-width: 0; }
+  .fiscal-strip .item:last-child { border-right: none; padding-right: 0; }
+  .fiscal-strip .item strong { display: block; font-family: 'Montserrat', sans-serif; font-size: 7pt; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--navy); margin-bottom: 2px; }
+
+  /* ── NOTA (novedad / plusvalía) ── */
+  .nota { border-left: 4px solid var(--gold); background: var(--warm-gray); padding: 7px 11px; margin-bottom: 8px; font-size: 8.5pt; line-height: 1.45; }
+  .nota strong { font-weight: 800; }
+  .nota .tag { font-family: 'Montserrat', sans-serif; font-size: 6.5pt; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-dk); display: block; margin-bottom: 2px; }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote { border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); padding: 8px 0; margin: 8px 0; font-family: 'Playfair Display', serif; font-size: 12.5pt; font-style: italic; font-weight: 700; line-height: 1.35; text-align: center; color: var(--ink); }
+
+  /* ── PLAYAS (secundario, compacto) ── */
+  .playas-block { border: 1.5px solid var(--ink); padding: 9px 12px; margin-bottom: 10px; background: #fff; }
+  .playas-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 14px; margin-top: 5px; }
+  .playas-grid > div { min-width: 0; padding-right: 12px; border-right: var(--rule-thin); }
+  .playas-grid > div:last-child { border-right: none; padding-right: 0; }
+  .playas-grid h4 { font-family: 'Playfair Display', serif; font-size: 10pt; font-weight: 700; margin-bottom: 2px; }
+  .playas-grid p { font-size: 8.3pt; line-height: 1.4; text-align: left; }
+
+  /* ── SOURCES / disclaimer ── */
+  .sources { font-family: 'Montserrat', sans-serif; font-size: 6.8pt; color: #777; line-height: 1.5; border-top: var(--rule-thin); padding-top: 5px; margin-bottom: 8px; }
+  .sources strong { color: #555; }
+
+  /* ── ESCRIBENOS (crema/dorado, sin fondo negro) ── */
+  .escribenos { border: 2px solid var(--ink); border-left: 8px solid var(--gold); background: var(--warm-gray); padding: 10px 14px; margin-top: 10px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .escribenos .wa-icon { font-size: 22pt; line-height: 1; flex-shrink: 0; }
+  .escribenos .text { min-width: 0; }
+  .escribenos .text h4 { font-family: 'Playfair Display', serif; font-size: 12pt; font-weight: 900; font-style: italic; color: var(--gold-dk); margin-bottom: 2px; }
+  .escribenos .text p { font-family: 'Montserrat', sans-serif; font-size: 7.5pt; color: #555; line-height: 1.4; text-align: left; margin-bottom: 0; }
+  .escribenos .wa-link { margin-left: auto; background: var(--gold); color: var(--ink); font-family: 'Montserrat', sans-serif; font-size: 8pt; font-weight: 800; text-decoration: none; padding: 8px 15px; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; border: 1.5px solid var(--ink); }
+
+  /* ── FOOTER ── */
+  .footer { border-top: var(--rule); padding-top: 6px; margin-top: 8px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-family: 'Montserrat', sans-serif; font-size: 7pt; color: var(--mid-gray); }
+  .footer strong { color: var(--ink); }
+
+  /* ── RESPONSIVE (móvil) ── */
+  @media (max-width: 820px) {
+    body { font-size: 12pt; }
+    .page { padding: 6mm 5mm 9mm; box-shadow: none; }
+    .masthead { flex-wrap: wrap; gap: 6px; }
+    .masthead-name { order: -1; flex-basis: 100%; }
+    .masthead-name h1 { font-size: 40pt; }
+    .masthead-name .subtitle { letter-spacing: 0.12em; font-size: 6.5pt; white-space: normal; }
+    .masthead-logo, .masthead-meta { flex: 1; }
+    .masthead-meta { text-align: right; }
+    .columns, .pasos, .playas-grid, .fiscal-strip { grid-template-columns: 1fr; gap: 0; }
+    .col-span-2 { grid-column: auto; border-right: none !important; padding-right: 0 !important; }
+    .columns > div, .pasos > div, .playas-grid > div, .fiscal-strip .item { border-right: none !important; padding-right: 0 !important; border-bottom: var(--rule-thin); padding-bottom: 8px; margin-bottom: 8px; }
+    .columns > div:last-child, .pasos > div:last-child, .playas-grid > div:last-child, .fiscal-strip .item:last-child { border-bottom: none; }
+    .clave-band { gap: 14px; }
+    .clave-note { margin-left: 0; max-width: 100%; }
+    article h2 { font-size: 19pt; }
+  }
+
+  @media print {
+    body { background: #fff; }
+    .page { box-shadow: none; margin: 0; padding: 8mm 10mm 12mm; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-logo">
+      <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <text x="1" y="42" font-family="Montserrat,Arial Black,sans-serif" font-weight="900" font-size="46" fill="#F5C842">D</text>
+        <g transform="translate(30,1)">
+          <polygon points="9,0 18,8 0,8" fill="#F5C842"/>
+          <rect x="3" y="8" width="12" height="9" fill="#F5C842"/>
+        </g>
+      </svg>
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:16pt;letter-spacing:3px;text-transform:uppercase;line-height:1.1;color:#C9A227">DELAGALA</div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:6.5pt;letter-spacing:2px;text-transform:uppercase;color:#888">Consultoría Inmobiliaria</div>
+      </div>
+    </div>
+    <div class="masthead-name">
+      <div class="brandline">DELAGALA</div>
+      <h1>Daily</h1>
+      <div class="subtitle">El periódico inmobiliario de DELAGALA Consultoría Inmobiliaria · Getxo</div>
+    </div>
+    <div class="masthead-meta">
+      <strong>Nº 08 · Septiembre 2026</strong><br>
+      Distribución gratuita<br>
+      <span class="locate">📍 C/ Las Mercedes 17 · Las Arenas</span><br>
+      <span class="locate">🌐 idelagala.com</span>
+    </div>
+  </div>
+
+  <!-- TOP STRIP -->
+  <div class="top-strip">
+    <span><span class="esp">ESPECIAL HERENCIAS</span> · Heredar vivienda en Bizkaia · Getxo</span>
+    <span>📍 Getxo, Bizkaia · Edición digital y en papel</span>
+  </div>
+
+  <!-- CLAVE FORAL BAND -->
+  <div class="clave-band">
+    <div class="lead">La clave foral de Bizkaia</div>
+    <div class="clave-item">
+      <div class="num">400.000 €</div>
+      <div class="cap">Exentos por heredero · línea directa</div>
+    </div>
+    <div class="clave-item">
+      <div class="num">1,5%</div>
+      <div class="cap">Tipo único sobre el resto</div>
+    </div>
+    <div class="clave-item">
+      <div class="num">1 año</div>
+      <div class="cap">Plazo desde el fallecimiento</div>
+    </div>
+    <div class="clave-note">En Bizkaia, la familia directa hereda la casa pagando muy poco. Aquí te lo explicamos sin líos.</div>
+  </div>
+
+  <!-- MAIN GRID: PORTADA HERENCIAS -->
+  <div class="columns">
+
+    <!-- COL 1 + 2: PORTADA -->
+    <div class="col-span-2" style="padding-right:16px;border-right:var(--rule-thin)">
+      <span class="section-tag local">Portada · Heredar en Bizkaia</span>
+      <article>
+        <h2>Heredar la casa familiar en Bizkaia: por qué aquí la familia paga <em>mucho menos</em></h2>
+        <div class="deck">Nuestro régimen foral es de los más favorables de España para cónyuge, pareja de hecho e hijos. Te cuento qué se paga de verdad y qué hacer después con la vivienda.</div>
+
+        <div class="author">
+          <div class="badge">I</div>
+          <div class="who">
+            <strong>Por Isabel De La Gala</strong>
+            <span>Perito tasador · Agente API colegiada (COAPI) · Getxo</span>
+          </div>
+        </div>
+
+        <p>Acompaño muchas herencias, y casi siempre me encuentro el mismo miedo: <em>«voy a tener que vender la casa para pagar Hacienda»</em>. En Bizkaia, para la familia directa, eso rara vez es así. Nuestro Impuesto sobre Sucesiones se rige por la <strong>Norma Foral 4/2015</strong>, distinta del régimen del resto de España, y trata muy bien a quien hereda de sus padres, de su cónyuge o de su pareja de hecho.</p>
+        <p>La regla principal es sencilla: <strong>cónyuge, pareja de hecho inscrita, hijos y padres</strong> (la línea directa) tienen un <strong>mínimo exento de 400.000 € por cada heredero</strong>. Solo se tributa por lo que pase de esa cifra, y encima a un <strong>tipo único del 1,5%</strong>. Como la mayoría de las viviendas familiares en Getxo se reparten entre varios herederos, muchas herencias no pagan nada o pagan una cantidad pequeña.</p>
+        <p>Hay una ventaja más si la casa era la <strong>vivienda habitual</strong> de quien fallece: una <strong>reducción del 95%</strong> de su valor (con un máximo de 215.000 €), siempre que el heredero <strong>hubiera convivido con esa persona los dos años anteriores</strong>. Ojo: para hermanos, sobrinos o personas sin parentesco, el trato es muy distinto —y bastante más caro— como verás en la tabla de más abajo.</p>
+        <p>Donde de verdad te puedo ayudar es en lo que viene <em>después</em> del papeleo: poner un <strong>valor realista</strong> a la vivienda (que además es la base del impuesto), revisar cargas y situación registral, y decidir con la cabeza fría si conviene <strong>venderla, alquilarla o repartirla</strong> entre los herederos. Esa decisión, bien tomada, vale mucho más que el propio impuesto.</p>
+      </article>
+    </div>
+
+    <!-- COL 3: DATOS -->
+    <div>
+      <div class="data-box">
+        <div class="label">Mínimo exento · línea directa</div>
+        <div class="value">400.000 €</div>
+        <div class="sub">Por cada heredero (cónyuge, pareja de hecho, hijos, padres)</div>
+      </div>
+      <div class="data-box">
+        <div class="label">Tipo sobre el resto</div>
+        <div class="value">1,5%</div>
+        <div class="sub">Tipo único para la línea directa (Norma Foral 4/2015)</div>
+      </div>
+      <div class="data-box">
+        <div class="label">Vivienda habitual</div>
+        <div class="value">−95%</div>
+        <div class="sub">Máx. 215.000 € · si conviviste 2 años con el fallecido</div>
+      </div>
+
+      <div class="ejemplo">
+        <div class="et">Un ejemplo real</div>
+        <p>Un hijo hereda una vivienda valorada en <strong>520.000 €</strong>. Resta el mínimo exento (400.000 €) y solo tributa por <strong>120.000 €</strong> al 1,5% → unos <strong>1.800 €</strong> de impuesto. <span style="color:#777">(Ejemplo orientativo, un solo heredero.)</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONOGRAFICO: PASOS -->
+  <hr class="section-rule">
+  <span class="section-tag">Monográfico · Cómo heredar una vivienda en Bizkaia, paso a paso</span>
+  <div class="pasos">
+    <div>
+      <div class="paso-n">1</div>
+      <h4>Reúne los documentos</h4>
+      <p>Documentación habitual: certificado de <strong>defunción</strong>, de <strong>últimas voluntades</strong> y de seguros; el <strong>testamento</strong> (o acta de declaración de herederos si no lo hay); y el título de propiedad y datos catastrales de la vivienda.</p>
+    </div>
+    <div>
+      <div class="paso-n">2</div>
+      <h4>Valora y acepta</h4>
+      <p>Se firma ante notario la <strong>escritura de aceptación y adjudicación</strong>. Para ello hace falta una <strong>valoración del inmueble</strong>, que además fija la base del impuesto: una tasación bien hecha evita pagar de más y problemas futuros.</p>
+    </div>
+    <div>
+      <div class="paso-n">3</div>
+      <h4>Liquida los impuestos</h4>
+      <p><strong>Sucesiones</strong> (modelo 650) ante la Hacienda Foral de Bizkaia en el <strong>plazo de 1 año</strong> desde el fallecimiento. Y la <strong>plusvalía municipal</strong> del ayuntamiento, que también se devenga al heredar (ver abajo).</p>
+    </div>
+  </div>
+
+  <!-- TABLA GRUPOS -->
+  <table class="grupos">
+    <thead>
+      <tr>
+        <th>Quién hereda</th>
+        <th>Reducción por heredero</th>
+        <th>Tipo / tarifa sobre el resto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Línea directa<br><span style="font-weight:400;color:#777">cónyuge, pareja de hecho inscrita, hijos, padres</span></td>
+        <td>400.000 €</td>
+        <td>Tipo único <strong>1,5%</strong></td>
+      </tr>
+      <tr>
+        <td>Hermanos<br><span style="font-weight:400;color:#777">colaterales de 2º grado</span></td>
+        <td>40.000 €</td>
+        <td>Tarifa progresiva 5,70% → 34,58%</td>
+      </tr>
+      <tr>
+        <td>Tíos y sobrinos<br><span style="font-weight:400;color:#777">colaterales de 3<sup>er</sup> grado</span></td>
+        <td>20.000 €</td>
+        <td>Tarifa progresiva 5,70% → 34,58%</td>
+      </tr>
+      <tr>
+        <td>Otros / sin parentesco<br><span style="font-weight:400;color:#777">colaterales lejanos y extraños</span></td>
+        <td>Sin reducción</td>
+        <td>Tarifa propia 7,60% → 42,56%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- CHART + PULL QUOTE -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px;margin-bottom:6px">
+    <div class="chartbox" style="margin-bottom:0">
+      <div class="ctitle">Mínimo exento por heredero, según el parentesco</div>
+      <div class="bar-row">
+        <div class="bl"><span>Línea directa</span><span class="amt">400.000 €</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bl"><span>Hermanos</span><span class="amt">40.000 €</span></div>
+        <div class="bar-track"><div class="bar-fill dim" style="width:10%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bl"><span>Tíos y sobrinos</span><span class="amt">20.000 €</span></div>
+        <div class="bar-track"><div class="bar-fill low" style="width:5%"></div></div>
+      </div>
+      <div class="bar-row" style="margin-bottom:0">
+        <div class="bl"><span>Sin parentesco</span><span class="amt">0 €</span></div>
+        <div class="bar-track"><div class="bar-fill low" style="width:0.6%"></div></div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center">
+      <div class="pull-quote" style="margin:0;border:none;border-left:4px solid var(--gold);padding:6px 0 6px 14px;text-align:left">«En Bizkaia, quien hereda de sus padres casi nunca tiene que vender la casa para pagar Hacienda. El miedo suele ser mayor que el impuesto.»<br><span style="font-size:8pt;font-style:normal;font-weight:600;color:#777">— Isabel De La Gala</span></div>
+    </div>
+  </div>
+
+  <!-- FISCAL STRIP -->
+  <div class="fiscal-strip">
+    <div class="item">
+      <strong>Línea directa</strong>
+      Cónyuge, pareja de hecho inscrita, hijos y padres: 400.000 € exentos por heredero y un tipo único del 1,5% sobre el resto.
+    </div>
+    <div class="item">
+      <strong>Vivienda habitual</strong>
+      Reducción del 95% (máx. 215.000 €) si era la residencia habitual del fallecido y el heredero convivió con él los 2 años previos.
+    </div>
+    <div class="item">
+      <strong>Plazo y modelo</strong>
+      Un año desde el fallecimiento para presentar el modelo 650 ante la Hacienda Foral de Bizkaia.
+    </div>
+  </div>
+
+  <!-- PLUSVALIA + NOVEDAD -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px;margin-bottom:6px">
+    <div class="nota">
+      <span class="tag">Plusvalía municipal</span>
+      Al heredar un piso o casa <strong>también se paga la plusvalía municipal</strong> (IIVTNU) al ayuntamiento. Muchos municipios bonifican gran parte de la cuota cuando se hereda la vivienda habitual entre familia directa, pero <strong>depende de la ordenanza de cada ayuntamiento</strong>: conviene consultar la ordenanza vigente de Getxo antes de calcular.
+    </div>
+    <div class="nota">
+      <span class="tag">Novedad 2025 · donaciones</span>
+      La <strong>Norma Foral 2/2025</strong> creó una exención para <strong>donaciones</strong> en efectivo de hasta <strong>30.000 €</strong> destinadas a que un <strong>menor de 36 años</strong> compre su primera vivienda habitual. Es una donación (en vida), no una herencia, pero es una vía útil para ayudar a los hijos a comprar.
+    </div>
+  </div>
+
+  <!-- PLAYAS (secundario) -->
+  <hr class="section-rule">
+  <span class="section-tag playa">En verano · La costa de Getxo</span>
+  <div class="playas-block">
+    <p style="font-size:8.8pt;line-height:1.5;text-align:justify;margin-bottom:2px">Getxo mantiene este año <strong>tres Banderas Azules</strong> —Ereaga, Arrigunaga y Azkorri (Gorrondatxe)—, de las pocas de toda Euskadi. Vivir cerca del mar sigue siendo uno de los factores que más sostiene el valor de la vivienda en la costa.</p>
+    <div class="playas-grid">
+      <div>
+        <h4>Ereaga · familias</h4>
+        <p>La más urbana y completa, junto al puerto deportivo: socorrismo, duchas y servicios. Admite perros en verano de 20:00 a 09:30 h. Metro Neguri.</p>
+      </div>
+      <div>
+        <h4>Arrigunaga · tranquila</h4>
+        <p>Al pie de los acantilados de La Galea, ambiente local y zona de skate. Bandera Azul y dog-friendly en verano por la noche.</p>
+      </div>
+      <div>
+        <h4>Gorrondatxe · salvaje</h4>
+        <p>Azkorri: arena oscura, dunas protegidas y surf. Entorno sin urbanizar; no admite perros por protección ambiental. Metro Bidezabal.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOURCES / DISCLAIMER -->
+  <div class="sources">
+    <strong>Fuentes de los datos fiscales:</strong> Norma Foral 4/2015 del Impuesto sobre Sucesiones y Donaciones de Bizkaia y Hacienda Foral de Bizkaia (bizkaia.eus); Norma Foral 2/2025. Información orientativa y general: cada herencia es un caso particular y sus cifras dependen del valor, el número de herederos y el parentesco. Antes de liquidar, contrasta tu caso con la Hacienda Foral o con tu asesor. DELAGALA te acompaña en la valoración de la vivienda y en la decisión de qué hacer con ella.
+  </div>
+
+  <!-- ESCRIBENOS -->
+  <div class="escribenos">
+    <div class="wa-icon">✉️</div>
+    <div class="text">
+      <h4>¿Has heredado una vivienda y no sabes por dónde empezar?</h4>
+      <p>Escríbenos y te ayudamos a valorarla y a decidir: vender, alquilar o repartir. Sin compromiso.</p>
+    </div>
+    <a href="https://wa.me/34691478679?text=Hola%20DELAGALA%2C%20he%20heredado%20una%20vivienda%20y%20me%20gustar%C3%ADa%20que%20me%20ayud%C3%A9is" class="wa-link">WhatsApp →<br>691 478 679</a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div><strong>DELAGALA Daily</strong> · Nº 08 · Septiembre 2026 · Distribución gratuita</div>
+    <div style="text-align:center">idelagala.com · info@idelagala.com</div>
+    <div style="text-align:right"><strong>ICA HOME S.L.</strong> · CIF B10641546<br>Calle Las Mercedes 17, 48930 Getxo</div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delagala Daily · Nº 08 · Octubre 2026 · Especial Hipotecas</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+  :root{
+    --ink:#0A0A0A; --gold:#F5C842; --gold-dk:#C9A227; --cream:#FAF7F2;
+    --warm-gray:#F0EDE6; --mid-gray:#888; --rule:1.5px solid var(--ink);
+    --rule-thin:0.5px solid #AAA; --gold-soft:#FBF3D6; --chart-track:#E9DEB8;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--cream);color:var(--ink);font-family:'Libre Baskerville',Georgia,serif;font-size:10.5pt;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+  .page{position:relative;width:210mm;margin:0 auto 8mm;background:#fff;padding:10mm 12mm 12mm;box-shadow:0 4px 32px rgba(0,0,0,.12);overflow:hidden;}
+  .watermark{position:absolute;inset:0;pointer-events:none;z-index:0;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .watermark span{font-family:'Playfair Display',serif;font-weight:900;font-size:120pt;letter-spacing:.05em;color:rgba(10,10,10,0.035);transform:rotate(-30deg);white-space:nowrap;text-transform:uppercase;}
+  .page>*:not(.watermark){position:relative;z-index:1;}
+
+  .masthead{border-top:4px solid var(--ink);border-bottom:2px solid var(--ink);padding:6px 0 8px;margin-bottom:4px;display:flex;align-items:center;gap:12px;}
+  .masthead-logo{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .masthead-name{flex:1;text-align:center;}
+  .masthead-name .brandline{font-family:'Montserrat',sans-serif;font-weight:800;font-size:11pt;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-dk);line-height:1;margin-bottom:3px;}
+  .masthead-name h1{font-family:'Playfair Display',serif;font-weight:900;font-size:42pt;letter-spacing:-.02em;line-height:.9;text-transform:uppercase;}
+  .masthead-name .subtitle{font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:600;letter-spacing:.4em;text-transform:uppercase;color:var(--mid-gray);margin-top:4px;}
+  .masthead-meta{flex-shrink:0;text-align:right;font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:500;color:var(--mid-gray);line-height:1.7;}
+  .masthead-meta strong{color:var(--ink);font-weight:700;font-size:8pt;}
+  .masthead-meta .locate{display:inline-block;font-family:'Montserrat',sans-serif;font-size:9pt;font-weight:800;color:var(--ink);letter-spacing:.01em;margin-top:3px;}
+
+  .top-strip{background:var(--gold);padding:6px 10px;font-family:'Montserrat',sans-serif;font-size:8.5pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;border-bottom:2px solid var(--ink);}
+  .top-strip .pgou{font-family:'Playfair Display',serif;font-weight:900;font-size:15pt;letter-spacing:.01em;line-height:1;margin-right:4px;}
+  .top-strip.hero{padding:9px 12px;border-top:2px solid var(--ink);}
+
+  .market-band{background:var(--gold-soft);color:var(--ink);border:1.5px solid var(--ink);border-left:6px solid var(--gold);padding:8px 14px;margin-bottom:8px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .market-label{font-family:'Montserrat',sans-serif;font-size:8pt;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dk);flex-shrink:0;line-height:1.1;}
+  .market-value{font-family:'Playfair Display',serif;font-size:22pt;font-weight:900;color:var(--gold-dk);line-height:1;flex-shrink:0;}
+  .market-hist{display:flex;gap:16px;flex-wrap:wrap;}
+  .market-item{font-family:'Montserrat',sans-serif;font-size:7.5pt;color:#666;text-align:center;}
+  .market-item .val{display:block;font-weight:700;font-size:10pt;color:var(--ink);}
+  .market-note{margin-left:auto;font-family:'Montserrat',sans-serif;font-size:7pt;color:#777;max-width:150px;line-height:1.4;font-style:italic;}
+
+  .columns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 16px;margin-bottom:8px;}
+  .col-span-2{grid-column:span 2;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;}
+
+  .section-tag{font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:.3em;text-transform:uppercase;background:var(--gold);color:var(--ink);display:inline-block;padding:2px 8px;margin-bottom:5px;}
+  .section-tag.local{background:var(--gold);color:var(--ink);}
+  .section-tag.blue{background:#fff;color:#1A3A5C;border:1.5px solid #1A3A5C;padding:1px 7px;}
+  .section-rule{border:none;border-top:var(--rule);margin:6px 0 5px;}
+  .section-rule-thin{border:none;border-top:var(--rule-thin);margin:6px 0 5px;}
+
+  article{margin-bottom:8px;}
+  article h2{font-family:'Playfair Display',serif;font-weight:900;font-size:15pt;line-height:1.12;margin-bottom:4px;}
+  article h2 em{font-style:italic;}
+  article h3{font-family:'Playfair Display',serif;font-weight:700;font-size:11pt;line-height:1.25;margin-bottom:3px;margin-top:5px;}
+  article .deck{font-family:'Libre Baskerville',serif;font-style:italic;font-size:9.5pt;color:#444;margin-bottom:5px;line-height:1.4;}
+  article p{font-size:9.5pt;line-height:1.55;text-align:justify;hyphens:auto;margin-bottom:5px;}
+  article .byline{font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mid-gray);margin-bottom:4px;}
+  .dropcap::first-letter{font-family:'Playfair Display',serif;font-weight:900;font-size:34pt;line-height:.8;float:left;padding:4px 6px 0 0;color:var(--gold-dk);}
+
+  .author{display:flex;align-items:center;gap:9px;border-top:var(--rule-thin);border-bottom:var(--rule-thin);padding:5px 0;margin-bottom:6px;}
+  .author .avatar{width:34px;height:34px;flex-shrink:0;border-radius:50%;background:var(--gold-soft);border:1.5px solid var(--gold-dk);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:15pt;color:var(--gold-dk);}
+  .author .who{line-height:1.25;}
+  .author .who .n{font-family:'Playfair Display',serif;font-weight:700;font-size:9.5pt;}
+  .author .who .r{font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-dk);}
+
+  .data-box{border:1.5px solid var(--ink);padding:8px 10px;margin-bottom:8px;background:var(--warm-gray);}
+  .data-box .label{font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mid-gray);margin-bottom:3px;}
+  .data-box .value{font-family:'Playfair Display',serif;font-size:20pt;font-weight:900;line-height:1;color:var(--ink);}
+  .data-box .sub{font-family:'Montserrat',sans-serif;font-size:7.5pt;color:#555;margin-top:2px;}
+
+  .chartbox{border:1.5px solid var(--ink);border-left:6px solid var(--gold);background:var(--gold-soft);padding:9px 12px 10px;margin-bottom:8px;}
+  .chartbox .ctitle{font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:7px;}
+  .chartbox .ccap{font-family:'Montserrat',sans-serif;font-size:6.6pt;color:#777;margin-top:6px;line-height:1.4;font-style:italic;}
+  .donut-wrap{display:flex;align-items:center;gap:14px;}
+  .donut-legend{font-family:'Montserrat',sans-serif;font-size:7.5pt;line-height:1.35;}
+  .donut-legend .li{display:flex;align-items:baseline;gap:6px;margin-bottom:5px;}
+  .donut-legend .sw{width:11px;height:11px;flex-shrink:0;display:inline-block;border:1px solid var(--gold-dk);transform:translateY(2px);}
+  .donut-legend .big{font-family:'Playfair Display',serif;font-weight:900;font-size:12pt;color:var(--gold-dk);}
+  .barchart{margin-top:2px;}
+  .bar-row{display:flex;align-items:center;gap:8px;margin:6px 0;}
+  .bar-row .blabel{font-family:'Montserrat',sans-serif;font-size:7.2pt;font-weight:600;color:var(--ink);width:132px;flex-shrink:0;line-height:1.15;}
+  .bar-track{flex:1;background:var(--chart-track);height:17px;border:1px solid var(--gold-dk);position:relative;overflow:hidden;}
+  .bar-fill{height:100%;background:var(--gold-dk);}
+  .bar-fill.soft{background:var(--gold);}
+  .bar-val{font-family:'Montserrat',sans-serif;font-size:8.5pt;font-weight:800;color:var(--gold-dk);white-space:nowrap;width:52px;text-align:right;flex-shrink:0;}
+
+  table.grid{width:100%;border-collapse:collapse;font-size:8.5pt;margin:2px 0 8px;}
+  table.grid th{text-align:left;font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border-top:var(--rule);border-bottom:1px solid var(--ink);padding:4px 8px 4px 0;}
+  table.grid td{padding:4px 8px 4px 0;border-bottom:var(--rule-thin);vertical-align:top;}
+  table.grid td:first-child{font-weight:700;white-space:nowrap;}
+
+  .blue-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:0 12px;border-top:var(--rule);border-bottom:var(--rule);padding:6px 0;margin-bottom:8px;}
+  .blue-strip .item{font-size:8.5pt;line-height:1.45;padding-right:12px;border-right:var(--rule-thin);}
+  .blue-strip .item:last-child{border-right:none;padding-right:0;}
+  .blue-strip .item strong{display:block;font-family:'Montserrat',sans-serif;font-size:7pt;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#1A3A5C;margin-bottom:2px;}
+
+  .pull-quote{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:8px 0;margin:8px 0;font-family:'Playfair Display',serif;font-size:12pt;font-style:italic;font-weight:700;line-height:1.35;text-align:center;}
+
+  .faq{background:var(--gold-soft);border:1.5px solid var(--ink);border-left:6px solid var(--gold);padding:10px 14px;margin:8px 0;}
+  .faq h4{font-family:'Playfair Display',serif;font-size:10.5pt;font-weight:700;margin:6px 0 2px;}
+  .faq h4:first-child{margin-top:0;}
+  .faq p{font-size:8.8pt;line-height:1.5;text-align:justify;margin-bottom:4px;}
+
+  .editorial{border:1.5px solid var(--gold-dk);padding:10px 14px;margin:8px 0;background:#fff;}
+  .editorial .lbl{font-family:'Montserrat',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:4px;}
+  .editorial p{font-family:'Libre Baskerville',serif;font-size:9pt;line-height:1.55;text-align:justify;font-style:italic;margin-bottom:4px;}
+
+  .cta{background:var(--gold-soft);color:var(--ink);border:2px solid var(--ink);border-left:6px solid var(--gold);padding:12px 16px;margin-top:10px;display:flex;align-items:center;gap:14px;}
+  .cta .text h4{font-family:'Playfair Display',serif;font-size:13pt;font-weight:900;font-style:italic;color:var(--gold-dk);margin-bottom:3px;}
+  .cta .text p{font-family:'Montserrat',sans-serif;font-size:8pt;color:#333;line-height:1.45;text-align:left;margin:0;}
+  .cta .link{margin-left:auto;background:var(--gold);color:var(--ink);font-family:'Montserrat',sans-serif;font-size:8.5pt;font-weight:800;text-decoration:none;padding:9px 16px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;text-align:center;line-height:1.3;}
+
+  .sources{font-family:'Montserrat',sans-serif;font-size:6.8pt;color:#666;line-height:1.5;border-top:var(--rule-thin);padding-top:5px;margin-top:6px;}
+  .sources strong{color:var(--ink);text-transform:uppercase;letter-spacing:.1em;font-size:6.5pt;}
+
+  .footer{border-top:var(--rule);padding-top:6px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;font-family:'Montserrat',sans-serif;font-size:7pt;color:var(--mid-gray);}
+  .footer strong{color:var(--ink);}
+
+  @media screen and (max-width: 820px){
+    body{font-size:12px;}
+    .page{width:100%;padding:16px 14px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.10);}
+    .watermark span{font-size:74pt;}
+    .masthead{flex-wrap:wrap;gap:8px 12px;padding:8px 0;}
+    .masthead>*{min-width:0;}
+    .masthead-name{order:-1;flex-basis:100%;}
+    .masthead-name h1{font-size:38pt;}
+    .masthead-name .subtitle{letter-spacing:.12em;font-size:6pt;white-space:normal;}
+    .masthead-meta{text-align:left;}
+    .market-band>*,.donut-wrap>*,.bar-row>*{min-width:0;}
+    .top-strip{letter-spacing:.04em;}
+    .top-strip{flex-direction:column;align-items:flex-start;gap:2px;}
+    .market-band{gap:10px 14px;padding:10px 12px;}
+    .market-value{font-size:20pt;}
+    .market-note{margin-left:0;max-width:none;flex-basis:100%;}
+    .columns,.two-col{grid-template-columns:1fr;gap:0;}
+    .col-span-2{grid-column:auto;}
+    .columns>div,.two-col>*{border-right:none !important;padding-right:0 !important;min-width:0;}
+    .columns>*,.two-col>*,article,.faq,.editorial{min-width:0;overflow-wrap:break-word;}
+    article p,.faq p{text-align:left;}
+    .columns>div+div{margin-top:6px;}
+    .blue-strip{grid-template-columns:1fr;}
+    .blue-strip .item{border-right:none;border-bottom:var(--rule-thin);padding:7px 0;}
+    .blue-strip .item:last-child{border-bottom:none;}
+    .donut-wrap{gap:12px;}
+    .bar-row .blabel{width:104px;font-size:8pt;}
+    .cta{flex-direction:column;align-items:stretch;gap:10px;}
+    .cta .link{margin-left:0;width:100%;}
+    article p,.faq p,.editorial p{font-size:11.5px;line-height:1.6;}
+    article h2{font-size:22px;}
+    html,body{overflow-x:hidden;}
+    table.grid{font-size:11px;}
+    table.grid td:first-child{white-space:normal;}
+    table.grid td,table.grid th{padding-right:6px;}
+    .pull-quote{font-size:13px;}
+  }
+
+  @page{size:A4;margin:0;}
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none;margin:0;padding:8mm 10mm 10mm;width:100%;page-break-after:always;}
+    .page:last-child{page-break-after:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ PÁGINA 1 ══════════════ -->
+<div class="page">
+  <div class="watermark"><span>DELAGALA</span></div>
+
+  <div class="masthead">
+    <div class="masthead-logo">
+      <svg width="44" height="44" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <text x="1" y="42" font-family="Montserrat,Arial Black,sans-serif" font-weight="900" font-size="46" fill="#F5C842">D</text>
+        <g transform="translate(30,1)"><polygon points="9,0 18,8 0,8" fill="#F5C842"/><rect x="3" y="8" width="12" height="9" fill="#F5C842"/></g>
+      </svg>
+      <div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:16pt;letter-spacing:3px;text-transform:uppercase;line-height:1.1;color:#F5C842">DELAGALA</div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:6.5pt;letter-spacing:2px;text-transform:uppercase;color:#888">Consultoría Inmobiliaria</div>
+      </div>
+    </div>
+    <div class="masthead-name">
+      <div class="brandline">DELAGALA</div>
+      <h1>Daily</h1>
+      <div class="subtitle">El periódico inmobiliario de DELAGALA Consultoría Inmobiliaria · Getxo</div>
+    </div>
+    <div class="masthead-meta">
+      <strong>Nº 08 · Octubre 2026</strong><br>
+      Distribución gratuita<br>
+      <span class="locate">📍 C/ Las Mercedes 17 · Las Arenas</span><br>
+      <span class="locate">🌐 idelagala.com</span>
+    </div>
+  </div>
+
+  <div class="top-strip hero">
+    <span><span class="pgou">ESPECIAL HIPOTECAS</span> · Euríbor · Tipos · Crédito · Getxo</span>
+    <span>📍 Cómo está el crédito para comprar casa</span>
+  </div>
+
+  <div class="market-band">
+    <div class="market-label">Euríbor 12m<br>Octubre*</div>
+    <div class="market-value">3,22%*</div>
+    <div class="market-hist">
+      <div class="market-item"><span class="val">3,247%</span>Septiembre 2026</div>
+      <div class="market-item"><span class="val">2,187%</span>Octubre 2025</div>
+      <div class="market-item"><span class="val">+1 punto</span>Subida interanual</div>
+    </div>
+    <div class="market-note">El euríbor se asienta por encima del 3%: la hipoteca variable que se revisa este mes sube cerca de 100 €/mes.</div>
+  </div>
+
+  <div class="columns">
+    <div class="col-span-2" style="padding-right:16px;border-right:var(--rule-thin)">
+      <span class="section-tag local">Portada · El crédito en octubre</span>
+      <article>
+        <h2>Hipotecas en octubre: cómo está el crédito y qué te conviene para comprar en <em>Getxo</em></h2>
+        <div class="deck">El euríbor se ha estabilizado por encima del 3% tras un año al alza, la fija vuelve a ser competitiva y la variable que se revisa estos meses sube. Te explico, sin tecnicismos, qué significa para ti si vas a comprar, vender o se te revisa la hipoteca.</div>
+        <div class="author">
+          <div class="avatar">I</div>
+          <div class="who">
+            <div class="n">Por Isabel De La Gala</div>
+            <div class="r">Perito tasador · Agente API colegiada (COAPI) · Getxo</div>
+          </div>
+        </div>
+        <p class="dropcap">La pregunta que más me hacéis estos días no es cuánto vale una casa, sino <strong>cuánto cuesta financiarla</strong>. Y con razón: el precio del dinero manda tanto como el precio del metro cuadrado. Después de un año de subidas, el <strong>euríbor a 12 meses</strong> —el índice al que se referencia la mayoría de las hipotecas variables en España— ronda en octubre el <strong>3,22%</strong>*, tras cerrar septiembre en el 3,247%, su nivel más alto desde mediados de 2024.</p>
+        <p>Para que te hagas una idea: hace justo un año, en octubre de 2025, el euríbor estaba en el <strong>2,187%</strong>. Ha subido alrededor de <strong>un punto en doce meses</strong>. Eso explica que a quien se le revise ahora la hipoteca variable le suba la cuota —según los cálculos de los comparadores, en torno a <strong>100 € más al mes</strong>* en un préstamo medio—.</p>
+        <p>La otra cara de la moneda es que <strong>la hipoteca a tipo fijo ha vuelto a ser atractiva</strong>. Con la referencia variable por encima del 3%, los bancos compiten de nuevo en fijo: hay ofertas bonificadas que rondan el <strong>2,4%–2,6% TIN</strong>* para perfiles buenos, aunque sin vinculaciones el tipo se dispara (hasta el 3,75% en algún caso). Octubre ha traído, además, subidas de letra pequeña en varias entidades (ING, Bankinter, Kutxabank, Ibercaja, Sabadell), así que conviene comparar bien y no quedarse con la primera oferta.</p>
+      </article>
+    </div>
+
+    <div>
+      <div class="chartbox">
+        <div class="ctitle">Cómo se firma en España: fijo vs variable</div>
+        <div class="donut-wrap">
+          <svg width="104" height="104" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="47" fill="none" stroke="#E9DEB8" stroke-width="20"/>
+            <circle cx="60" cy="60" r="47" fill="none" stroke="#C9A227" stroke-width="20" stroke-dasharray="184 111" transform="rotate(-90 60 60)"/>
+            <text x="60" y="57" text-anchor="middle" font-family="'Playfair Display',serif" font-weight="900" font-size="24" fill="#C9A227">62,3%</text>
+            <text x="60" y="73" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="700" font-size="8" letter-spacing="1" fill="#0A0A0A">FIJO</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="li"><span class="sw" style="background:#C9A227"></span><span><span class="big">62,3%</span><br>A tipo fijo</span></div>
+            <div class="li"><span class="sw" style="background:#E9DEB8"></span><span><span class="big">37,7%</span><br>A tipo variable</span></div>
+          </div>
+        </div>
+        <div class="ccap">Reparto de las nuevas hipotecas sobre vivienda. Fuente: INE, Estadística de Hipotecas (julio 2026).</div>
+      </div>
+
+      <div class="data-box"><div class="label">Tipo medio nuevas hipotecas · INE jul</div><div class="value">3,01%</div><div class="sub">plazo medio 26 años · 62,3% a tipo fijo</div></div>
+
+      <hr class="section-rule" style="margin-top:8px">
+      <span class="section-tag local" style="margin-bottom:6px;display:block">A vigilar en octubre</span>
+      <p style="font-size:8.5pt;line-height:1.5;text-align:justify;hyphens:auto">El <strong>BCE</strong> se reúne los días <strong>28 y 29 de octubre</strong>. Su decisión sobre los tipos marca el rumbo del euríbor de los próximos meses. Si te están ofertando hipoteca, es buen momento para cerrar condiciones antes de que cambie el escenario.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div><strong>DELAGALA Daily</strong> · Nº 08 · Octubre 2026 · pág. 1 de 4</div>
+    <div style="text-align:center">Especial Hipotecas · Getxo</div>
+    <div style="text-align:right">idelagala.com · 662 128 409</div>
+  </div>
+</div>
+
+<!-- ══════════════ PÁGINA 2 ══════════════ -->
+<div class="page">
+  <div class="watermark"><span>DELAGALA</span></div>
+
+  <div class="top-strip" style="margin-top:0">
+    <span>Especial Hipotecas · El euríbor, mes a mes</span>
+    <span>📍 De dónde venimos y las cifras clave</span>
+  </div>
+
+  <span class="section-tag">Euríbor 12m · mes a mes en 2026 · datos reales</span>
+  <div class="chartbox">
+    <div class="ctitle">Evolución del euríbor a 12 meses · enero – octubre 2026</div>
+    <svg width="100%" viewBox="0 0 500 170" xmlns="http://www.w3.org/2000/svg" style="display:block">
+      <g font-family="Montserrat,sans-serif" font-size="7.5" fill="#9a8f66">
+        <line x1="42" y1="15" x2="492" y2="15" stroke="#E9DEB8" stroke-width="1"/>
+        <line x1="42" y1="77.5" x2="492" y2="77.5" stroke="#E9DEB8" stroke-width="1"/>
+        <line x1="42" y1="140" x2="492" y2="140" stroke="#CFC08A" stroke-width="1"/>
+        <text x="38" y="18" text-anchor="end">3,4%</text>
+        <text x="38" y="80" text-anchor="end">2,7%</text>
+        <text x="38" y="143" text-anchor="end">2,0%</text>
+      </g>
+      <polygon points="42,118.1 92,120.3 142,89.6 192,73.3 242,68.2 292,68.8 342,63.7 392,55.0 442,28.7 492,31.2 492,140 42,140" fill="#F5C842" fill-opacity="0.22"/>
+      <polyline points="42,118.1 92,120.3 142,89.6 192,73.3 242,68.2 292,68.8 342,63.7 392,55.0 442,28.7 492,31.2" fill="none" stroke="#C9A227" stroke-width="2.5"/>
+      <g fill="#C9A227">
+        <circle cx="42" cy="118.1" r="2.6"/><circle cx="92" cy="120.3" r="2.6"/><circle cx="142" cy="89.6" r="2.6"/><circle cx="192" cy="73.3" r="2.6"/><circle cx="242" cy="68.2" r="2.6"/><circle cx="292" cy="68.8" r="2.6"/><circle cx="342" cy="63.7" r="2.6"/><circle cx="392" cy="55.0" r="2.6"/><circle cx="442" cy="28.7" r="3.4"/><circle cx="492" cy="31.2" r="3.4" stroke="#0A0A0A" stroke-width="1"/>
+      </g>
+      <g font-family="Montserrat,sans-serif" font-size="7" font-weight="700" fill="#555" text-anchor="middle">
+        <text x="42" y="155">ENE</text><text x="92" y="155">FEB</text><text x="142" y="155">MAR</text><text x="192" y="155">ABR</text><text x="242" y="155">MAY</text><text x="292" y="155">JUN</text><text x="342" y="155">JUL</text><text x="392" y="155">AGO</text><text x="442" y="155">SEP</text><text x="492" y="155">OCT*</text>
+      </g>
+      <g font-family="Montserrat,sans-serif" font-weight="800" fill="#C9A227">
+        <text x="42" y="112" font-size="8" text-anchor="middle">2,245</text>
+        <text x="442" y="22" font-size="8.5" text-anchor="middle">3,247</text>
+      </g>
+    </svg>
+    <div class="ccap">Media mensual del euríbor a 12 meses en 2026: de enero (2,245%) a septiembre (3,247%, máximo del año) y octubre (3,219% provisional). Subida de casi un punto en el año. Fuente: Euríbor Diario / Bankinter. *Octubre, media provisional hasta cierre de mes.</div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <span class="section-tag local">Las cifras que tienes que conocer</span>
+      <table class="grid" style="margin-top:4px">
+        <thead><tr><th>Dato</th><th>Valor*</th></tr></thead>
+        <tbody>
+          <tr><td>Euríbor 12m · oct 2026</td><td><strong>~3,22%</strong> (provisional)</td></tr>
+          <tr><td>Euríbor 12m · sep 2026</td><td><strong>3,247%</strong> (máx. 2024)</td></tr>
+          <tr><td>Euríbor 12m · oct 2025</td><td><strong>2,187%</strong></td></tr>
+          <tr><td>Tipo medio nuevas (INE jul)</td><td><strong>3,01%</strong> · 26 años</td></tr>
+          <tr><td>A tipo fijo (INE jul)</td><td><strong>62,3%</strong> · var. 37,7%</td></tr>
+          <tr><td>Fija competitiva (bonif.)</td><td><strong>2,4%–2,6% TIN</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <article>
+        <span class="section-tag">Mi lectura, en una frase</span>
+        <p style="margin-top:4px">Con el euríbor por encima del 3%, hoy la <strong>fija bien negociada suele salir más barata y más tranquila</strong> que la variable para la mayoría de compradores. Pero no hay respuesta única: depende de tu perfil, de cuánto tiempo vayas a tener la hipoteca y de las vinculaciones que asumas.</p>
+        <p>Por eso lo importante no es acertar el día perfecto —que nadie acierta—, sino <strong>llegar bien preparado</strong>: con la financiación comparada y una cuota que encaje en tu vida. Eso es exactamente lo que miramos juntos, caso por caso.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="pull-quote">«El precio del dinero manda tanto como el precio del metro cuadrado. En octubre, financiar bien tu compra vale tanto como negociar el precio» — Isabel De La Gala</div>
+
+  <div class="footer">
+    <div><strong>DELAGALA Daily</strong> · Nº 08 · Octubre 2026 · pág. 2 de 4</div>
+    <div style="text-align:center">El euríbor y las cifras</div>
+    <div style="text-align:right">idelagala.com · 662 128 409</div>
+  </div>
+</div>
+
+<!-- ══════════════ PÁGINA 3 ══════════════ -->
+<div class="page">
+  <div class="watermark"><span>DELAGALA</span></div>
+
+  <div class="top-strip" style="margin-top:0">
+    <span>Especial Hipotecas · Fija, variable o mixta</span>
+    <span>📍 Qué te conviene según tu caso</span>
+  </div>
+
+  <div class="chartbox">
+    <div class="ctitle">La cuota, en un ejemplo · 150.000 € a 25 años</div>
+    <div class="barchart">
+      <div class="bar-row">
+        <span class="blabel">Fija · 2,5% TIN</span>
+        <div class="bar-track"><div class="bar-fill" style="width:84%"></div></div>
+        <span class="bar-val">~673 €</span>
+      </div>
+      <div class="bar-row">
+        <span class="blabel">Variable · euríbor + 0,6<br>(≈ 3,82% hoy)</span>
+        <div class="bar-track"><div class="bar-fill soft" style="width:97%"></div></div>
+        <span class="bar-val">~777 €</span>
+      </div>
+    </div>
+    <div class="ccap">Cuota mensual, cálculo ilustrativo con las referencias reales de octubre (euríbor 3,22% + diferencial 0,6). Hoy la fija sale más barata que la variable en este ejemplo. Tu oferta real dependerá del banco y tu perfil.</div>
+  </div>
+
+  <span class="section-tag local">El crédito, opción por opción</span>
+  <div class="columns" style="margin-top:6px">
+    <div style="padding-right:16px;border-right:var(--rule-thin)">
+      <article>
+        <h3 style="margin-top:0">Hipoteca fija</h3>
+        <p style="font-size:9pt">Pagas <strong>la misma cuota toda la vida del préstamo</strong>, pase lo que pase con el euríbor. Hoy las mejores ofertas bonificadas rondan el <strong>2,4%–2,6% TIN</strong>*. Es la opción de la tranquilidad: sabes exactamente lo que pagarás en 2027 y en 2040.</p>
+        <p style="font-size:9pt"><em>A favor:</em> previsibilidad total, te protege si los tipos suben. <em>En contra:</em> si el euríbor bajara mucho no te beneficias; suele exigir más vinculaciones.</p>
+      </article>
+    </div>
+    <div style="padding-right:16px;border-right:var(--rule-thin)">
+      <article>
+        <h3 style="margin-top:0">Hipoteca variable</h3>
+        <p style="font-size:9pt">Tu cuota se revisa cada 6 o 12 meses según el <strong>euríbor + un diferencial</strong> (p. ej. +0,6%). Hoy, con el índice en el 3,2%, pagarías en torno al <strong>3,8%</strong>*, más que una fija buena.</p>
+        <p style="font-size:9pt"><em>A favor:</em> diferenciales bajos y te beneficias si el euríbor baja. <em>En contra:</em> incertidumbre: tu cuota puede subir en cada revisión, como les pasa ahora a quienes firmaron barato.</p>
+      </article>
+    </div>
+    <div>
+      <article>
+        <h3 style="margin-top:0">Hipoteca mixta</h3>
+        <p style="font-size:9pt">Un <strong>tramo fijo</strong> los primeros años (5, 10 o 15) y variable después. Busca lo mejor de los dos mundos: tranquilidad al principio, cuando más ajustado vas, y la apuesta de que los tipos bajen más adelante.</p>
+        <p style="font-size:9pt"><em>Para quién:</em> perfiles que esperan mejorar ingresos o amortizar pronto. Hay que mirar bien el tipo del tramo variable: ahí está la trampa de muchas ofertas.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <article>
+      <span class="section-tag" style="margin-bottom:5px">Análisis</span>
+      <h3 style="margin-top:0">Por qué conviene pedir varias ofertas</h3>
+      <p>En apenas dos semanas de octubre, varias entidades han retocado sus tipos al alza. La misma persona recibe condiciones muy distintas según el banco y el momento. Pedir dos o tres ofertas vinculantes (la FEIN) y compararlas es lo que marca la diferencia entre una buena y una mala hipoteca durante 25 años. Nosotros negociamos por ti con varias entidades.</p>
+    </article>
+    <article>
+      <span class="section-tag" style="margin-bottom:5px">La letra pequeña</span>
+      <h3 style="margin-top:0">Vinculaciones: el tipo que ves no es el que pagas</h3>
+      <p>Las ofertas más llamativas (ese 2,4%) casi siempre están <strong>bonificadas</strong>: exigen nómina, seguros de hogar y vida, a veces alarma o tarjetas. Sin esas vinculaciones el tipo sube. No siempre compensa contratarlo todo: compara por <strong>TAE</strong>, no por TIN, porque la TAE incluye esos costes y te dice lo que de verdad pagas.</p>
+    </article>
+  </div>
+
+  <hr class="section-rule">
+  <span class="section-tag local">Qué significa para TI</span>
+  <div class="two-col" style="margin-top:6px;margin-bottom:4px">
+    <article>
+      <h3 style="margin-top:0">Si vas a comprar en Getxo</h3>
+      <p>Prepara la hipoteca <strong>antes</strong> de enamorarte de un piso. En un mercado tan competido como el de Getxo, llegar con la financiación resuelta te hace más fuerte en la negociación y más rápido que otros compradores. Además, saber tu cuota real te dice hasta dónde puedes pujar sin agobios.</p>
+    </article>
+    <article>
+      <h3 style="margin-top:0">Si tienes variable y se te revisa</h3>
+      <p>Si firmaste hace años a euríbor bajo, esta revisión te sube la cuota. Tienes opciones: <strong>negociar con tu banco</strong>, <strong>subrogar</strong> a otra entidad con mejores condiciones o pasarte a fija. No hay que resignarse a pagar más sin mirar alternativas —te ayudamos a ver cuál te compensa—.</p>
+    </article>
+  </div>
+  <div class="blue-strip">
+    <div class="item"><strong>Pide la FEIN</strong>Es la oferta vinculante, con todas las condiciones por escrito. Es tu derecho y lo que de verdad puedes comparar entre bancos.</div>
+    <div class="item"><strong>Compara por TAE</strong>El TIN es solo el interés; la TAE incluye comisiones y seguros. Dos hipotecas con el mismo TIN pueden costar muy distinto.</div>
+    <div class="item"><strong>Entrada y gastos</strong>Los bancos financian hasta el 80%: necesitas ~20% de entrada más un 10-12% de impuestos y gastos.</div>
+  </div>
+
+  <div class="footer">
+    <div><strong>DELAGALA Daily</strong> · Nº 08 · Octubre 2026 · pág. 3 de 4</div>
+    <div style="text-align:center">Fija, variable o mixta</div>
+    <div style="text-align:right">idelagala.com · 662 128 409</div>
+  </div>
+</div>
+
+<!-- ══════════════ PÁGINA 4 ══════════════ -->
+<div class="page">
+  <div class="watermark"><span>DELAGALA</span></div>
+
+  <div class="top-strip" style="margin-top:0">
+    <span>Especial Hipotecas · Preguntas y conclusión</span>
+    <span>📍 Lo que me preguntáis</span>
+  </div>
+
+  <span class="section-tag local">Preguntas que me hacéis</span>
+  <div class="faq" style="margin-top:6px">
+    <h4>¿Fija o variable ahora mismo?</h4>
+    <p>Con el euríbor por encima del 3%, para la mayoría de compradores la fija bien negociada da más tranquilidad y suele salir más barata que la variable. Pero depende de tu perfil, del plazo y de cuántas vinculaciones asumas. Lo vemos con números en tu caso concreto.</p>
+    <h4>Tengo variable y me sube la cuota. ¿Qué hago?</h4>
+    <p>No te resignes. Puedes negociar con tu banco, subrogar a otra entidad o cambiar a fija. Calculamos si te compensa el cambio contando comisiones y gastos. A veces un pequeño ajuste te ahorra miles de euros a lo largo del préstamo.</p>
+    <h4>¿Merece la pena preparar la hipoteca antes de buscar casa?</h4>
+    <p>Rotundamente sí. Saber cuánto te concede el banco y a qué cuota te marca el presupuesto real y te hace más fuerte al negociar. En Getxo, llegar con la financiación lista puede ser la diferencia entre conseguir el piso o perderlo.</p>
+    <h4>¿Vosotros me conseguís la hipoteca?</h4>
+    <p>Sí. Con <strong>Tu Partner Hipotecario / Hipoteca Justa</strong> negociamos por ti con varias entidades y te acompañamos hasta la firma, para que llegues con las mejores condiciones y sin peleas con cada banco.</p>
+  </div>
+
+  <div class="editorial">
+    <div class="lbl">La lectura de Isabel De La Gala</div>
+    <p>Te lo resumo como se lo digo a mis clientes en el despacho: el dinero está más caro que hace un año, pero no estamos en una situación dramática —el euríbor se ha estabilizado y la fija ha vuelto a ser competitiva—. Lo importante no es acertar el momento perfecto, que nadie acierta, sino <strong>llegar bien preparado</strong>.</p>
+    <p>Si vas a comprar, prepara la financiación antes de buscar piso y compara varias ofertas por TAE, no por el titular; si tienes una variable que te sube, no te resignes y mira si te compensa cambiar. Y si te pierdes entre TIN, TAE y vinculaciones, para eso estamos: te lo traducimos y negociamos por ti. Aquí me tienes.</p>
+    <p style="text-align:right;font-style:normal;font-family:'Montserrat',sans-serif;font-size:7.5pt;color:#666;margin-bottom:0">— Isabel De La Gala · Perito tasador y API (COAPI) · DELAGALA Consultoría Inmobiliaria</p>
+  </div>
+
+  <div class="cta">
+    <div class="text">
+      <h4>¿Te busco la mejor hipoteca para tu casa en Getxo?</h4>
+      <p>Negociamos por ti con varias entidades y te acompañamos hasta la firma, sin coste de estudio. Te atiende el equipo de DELAGALA junto a Isabel De La Gala, perito tasador y API con sillón en el COAPI.</p>
+    </div>
+    <a class="link" href="https://wa.me/34662128409?text=Hola%20Isabel%2C%20quiero%20que%20me%20ayud%C3%A9is%20con%20la%20hipoteca%20para%20comprar%20en%20Getxo">WhatsApp<br>662 128 409</a>
+  </div>
+
+  <div class="sources">
+    <strong>Fuentes:</strong> Euríbor Diario (euribordiario.es), Kelisto, HelpMyCash, Euribor.com.es (valores y media de octubre 2026, provisional). Merca2 (impacto en la cuota variable, 18-10-2026). INE – Estadística de Hipotecas (notas de prensa enero–julio 2026: tipo medio 3,01%, plazo medio 26 años y reparto fijo 62,3% / variable 37,7%). Comparadores de hipotecas: Gibobs, Rankia, Comparador Financiero, Bankkers (ofertas fijas de octubre 2026). Banco Central Europeo (reunión 28-29 oct. 2026 · tipos a verificar en la web oficial). Todos los datos de octubre son provisionales hasta el cierre de mes y deben confirmarse antes de publicar. Elaboración y análisis: Isabel De La Gala · DELAGALA Consultoría Inmobiliaria.
+  </div>
+
+  <div class="footer">
+    <div><strong>DELAGALA Daily</strong> · Nº 08 · Octubre 2026 · pág. 4 de 4</div>
+    <div style="text-align:center">idelagala.com · info@idelagala.com</div>
+    <div style="text-align:right"><strong>ICA HOME S.L.</strong> · CIF B10641546<br>C/ Las Mercedes 17, 48930 Getxo</div>
+  </div>
+</div>
+
+</body>
+</html>
