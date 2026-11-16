@@ -63,6 +63,12 @@
       "port": 3005
     },
     {
+      "name": "examen-019",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "-l", "4719", "C:\\Users\\alvaro.PARTNERS\\AppData\\Local\\Temp\\claude\\C--Users-alvaro-PARTNERS-inmoia360\\b4f047ae-1ada-41eb-b780-ee1c64b4182e\\scratchpad\\c8"],
+      "port": 4719
+    },
+    {
       "name": "proyeccia",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--prefix", "C:\\Users\\alvaro.PARTNERS\\proyeccia", "--", "--port", "3410"],
